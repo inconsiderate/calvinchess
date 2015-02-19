@@ -14,8 +14,19 @@
     function preload () {
       // make each 'piece' into a group where we can 
       // then add rules to each pawn, for example
-      game.load.image('board', 'Chess_Board.svg');
-      game.load.image('queen', 'queen.png');
+      game.load.image('gameboard', 'images/chessBoard.svg');
+      game.load.image('whitequeen', 'images/whitequeen.png');
+      game.load.image('blackqueen', 'images/blackqueen.png');
+      game.load.image('whiteking', 'images/whiteking.png');
+      game.load.image('blackking', 'images/blackking.png');
+      game.load.image('whiteknight', 'images/whiteknight.png');
+      game.load.image('blackknight', 'images/blackknight.png');
+      game.load.image('whitebishop', 'images/whitebishop.png');
+      game.load.image('blackbishop', 'images/whitequeen.png');
+      game.load.image('whiterook', 'images/whiterook.png');
+      game.load.image('blackrook', 'images/blackrook.png');
+      game.load.image('whitepawn', 'images/whitepawn.png');
+      game.load.image('blackpawn', 'images/blackpawn.png');
     
   }
 
@@ -23,20 +34,31 @@ function create () {
   game.physics.startSystem(Phaser.Physics.ARCADE);
 
 
-  var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'board');
-  logo.anchor.setTo(0.5, 0.5);
+  var gameboard = game.add.image(0, 0, 'gameboard');
 
-  var queen = game.add.sprite(game.world.centerX, game.world.centerY, 'queen');
-  queen.anchor.setTo(1, 1);
-  queen.height = 80;
-  queen.width = 80;
-  game.physics.arcade.enable(queen);
+  var w1queen = game.add.sprite(400, 0, 'whitequeen');
+  var w1king = game.add.sprite(300, 100, 'whiteking');
+  var w1knight = game.add.sprite(100, 100, 'whiteknight');
+  var w1bishop = game.add.sprite(200, 100, 'whitebishop');
+  var w1rook = game.add.sprite(0, 100, 'whiterook');
+  var w1pawn = game.add.sprite(100, 0, 'whitepawn');
 
-  queen.inputEnabled = true;
-  queen.input.enableDrag();
+  var b1queen = game.add.sprite(100, 100, 'blackqueen');
+  var b1king = game.add.sprite(100, 100, 'blackking');
+  var b1knight = game.add.sprite(100, 100, 'blackknight');
+  var b1bishop = game.add.sprite(100, 100, 'blackbishop');
+  var b1rook = game.add.sprite(100, 100, 'blackrook');
+  var b1pawn = game.add.sprite(100, 100, 'blackpawn');
 
-  queen.events.onDragStart.add(startDrag, this);
-  queen.events.onDragStop.add(stopDrag, this);
+  w1queen.height = 100;
+  w1queen.width = 100;
+  game.physics.arcade.enable(w1queen);
+
+  w1queen.inputEnabled = true;
+  w1queen.input.enableDrag();
+
+  w1queen.events.onDragStart.add(startDrag, this);
+  w1queen.events.onDragStop.add(stopDrag, this);
 
   }
 };
