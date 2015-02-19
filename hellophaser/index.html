@@ -33,6 +33,22 @@
 function create () {
   game.physics.startSystem(Phaser.Physics.ARCADE);
 
+    var king = game.add.group();
+    var pawn = game.add.group();
+    var queen = game.add.group();
+    var bishop = game.add.group();
+    var rook = game.add.group();
+    var knight = game.add.group();
+
+    var allPieces = game.add.group();
+    var whitePieces = game.add.group();
+    var blackPieces = game.add.group();
+
+//We can add an already created object
+    allPieces.add(pawn);
+
+//You can use setAll to modify properties across all children
+    allPieces.setAll('height', 500);
 
   var gameboard = game.add.image(0, 0, 'gameboard');
 
