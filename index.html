@@ -6,7 +6,7 @@
   <script src="phaser.min.js"></script>
   <script src="queen.js"></script>
   <script src="king.js"></script>
-  <!-- <script src="pawn.js"></script> -->
+  <script src="pawn.js"></script>
   <script src="bishop.js"></script>
   <script src="knight.js"></script>
   <script src='rooks.js'></script>
@@ -74,7 +74,14 @@
         var b2Bishop = makeBishop('black', 605, 5);
         var b1Knight = makeKnight('black', 105, 5);
         var b2Knight = makeKnight('black', 505, 5);
-
+        var b1Pawn = makePawn('black', 5, 105);
+        var b2Pawn = makePawn('black', 105, 105);
+        var b3Pawn = makePawn('black', 205, 105);
+        var b4Pawn = makePawn('black', 305, 105);
+        var b5Pawn = makePawn('black', 405, 105);
+        var b6Pawn = makePawn('black', 505, 105);
+        var b7Pawn = makePawn('black', 605, 105);
+        var b8Pawn = makePawn('black', 705, 105);
         // Generate WHITE starting pieces
         var w1Queen = makeQueen('white', 305, 705);
         var w1King = makeKing('white', 405, 705);
@@ -84,13 +91,20 @@
         var w2Bishop = makeBishop('white', 605, 705);
         var w1Knight = makeKnight('white', 105, 705);
         var w2Knight = makeKnight('white', 505, 705);
-
+        var w1Pawn = makePawn('white', 5, 605);
+        var w2Pawn = makePawn('white', 105, 605);
+        var w3Pawn = makePawn('white', 205, 605);
+        var w4Pawn = makePawn('white', 305, 605);
+        var w5Pawn = makePawn('white', 405, 605);
+        var w6Pawn = makePawn('white', 505, 605);
+        var w7Pawn = makePawn('white', 605, 605);
+        var w8Pawn = makePawn('white', 705, 605);
         // add all starting BLACK pieces to allPieces.group
-        var blackArray = [b1Queen, b1King, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight];
+        var blackArray = [b1Queen, b1King, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn];
         allPieces.addMultiple(blackArray);
 
         // add all starting WHITE pieces to allPieces.group
-        var whiteArray = [w1Queen, w1King, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight];
+        var whiteArray = [w1Queen, w1King, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight, w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn];
         allPieces.addMultiple(whiteArray);
 
         allPieces.setAll('height', 90);
