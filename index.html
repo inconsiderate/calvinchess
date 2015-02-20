@@ -38,11 +38,14 @@
       game.load.image('wPawn', '/images/whitepawn.png');
 
   }
-
+    var fullScreenKey
+    var allPieces;
     var grid = [];
     var currentTile = new Phaser.Point();
     
     function create () {
+
+      game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
       game.physics.startSystem(Phaser.Physics.ARCADE);
 
         // Create GRID for units to move over.
@@ -92,6 +95,10 @@
 
         allPieces.setAll('height', 90);
         allPieces.setAll('width', 90);
+
+        var fullScreenKey = this.input.keyboard.addKey(Phaser.Keyboard.F);
+        fullScreenKey.onDown.add(gofull, this);
+        // game.input.onDown.add(gofull, this);
     }
 
     function clickedBlock() {
@@ -102,9 +109,22 @@
       }
       console.log("clicked!");
     }
+
+    function gofull() {
+      if (game.scale.isFullScreen)
+      {
+        game.scale.stopFullScreen();
+      } else {
+        game.scale.startFullScreen(false);
+      }
+    }
+
     function update(){
       currentTile.x = this.game.math.snapToFloor(game.input.x, 100)/100;
       currentTile.y = this.game.math.snapToFloor(game.input.y, 100)/100;
+
+      // game.physics.arcade.collide(allPieces, killProcess);
+
     }
 
     function render() {
