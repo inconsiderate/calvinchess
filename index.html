@@ -113,6 +113,12 @@
         // Set F keypress to go Full Screen
         var fullScreenKey = this.input.keyboard.addKey(Phaser.Keyboard.F);
         fullScreenKey.onDown.add(gofull, this);
+
+        // code to create client for multiplayer
+        this.client = new Client();
+        this.client.openConnection();
+        textTest = game.add.text(0, 800, "Started", {font: "14px Arial", fill: "#ff0044"});
+        w1King.events.onDragStop.add(kingDragged, this)
     }
 
     function clickedBlock() {

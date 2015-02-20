@@ -6,6 +6,9 @@ function makeKing(color, x, y){
         item.originX = item.x;
         item.originY = item.y;
       }
+      if (this.client.connected){
+        this.client.ws.send(JSON.stringify({ x: item.x, y: sprite.y}));
+      }
     }
 
 	if (color == "white") {
