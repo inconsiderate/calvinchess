@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <head>
   <meta charset="UTF-8" />
-  <title>hello phaser!</title>
+  <title>Calvin Chess</title>
+
   <script src="phaser.min.js"></script>
   <script src="queen.js"></script>
   <script src="king.js"></script>
@@ -20,6 +21,7 @@
 
     function preload () {
     
+      game.load.image('background', '/images/chessboard.png');
       game.load.image('square', '/images/grid.jpeg');
       game.load.image('bQueen', '/images/blackqueen.png');
       game.load.image('bKing', '/images/blackking.png');
@@ -36,11 +38,14 @@
       game.load.image('wPawn', '/images/whitepawn.png');
 
   }
-
+    var fullScreenKey
+    var allPieces;
     var grid = [];
     var currentTile = new Phaser.Point();
     
     function create () {
+
+      game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
       game.physics.startSystem(Phaser.Physics.ARCADE);
 
         // Create GRID for units to move over.
@@ -51,6 +56,10 @@
             grid[y][x] = game.add.image(x * 100, y * 100, 'square');
           }
         }
+
+        var background = game.add.image(0, 0, 'background');
+        background.height = 800;
+        background.width = 800;
 
         var allPieces = game.add.group();
 
@@ -86,6 +95,10 @@
 
         allPieces.setAll('height', 90);
         allPieces.setAll('width', 90);
+
+        // Set F keypress to go Full Screen
+        var fullScreenKey = this.input.keyboard.addKey(Phaser.Keyboard.F);
+        fullScreenKey.onDown.add(gofull, this);
     }
 
     function clickedBlock() {
@@ -96,9 +109,22 @@
       }
       console.log("clicked!");
     }
+
+    function gofull() {
+      if (game.scale.isFullScreen)
+      {
+        game.scale.stopFullScreen();
+      } else {
+        game.scale.startFullScreen(false);
+      }
+    }
+
     function update(){
       currentTile.x = this.game.math.snapToFloor(game.input.x, 100)/100;
       currentTile.y = this.game.math.snapToFloor(game.input.y, 100)/100;
+
+      // game.physics.arcade.collide(allPieces, killProcess);
+
     }
 
     function render() {
