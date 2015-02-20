@@ -176,7 +176,7 @@
     function knightMove(item, pointer){
       console.log(item.originX);
       console.log(item.originY);
-      if(Math.abs(item.originX - item.x) === 200 && Math.abs(item.originY - item.y) === 100 || Math.abs(item.originX - item.x) === 100 && Math.abs(item.originY - item.y) === 100){
+      if((Math.abs(item.originX - item.x) === 200 && Math.abs(item.originY - item.y) === 100 )|| (Math.abs(item.originX - item.x) === 100 && Math.abs(item.originY - item.y) === 200)){
         item.originX = item.x;
         item.originY = item.y;
         console.log("true if statement.");
