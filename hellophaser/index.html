@@ -25,21 +25,20 @@
       game.load.image('bKing', '/images/blackking.png');
       game.load.image('bRook', '/images/blackrook.png');
       game.load.image('bBishop', '/images/blackbishop.png');
-      game.load.image('wBishop', '/images/whitebishop.png');
       game.load.image('bKnight', '/images/blackknight.png');
+      game.load.image('bPawn', '/images/blackpawn.png');
+
+      game.load.image('wQueen', '/images/whitequeen.png');
+      game.load.image('wKing', '/images/whiteking.png');
+      game.load.image('wRook', '/images/whiterook.png');
+      game.load.image('wBishop', '/images/whitebishop.png');
       game.load.image('wKnight', '/images/whiteknight.png');
+      game.load.image('wPawn', '/images/whitepawn.png');
+
   }
 
     var grid = [];
     var currentTile = new Phaser.Point();
-    var bQueen;
-    var bKing;
-    var b1Rook;
-    var b2Rook;
-    var b1Bishop;
-    var b2Bishop;
-    var b1Knight;
-    var b2Knight;
     
     function create () {
       game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -55,32 +54,34 @@
         var allPieces = game.add.group();
 
         game.input.onDown.add(clickedBlock, this);
-        // queen is added as sprite
 
-
+        // Generate BLACK starting pieces
         var b1Queen = makeQueen('black', 305, 5);
-        allPieces.add(b1Queen);
-
         var b1King = makeKing('black', 405, 5);
-        allPieces.add(b1King);
-
         var b1Rook = makeRook('black', 705, 5);
-        allPieces.add(b1Rook);
-
         var b2Rook = makeRook('black', 5, 5);
-        allPieces.add(b2Rook);
-
         var b1Bishop = makeBishop('black', 205, 5);
-        allPieces.add(b1Bishop);
-
         var b2Bishop = makeBishop('black', 605, 5);
-        allPieces.add(b2Bishop);
-
         var b1Knight = makeKnight('black', 105, 5);
-        allPieces.add(b1Knight);
-
         var b2Knight = makeKnight('black', 505, 5);
-        allPieces.add(b2Knight);
+
+        // Generate WHITE starting pieces
+        var w1Queen = makeQueen('white', 305, 705);
+        var w1King = makeKing('white', 405, 705);
+        var w1Rook = makeRook('white', 705, 705);
+        var w2Rook = makeRook('white', 5, 705);
+        var w1Bishop = makeBishop('white', 205, 705);
+        var w2Bishop = makeBishop('white', 605, 705);
+        var w1Knight = makeKnight('white', 105, 705);
+        var w2Knight = makeKnight('white', 505, 705);
+
+        // add all starting BLACK pieces to allPieces.group
+        var blackArray = [b1Queen, b1King, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight];
+        allPieces.addMultiple(blackArray);
+
+        // add all starting WHITE pieces to allPieces.group
+        var whiteArray = [w1Queen, w1King, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight];
+        allPieces.addMultiple(whiteArray);
 
         allPieces.setAll('height', 90);
         allPieces.setAll('width', 90);
