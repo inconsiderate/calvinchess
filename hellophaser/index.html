@@ -10,35 +10,153 @@
   <script type="text/javascript">
 
   window.onload = function() {
-    var game = new Phaser.Game(800, 800, Phaser.AUTO, '', { preload: preload, create: create });
+    var game = new Phaser.Game(2400, 2400, Phaser.AUTO, '', { preload: preload, create: create, render: render, update: update});
     function preload () {
       // make each 'piece' into a group where we can 
       // then add rules to each pawn, for example
-      game.load.image('board', 'Chess_Board.svg');
+      // game.load.image('board', 'Chess_Board.svg');
+     
+      game.load.image('square', 'grid.jpeg');
       game.load.image('queen', 'queen.png');
-    
+      game.load.image('king', 'king.png');
+      game.load.image('rook', 'rook.png');
+      game.load.image('bishop', 'bishop.png');
+      game.load.image('knight', 'knight.png');
   }
 
-function create () {
-  game.physics.startSystem(Phaser.Physics.ARCADE);
+    var grid = [];
+    var currentTile = new Phaser.Point();
+    var queen;
+    var king;
+    var rook;
+    var bishop;
+    var knight;
+    function create () {
+      game.physics.startSystem(Phaser.Physics.ARCADE);
 
+        for (var y=0; y<8; y++) 
+        {
+          grid[y]= [];
+          for (var x=0; x<8; x++){
+            grid[y][x] = game.add.sprite(x * 300, y * 300, 'square');
+          }
+        }
 
-  var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'board');
-  logo.anchor.setTo(0.5, 0.5);
+        game.input.onDown.add(clickedBlock, this);
+        // queen is added as sprite
+        queen = game.add.sprite(15, 15, 'queen');
+        // resized to fit the grid 
+        queen.height = 270;
+        queen.width = 270;
 
-  var queen = game.add.sprite(game.world.centerX, game.world.centerY, 'queen');
-  queen.anchor.setTo(1, 1);
-  queen.height = 80;
-  queen.width = 80;
-  game.physics.arcade.enable(queen);
+        queen.inputEnabled = true;
+        queen.input.enableDrag();
+        //snaps to the center of the nearest grid after being dragged
+        queen.input.enableSnap(300, 300, false, true, 15, 15);
+        // when done dragging, calls a function that checks if this position is allowed
+        // queen.events.onDragStop.add(currentPos, this);
+        // sets the original 
+        queen.originX = queen.x;
+        queen.originY = queen.y;
+       
+        king = game.add.sprite(315, 315, 'king');
+        king.inputEnabled = true;
+        king.input.enableDrag();
+        king.input.enableSnap(300, 300, false, true, 15, 15);
+        king.events.onDragStop.add(kingMove, this);
+        king.originX = king.x;
+        king.originY = king.y;
 
-  queen.inputEnabled = true;
-  queen.input.enableDrag();
+        rook = game.add.sprite(315, 615, 'rook');
+        rook.inputEnabled = true;
+        rook.input.enableDrag();
+        rook.input.enableSnap(300, 300, false, true, 15, 15);
+        rook.events.onDragStop.add(rookMove, this);
+        rook.originX = rook.x;
+        rook.originY = rook.y;
+        rook.height = 270;
+        rook.width = 270;
 
-  queen.events.onDragStart.add(startDrag, this);
-  queen.events.onDragStop.add(stopDrag, this);
+        bishop = game.add.sprite(315, 915, 'bishop');
+        bishop.inputEnabled = true;
+        bishop.input.enableDrag();
+        bishop.input.enableSnap(300, 300, false, true, 15, 15);
+        bishop.events.onDragStop.add(bishopMove, this);
+        bishop.originX = bishop.x;
+        bishop.originY = bishop.y;
+        bishop.height = 270;
+        bishop.width = 270;
 
-  }
+        knight = game.add.sprite(315, 1215, 'knight');
+        knight.inputEnabled = true;
+        knight.input.enableDrag();
+        knight.input.enableSnap(300, 300, false, true, 15, 15);
+        knight.events.onDragStop.add(knightMove, this);
+        knight.originX = knight.x;
+        knight.originY = knight.y;
+        knight.height = 270;
+        knight.width = 270;
+
+    }
+
+    function clickedBlock() {
+      if (currentTile.x >= 0 && currentTile.x <= 8 && currentTile.y >= 0 && currentTile.y <= 8)
+      {
+        square = grid[currentTile.y][currentTile.x];
+        square.alpha = 0.5;
+      }
+      console.log("clicked!");
+    }
+
+    function kingMove(item, pointer){
+      if (Math.abs(item.originX - item.x) > 300 || Math.abs(item.originY - item.y) > 300) {
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+      } else {
+        item.originX = item.x;
+        item.originY = item.y;
+      }
+    }
+    function rookMove(item, pointer){
+      if (item.originX != item.x && item.originY != item.y){
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+      }
+        else {
+          item.originX = item.x;
+          item.originY = item.y;
+        }
+    }
+
+    function bishopMove(item, pointer){
+      if (item.originX === item.x || item.originY === item.y){
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+  
+      }else{
+        item.originX = item.x;
+        item.originY = item.y;
+      }
+    }
+
+    function knightMove(item, pointer){
+      console.log(item.originX);
+      console.log(item.originY);
+      if(Math.abs(item.originX - item.x) === 600 && Math.abs(item.originY - item.y) === 300 || Math.abs(item.originX - item.x) === 300 && Math.abs(item.originY - item.y) === 600){
+        item.originX = item.x;
+        item.originY = item.y;
+        console.log("true if statement.");
+      }else{
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        console.log("else statement");
+      }
+    }
+
+    function update(){
+      currentTile.x = this.game.math.snapToFloor(game.input.x, 300)/300;
+      currentTile.y = this.game.math.snapToFloor(game.input.y, 300)/300;
+    }
+
+    function render() {
+      game.debug.text('Tile X: ' + currentTile.x + 'Y: ' + currentTile.y, 50, 50);
+    }
 };
 
 </script>
