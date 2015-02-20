@@ -7,6 +7,7 @@
 
 
   <script src="knights.js"></script>
+  <script src='rooks.js'></script>
 </head>
 <body>
 
@@ -20,12 +21,10 @@
       game.load.image('square', 'grid.jpeg');
       game.load.image('bqueen', '/images/blackqueen.png');
       game.load.image('bking', '/images/blackking.png');
-      game.load.image('b1Rook', '/images/blackrook.png');
-      game.load.image('b2Rook', '/images/blackrook.png');
+      game.load.image('bRook', '/images/blackrook.png');
       game.load.image('b1Bishop', '/images/blackbishop.png');
       game.load.image('b2Bishop', '/images/blackbishop.png');
       game.load.image('bknight', '/images/blackknight.png');
-      game.load.image('b2Knight', '/images/blackknight.png');
   }
 
     var grid = [];
@@ -77,23 +76,29 @@
         bKing.originY = bKing.y;
         allPieces.add(bKing);
 
-        b1Rook = game.add.sprite(705, 5, 'b1Rook');
-        b1Rook.inputEnabled = true;
-        b1Rook.input.enableDrag();
-        b1Rook.input.enableSnap(100, 100, false, true, 15, 15);
-        b1Rook.events.onDragStop.add(rookMove, this);
-        b1Rook.originX = b1Rook.x;
-        b1Rook.originY = b1Rook.y;
+        var b1Rook = makeRook('black', 705, 5);
         allPieces.add(b1Rook);
 
-        b2Rook = game.add.sprite(5, 5, 'b2Rook');
-        b2Rook.inputEnabled = true;
-        b2Rook.input.enableDrag();
-        b2Rook.input.enableSnap(100, 100, false, true, 5, 5);
-        b2Rook.events.onDragStop.add(rookMove, this);
-        b2Rook.originX = b2Rook.x;
-        b2Rook.originY = b2Rook.y;
+        var b2Rook = makeRook('black', 5, 5);
         allPieces.add(b2Rook);
+
+        // b1Rook = game.add.sprite(705, 5, 'b1Rook');
+        // b1Rook.inputEnabled = true;
+        // b1Rook.input.enableDrag();
+        // b1Rook.input.enableSnap(100, 100, false, true, 15, 15);
+        // b1Rook.events.onDragStop.add(rookMove, this);
+        // b1Rook.originX = b1Rook.x;
+        // b1Rook.originY = b1Rook.y;
+        // allPieces.add(b1Rook);
+
+        // b2Rook = game.add.sprite(5, 5, 'b2Rook');
+        // b2Rook.inputEnabled = true;
+        // b2Rook.input.enableDrag();
+        // b2Rook.input.enableSnap(100, 100, false, true, 5, 5);
+        // b2Rook.events.onDragStop.add(rookMove, this);
+        // b2Rook.originX = b2Rook.x;
+        // b2Rook.originY = b2Rook.y;
+        // allPieces.add(b2Rook);
 
         b1Bishop = game.add.sprite(205, 5, 'b1Bishop');
         b1Bishop.inputEnabled = true;
@@ -112,15 +117,6 @@
         b2Bishop.originX = b2Bishop.x;
         b2Bishop.originY = b2Bishop.y;
         allPieces.add(b2Bishop);
-
-        // b1Knight = game.add.sprite(105, 5, 'b1Knight');
-        // b1Knight.inputEnabled = true;
-        // b1Knight.input.enableDrag();
-        // b1Knight.input.enableSnap(100, 100, false, true, 5, 5);
-        // b1Knight.events.onDragStop.add(knightMove, this);
-        // b1Knight.originX = b1Knight.x;
-        // b1Knight.originY = b1Knight.y;
-        // allPieces.add(b1Knight);
 
         var b1Knight = makeKnight("black", 105, 5);
         allPieces.add(b1Knight);
@@ -151,15 +147,7 @@
         item.originY = item.y;
       }
     }
-    function rookMove(item, pointer){
-      if (item.originX != item.x && item.originY != item.y){
-        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-      }
-        else {
-          item.originX = item.x;
-          item.originY = item.y;
-        }
-    }
+    
 
     function bishopMove(item, pointer){
       if (item.originX === item.x || item.originY === item.y){
