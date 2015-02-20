@@ -10,73 +10,191 @@
   <script type="text/javascript">
 
   window.onload = function() {
-    var game = new Phaser.Game(800, 800, Phaser.AUTO, '', { preload: preload, create: create });
+    var game = new Phaser.Game(2400, 2400, Phaser.AUTO, '', { preload: preload, create: create, render: render, update: update});
     function preload () {
       // make each 'piece' into a group where we can 
       // then add rules to each pawn, for example
-      game.load.image('gameboard', 'images/chessBoard.svg');
-      game.load.image('whitequeen', 'images/whitequeen.png');
-      game.load.image('blackqueen', 'images/blackqueen.png');
-      game.load.image('whiteking', 'images/whiteking.png');
-      game.load.image('blackking', 'images/blackking.png');
-      game.load.image('whiteknight', 'images/whiteknight.png');
-      game.load.image('blackknight', 'images/blackknight.png');
-      game.load.image('whitebishop', 'images/whitebishop.png');
-      game.load.image('blackbishop', 'images/whitequeen.png');
-      game.load.image('whiterook', 'images/whiterook.png');
-      game.load.image('blackrook', 'images/blackrook.png');
-      game.load.image('whitepawn', 'images/whitepawn.png');
-      game.load.image('blackpawn', 'images/blackpawn.png');
-    
+
+      // game.load.image('board', 'Chess_Board.svg');
+     
+      game.load.image('square', 'grid.jpeg');
+      game.load.image('bqueen', '/images/blackqueen.png');
+      game.load.image('bking', '/images/blackking.png');
+      game.load.image('b1Rook', '/images/blackrook.png');
+      game.load.image('b2Rook', '/images/blackrook.png');
+      game.load.image('b1Bishop', '/images/blackbishop.png');
+      game.load.image('b2Bishop', '/images/blackbishop.png');
+      game.load.image('b1Knight', '/images/blackknight.png');
+      game.load.image('b2Knight', '/images/blackknight.png');
   }
 
-function create () {
-  game.physics.startSystem(Phaser.Physics.ARCADE);
+    var grid = [];
+    var currentTile = new Phaser.Point();
+    var bQueen;
+    var bKing;
+    var b1Rook;
+    var b2Rook;
+    var b1Bishop;
+    var b2Bishop;
+    var b1Knight;
+    var b2Knight;
+    function create () {
+      game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    var king = game.add.group();
-    var pawn = game.add.group();
-    var queen = game.add.group();
-    var bishop = game.add.group();
-    var rook = game.add.group();
-    var knight = game.add.group();
+        for (var y=0; y<8; y++) 
+        {
+          grid[y]= [];
+          for (var x=0; x<8; x++){
+            grid[y][x] = game.add.sprite(x * 300, y * 300, 'square');
+          }
 
-    var allPieces = game.add.group();
-    var whitePieces = game.add.group();
-    var blackPieces = game.add.group();
+        game.input.onDown.add(clickedBlock, this);
+        // queen is added as sprite
+        bQueen = game.add.sprite(915, 15, 'bqueen');
+        // resized to fit the grid 
+        bQueen.height = 270;
+        bQueen.width = 270;
 
-//We can add an already created object
-    allPieces.add(pawn);
+        bQueen.inputEnabled = true;
+        bQueen.input.enableDrag();
+        //snaps to the center of the nearest grid after being dragged
+        bQueen.input.enableSnap(300, 300, false, true, 15, 15);
+        // when done dragging, calls a function that checks if this position is allowed
+        // queen.events.onDragStop.add(currentPos, this);
+        // sets the original 
+        bQueen.originX = bQueen.x;
+        bQueen.originY = bQueen.y;
+       
+        bKing = game.add.sprite(1215, 15, 'bking');
+        bKing.inputEnabled = true;
+        bKing.input.enableDrag();
+        bKing.input.enableSnap(300, 300, false, true, 15, 15);
+        bKing.events.onDragStop.add(kingMove, this);
+        bKing.originX = bKing.x;
+        bKing.originY = bKing.y;
+        bKing.height = 270;
+        bKing.width = 270;
 
-//You can use setAll to modify properties across all children
-    allPieces.setAll('height', 500);
+        b1Rook = game.add.sprite(2115, 15, 'b1Rook');
+        b1Rook.inputEnabled = true;
+        b1Rook.input.enableDrag();
+        b1Rook.input.enableSnap(300, 300, false, true, 15, 15);
+        b1Rook.events.onDragStop.add(rookMove, this);
+        b1Rook.originX = b1Rook.x;
+        b1Rook.originY = b1Rook.y;
+        b1Rook.height = 270;
+        b1Rook.width = 270;
 
-  var gameboard = game.add.image(0, 0, 'gameboard');
+        b2Rook = game.add.sprite(15, 15, 'b2Rook');
+        b2Rook.inputEnabled = true;
+        b2Rook.input.enableDrag();
+        b2Rook.input.enableSnap(300, 300, false, true, 15, 15);
+        b2Rook.events.onDragStop.add(rookMove, this);
+        b2Rook.originX = b2Rook.x;
+        b2Rook.originY = b2Rook.y;
+        b2Rook.height = 270;
+        b2Rook.width = 270;
 
-  var w1queen = game.add.sprite(400, 0, 'whitequeen');
-  var w1king = game.add.sprite(300, 100, 'whiteking');
-  var w1knight = game.add.sprite(100, 100, 'whiteknight');
-  var w1bishop = game.add.sprite(200, 100, 'whitebishop');
-  var w1rook = game.add.sprite(0, 100, 'whiterook');
-  var w1pawn = game.add.sprite(100, 0, 'whitepawn');
+        b1Bishop = game.add.sprite(615, 15, 'b1Bishop');
+        b1Bishop.inputEnabled = true;
+        b1Bishop.input.enableDrag();
+        b1Bishop.input.enableSnap(300, 300, false, true, 15, 15);
+        b1Bishop.events.onDragStop.add(bishopMove, this);
+        b1Bishop.originX = b1Bishop.x;
+        b1Bishop.originY = b1Bishop.y;
+        b1Bishop.height = 270;
+        b1Bishop.width = 270;
 
-  var b1queen = game.add.sprite(100, 100, 'blackqueen');
-  var b1king = game.add.sprite(100, 100, 'blackking');
-  var b1knight = game.add.sprite(100, 100, 'blackknight');
-  var b1bishop = game.add.sprite(100, 100, 'blackbishop');
-  var b1rook = game.add.sprite(100, 100, 'blackrook');
-  var b1pawn = game.add.sprite(100, 100, 'blackpawn');
+        b2Bishop = game.add.sprite(1515, 15, 'b2Bishop');
+        b2Bishop.inputEnabled = true;
+        b2Bishop.input.enableDrag();
+        b2Bishop.input.enableSnap(300, 300, false, true, 15, 15);
+        b2Bishop.events.onDragStop.add(bishopMove, this);
+        b2Bishop.originX = b2Bishop.x;
+        b2Bishop.originY = b2Bishop.y;
+        b2Bishop.height = 270;
+        b2Bishop.width = 270;
 
-  w1queen.height = 100;
-  w1queen.width = 100;
-  game.physics.arcade.enable(w1queen);
+        b1Knight = game.add.sprite(315, 15, 'b1Knight');
+        b1Knight.inputEnabled = true;
+        b1Knight.input.enableDrag();
+        b1Knight.input.enableSnap(300, 300, false, true, 15, 15);
+        b1Knight.events.onDragStop.add(knightMove, this);
+        b1Knight.originX = b1Knight.x;
+        b1Knight.originY = b1Knight.y;
+        b1Knight.height = 270;
+        b1Knight.width = 270;
 
-  w1queen.inputEnabled = true;
-  w1queen.input.enableDrag();
+        b2Knight = game.add.sprite(1815, 15, 'b2Knight');
+        b2Knight.inputEnabled = true;
+        b2Knight.input.enableDrag();
+        b2Knight.input.enableSnap(300, 300, false, true, 15, 15);
+        b2Knight.events.onDragStop.add(knightMove, this);
+        b2Knight.originX = b2Knight.x;
+        b2Knight.originY = b2Knight.y;
+        b2Knight.height = 270;
+        b2Knight.width = 270;
 
-  w1queen.events.onDragStart.add(startDrag, this);
-  w1queen.events.onDragStop.add(stopDrag, this);
+    }
 
-  }
+    function clickedBlock() {
+      if (currentTile.x >= 0 && currentTile.x <= 8 && currentTile.y >= 0 && currentTile.y <= 8)
+      {
+        square = grid[currentTile.y][currentTile.x];
+        square.alpha = 0.5;
+      }
+      console.log("clicked!");
+    }
+
+    function kingMove(item, pointer){
+      if (Math.abs(item.originX - item.x) > 300 || Math.abs(item.originY - item.y) > 300) {
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+      } else {
+        item.originX = item.x;
+        item.originY = item.y;
+      }
+    }
+    function rookMove(item, pointer){
+      if (item.originX != item.x && item.originY != item.y){
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+      }
+        else {
+          item.originX = item.x;
+          item.originY = item.y;
+        }
+    }
+
+    function bishopMove(item, pointer){
+      if (item.originX === item.x || item.originY === item.y){
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+  
+      }else{
+        item.originX = item.x;
+        item.originY = item.y;
+      }
+    }
+
+    function knightMove(item, pointer){
+      console.log(item.originX);
+      console.log(item.originY);
+      if(Math.abs(item.originX - item.x) === 600 && Math.abs(item.originY - item.y) === 300 || Math.abs(item.originX - item.x) === 300 && Math.abs(item.originY - item.y) === 600){
+        item.originX = item.x;
+        item.originY = item.y;
+        console.log("true if statement.");
+      }else{
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        console.log("else statement");
+      }
+    }
+
+    function update(){
+      currentTile.x = this.game.math.snapToFloor(game.input.x, 300)/300;
+      currentTile.y = this.game.math.snapToFloor(game.input.y, 300)/300;
+    }
+
+    function render() {
+      game.debug.text('Tile X: ' + currentTile.x + 'Y: ' + currentTile.y, 50, 50);
+    }
 };
 
 </script>
