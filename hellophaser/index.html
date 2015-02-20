@@ -3,12 +3,12 @@
   <meta charset="UTF-8" />
   <title>hello phaser!</title>
   <script src="phaser.min.js"></script>
-  <script src="knight.js"></script>
-  <script src="rook.js"></script>
   <script src="queen.js"></script>
   <script src="king.js"></script>
   <!-- <script src="pawn.js"></script> -->
   <script src="bishop.js"></script>
+  <script src="knight.js"></script>
+  <script src='rooks.js'></script>
 </head>
 <body>
 
@@ -16,19 +16,18 @@
   
 
   window.onload = function() {
-    var game = new Phaser.Game(800, 800, Phaser.AUTO, '', { preload: preload, create: create, render: render, update: update});
+    window.game = new Phaser.Game(800, 800, Phaser.AUTO, '', { preload: preload, create: create, render: render, update: update});
 
     function preload () {
     
       game.load.image('square', 'grid.jpeg');
-      game.load.image('bqueen', '/images/blackqueen.png');
-      game.load.image('bking', '/images/blackking.png');
-      game.load.image('b1Rook', '/images/blackrook.png');
-      game.load.image('b2Rook', '/images/blackrook.png');
-      game.load.image('b1Bishop', '/images/blackbishop.png');
-      game.load.image('b2Bishop', '/images/blackbishop.png');
-      game.load.image('b1Knight', '/images/blackknight.png');
-      game.load.image('b2Knight', '/images/blackknight.png');
+      game.load.image('bQueen', '/images/blackqueen.png');
+      game.load.image('bKing', '/images/blackking.png');
+      game.load.image('bRook', '/images/blackrook.png');
+      game.load.image('bBishop', '/images/blackbishop.png');
+      game.load.image('wBishop', '/images/whitebishop.png');
+      game.load.image('bKnight', '/images/blackknight.png');
+      game.load.image('wKnight', '/images/whiteknight.png');
   }
 
     var grid = [];
@@ -57,81 +56,30 @@
 
         game.input.onDown.add(clickedBlock, this);
         // queen is added as sprite
-        bQueen = game.add.sprite(305, 5, 'bqueen');
 
-        bQueen.inputEnabled = true;
-        bQueen.input.enableDrag();
-        //snaps to the center of the nearest grid after being dragged
-        bQueen.input.enableSnap(100, 100, false, true, 5, 5);
-        // when done dragging, calls a function that checks if this position is allowed
-        // queen.events.onDragStop.add(currentPos, this);
-        // sets the original 
-        bQueen.originX = bQueen.x;
-        bQueen.originY = bQueen.y;
 
-        allPieces.add(bQueen);
-       
-        bKing = game.add.sprite(405, 5, 'bking');
-        bKing.inputEnabled = true;
-        bKing.input.enableDrag();
-        bKing.input.enableSnap(100, 100, false, true, 5, 5);
-        bKing.events.onDragStop.add(kingMove, this);
-        bKing.originX = bKing.x;
-        bKing.originY = bKing.y;
-        allPieces.add(bKing);
+        var b1Queen = makeQueen('black', 305, 5);
+        allPieces.add(b1Queen);
 
-        b1Rook = game.add.sprite(705, 5, 'b1Rook');
-        b1Rook.inputEnabled = true;
-        b1Rook.input.enableDrag();
-        b1Rook.input.enableSnap(100, 100, false, true, 5, 5);
-        b1Rook.events.onDragStop.add(rookMove, this);
-        b1Rook.originX = b1Rook.x;
-        b1Rook.originY = b1Rook.y;
+        var b1King = makeKing('black', 405, 5);
+        allPieces.add(b1King);
+
+        var b1Rook = makeRook('black', 705, 5);
         allPieces.add(b1Rook);
 
-        b2Rook = game.add.sprite(5, 5, 'b2Rook');
-        b2Rook.inputEnabled = true;
-        b2Rook.input.enableDrag();
-        b2Rook.input.enableSnap(100, 100, false, true, 5, 5);
-        b2Rook.events.onDragStop.add(rookMove, this);
-        b2Rook.originX = b2Rook.x;
-        b2Rook.originY = b2Rook.y;
+        var b2Rook = makeRook('black', 5, 5);
         allPieces.add(b2Rook);
 
-        b1Bishop = game.add.sprite(205, 5, 'b1Bishop');
-        b1Bishop.inputEnabled = true;
-        b1Bishop.input.enableDrag();
-        b1Bishop.input.enableSnap(100, 100, false, true, 5, 5);
-        b1Bishop.events.onDragStop.add(bishopMove, this);
-        b1Bishop.originX = b1Bishop.x;
-        b1Bishop.originY = b1Bishop.y;
+        var b1Bishop = makeBishop('black', 205, 5);
         allPieces.add(b1Bishop);
 
-        b2Bishop = game.add.sprite(505, 5, 'b2Bishop');
-        b2Bishop.inputEnabled = true;
-        b2Bishop.input.enableDrag();
-        b2Bishop.input.enableSnap(100, 100, false, true, 5, 5);
-        b2Bishop.events.onDragStop.add(bishopMove, this);
-        b2Bishop.originX = b2Bishop.x;
-        b2Bishop.originY = b2Bishop.y;
+        var b2Bishop = makeBishop('black', 605, 5);
         allPieces.add(b2Bishop);
 
-        b1Knight = game.add.sprite(105, 5, 'b1Knight');
-        b1Knight.inputEnabled = true;
-        b1Knight.input.enableDrag();
-        b1Knight.input.enableSnap(100, 100, false, true, 5, 5);
-        b1Knight.events.onDragStop.add(knightMove, this);
-        b1Knight.originX = b1Knight.x;
-        b1Knight.originY = b1Knight.y;
+        var b1Knight = makeKnight('black', 105, 5);
         allPieces.add(b1Knight);
 
-        b2Knight = game.add.sprite(605, 5, 'b2Knight');
-        b2Knight.inputEnabled = true;
-        b2Knight.input.enableDrag();
-        b2Knight.input.enableSnap(100, 100, false, true, 5, 5);
-        b2Knight.events.onDragStop.add(knightMove, this);
-        b2Knight.originX = b2Knight.x;
-        b2Knight.originY = b2Knight.y;
+        var b2Knight = makeKnight('black', 505, 5);
         allPieces.add(b2Knight);
 
         allPieces.setAll('height', 90);
@@ -146,30 +94,6 @@
       }
       console.log("clicked!");
     }
-
-    function rookMove(item, pointer){
-      if (item.originX != item.x && item.originY != item.y){
-        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-      }
-        else {
-          item.originX = item.x;
-          item.originY = item.y;
-        }
-    }
-
-    function knightMove(item, pointer){
-      console.log(item.originX);
-      console.log(item.originY);
-      if((Math.abs(item.originX - item.x) === 200 && Math.abs(item.originY - item.y) === 100 )|| (Math.abs(item.originX - item.x) === 100 && Math.abs(item.originY - item.y) === 200)){
-        item.originX = item.x;
-        item.originY = item.y;
-        console.log("true if statement.");
-      }else{
-        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-        console.log("else statement");
-      }
-    }
-
     function update(){
       currentTile.x = this.game.math.snapToFloor(game.input.x, 100)/100;
       currentTile.y = this.game.math.snapToFloor(game.input.y, 100)/100;

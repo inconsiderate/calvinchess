@@ -10,9 +10,9 @@ function makeBishop(color, x, y){
     }
 
 	if (color == "white") {
-		bishop = game.add.sprite(x, y, 'wbishop');
+		bishop = game.add.sprite(x, y, 'wBishop');
   } else {
-  	bishop = game.add.sprite(x,y, 'bbishop');
+  	bishop = game.add.sprite(x,y, 'bBishop');
   }
   bishop.inputEnabled = true;
   bishop.input.enableDrag();

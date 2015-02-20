@@ -4,9 +4,9 @@ function makeQueen(color, x, y){
   }
 
 	if (color == "white") {
-		queen = game.add.sprite(x, y, 'wqueen');
+		queen = game.add.sprite(x, y, 'wQueen');
   } else {
-  	queen = game.add.sprite(x,y, 'bqueen');
+  	queen = game.add.sprite(x,y, 'bQueen');
   }
   queen.inputEnabled = true;
   queen.input.enableDrag();

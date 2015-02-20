@@ -9,9 +9,9 @@ function makeKing(color, x, y){
     }
 
 	if (color == "white") {
-		king = game.add.sprite(x, y, 'wking');
+		king = game.add.sprite(x, y, 'wKing');
   } else {
-  	king = game.add.sprite(x,y, 'bking');
+  	king = game.add.sprite(x,y, 'bKing');
   }
   king.inputEnabled = true;
   king.input.enableDrag();

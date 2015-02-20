@@ -9,9 +9,9 @@ function makeKnight(color, x, y){
   }
 
 	if (color == "white") {
-		knight = game.add.sprite(x, y, 'wknight');
+		knight = game.add.sprite(x, y, 'wKnight');
   } else {
-  	knight = game.add.sprite(x,y, 'bknight');
+  	knight = game.add.sprite(x,y, 'bKnight');
   }
   knight.inputEnabled = true;
   knight.input.enableDrag();
