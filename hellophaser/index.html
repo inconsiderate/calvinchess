@@ -46,13 +46,11 @@
           }
         }
 
+        var allPieces = game.add.group();
 
         game.input.onDown.add(clickedBlock, this);
         // queen is added as sprite
         bQueen = game.add.sprite(305, 5, 'bqueen');
-        // resized to fit the grid 
-        bQueen.height = 90;
-        bQueen.width = 90;
 
         bQueen.inputEnabled = true;
         bQueen.input.enableDrag();
@@ -63,6 +61,8 @@
         // sets the original 
         bQueen.originX = bQueen.x;
         bQueen.originY = bQueen.y;
+
+        allPieces.add(bQueen);
        
         bKing = game.add.sprite(405, 5, 'bking');
         bKing.inputEnabled = true;
@@ -71,8 +71,7 @@
         bKing.events.onDragStop.add(kingMove, this);
         bKing.originX = bKing.x;
         bKing.originY = bKing.y;
-        bKing.height = 90;
-        bKing.width = 90;
+        allPieces.add(bKing);
 
         b1Rook = game.add.sprite(705, 5, 'b1Rook');
         b1Rook.inputEnabled = true;
@@ -81,8 +80,7 @@
         b1Rook.events.onDragStop.add(rookMove, this);
         b1Rook.originX = b1Rook.x;
         b1Rook.originY = b1Rook.y;
-        b1Rook.height = 90;
-        b1Rook.width = 90;
+        allPieces.add(b1Rook);
 
         b2Rook = game.add.sprite(5, 5, 'b2Rook');
         b2Rook.inputEnabled = true;
@@ -91,8 +89,7 @@
         b2Rook.events.onDragStop.add(rookMove, this);
         b2Rook.originX = b2Rook.x;
         b2Rook.originY = b2Rook.y;
-        b2Rook.height = 90;
-        b2Rook.width = 90;
+        allPieces.add(b2Rook);
 
         b1Bishop = game.add.sprite(205, 5, 'b1Bishop');
         b1Bishop.inputEnabled = true;
@@ -101,8 +98,7 @@
         b1Bishop.events.onDragStop.add(bishopMove, this);
         b1Bishop.originX = b1Bishop.x;
         b1Bishop.originY = b1Bishop.y;
-        b1Bishop.height = 90;
-        b1Bishop.width = 90;
+        allPieces.add(b1Bishop);
 
         b2Bishop = game.add.sprite(505, 5, 'b2Bishop');
         b2Bishop.inputEnabled = true;
@@ -111,8 +107,7 @@
         b2Bishop.events.onDragStop.add(bishopMove, this);
         b2Bishop.originX = b2Bishop.x;
         b2Bishop.originY = b2Bishop.y;
-        b2Bishop.height = 90;
-        b2Bishop.width = 90;
+        allPieces.add(b2Bishop);
 
         b1Knight = game.add.sprite(105, 5, 'b1Knight');
         b1Knight.inputEnabled = true;
@@ -121,8 +116,7 @@
         b1Knight.events.onDragStop.add(knightMove, this);
         b1Knight.originX = b1Knight.x;
         b1Knight.originY = b1Knight.y;
-        b1Knight.height = 90;
-        b1Knight.width = 90;
+        allPieces.add(b1Knight);
 
         b2Knight = game.add.sprite(605, 5, 'b2Knight');
         b2Knight.inputEnabled = true;
@@ -131,8 +125,11 @@
         b2Knight.events.onDragStop.add(knightMove, this);
         b2Knight.originX = b2Knight.x;
         b2Knight.originY = b2Knight.y;
-        b2Knight.height = 90;
-        b2Knight.width = 90;
+        allPieces.add(b2Knight);
+
+        allPieces.setAll('height', 90);
+        allPieces.setAll('width', 90);
+
 
     }
 
