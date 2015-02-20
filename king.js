@@ -16,8 +16,8 @@ function makeKing(color, x, y){
   king.inputEnabled = true;
   king.input.enableDrag();
   king.input.enableSnap(100, 100, false, true, 5, 5);
-  king.events.onDragStop.add(kingMove ,king);
+  king.events.onDragStop.add(kingMove, king);
   king.originX = king.x;
   king.originY = king.y;
-  return king
+  return king;
 }
