@@ -3,13 +3,17 @@
   <meta charset="UTF-8" />
   <title>hello phaser!</title>
   <script src="phaser.min.js"></script>
+
+
+
+  <script src="knights.js"></script>
 </head>
 <body>
 
   <script type="text/javascript">
 
   window.onload = function() {
-    var game = new Phaser.Game(800, 800, Phaser.AUTO, '', { preload: preload, create: create, render: render, update: update});
+    window.game = new Phaser.Game(800, 800, Phaser.AUTO, '', { preload: preload, create: create, render: render, update: update});
 
     function preload () {
     
@@ -20,7 +24,7 @@
       game.load.image('b2Rook', '/images/blackrook.png');
       game.load.image('b1Bishop', '/images/blackbishop.png');
       game.load.image('b2Bishop', '/images/blackbishop.png');
-      game.load.image('b1Knight', '/images/blackknight.png');
+      game.load.image('bknight', '/images/blackknight.png');
       game.load.image('b2Knight', '/images/blackknight.png');
   }
 
@@ -109,22 +113,19 @@
         b2Bishop.originY = b2Bishop.y;
         allPieces.add(b2Bishop);
 
-        b1Knight = game.add.sprite(105, 5, 'b1Knight');
-        b1Knight.inputEnabled = true;
-        b1Knight.input.enableDrag();
-        b1Knight.input.enableSnap(100, 100, false, true, 5, 5);
-        b1Knight.events.onDragStop.add(knightMove, this);
-        b1Knight.originX = b1Knight.x;
-        b1Knight.originY = b1Knight.y;
+        // b1Knight = game.add.sprite(105, 5, 'b1Knight');
+        // b1Knight.inputEnabled = true;
+        // b1Knight.input.enableDrag();
+        // b1Knight.input.enableSnap(100, 100, false, true, 5, 5);
+        // b1Knight.events.onDragStop.add(knightMove, this);
+        // b1Knight.originX = b1Knight.x;
+        // b1Knight.originY = b1Knight.y;
+        // allPieces.add(b1Knight);
+
+        var b1Knight = makeKnight("black", 105, 5);
         allPieces.add(b1Knight);
 
-        b2Knight = game.add.sprite(605, 5, 'b2Knight');
-        b2Knight.inputEnabled = true;
-        b2Knight.input.enableDrag();
-        b2Knight.input.enableSnap(100, 100, false, true, 5, 5);
-        b2Knight.events.onDragStop.add(knightMove, this);
-        b2Knight.originX = b2Knight.x;
-        b2Knight.originY = b2Knight.y;
+        var b2Knight = makeKnight("black", 605, 5);
         allPieces.add(b2Knight);
 
         allPieces.setAll('height', 90);
@@ -170,18 +171,8 @@
       }
     }
 
-    function knightMove(item, pointer){
-      console.log(item.originX);
-      console.log(item.originY);
-      if((Math.abs(item.originX - item.x) === 200 && Math.abs(item.originY - item.y) === 100 )|| (Math.abs(item.originX - item.x) === 100 && Math.abs(item.originY - item.y) === 200)){
-        item.originX = item.x;
-        item.originY = item.y;
-        console.log("true if statement.");
-      }else{
-        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-        console.log("else statement");
-      }
-    }
+
+
 
     function update(){
       currentTile.x = this.game.math.snapToFloor(game.input.x, 100)/100;
