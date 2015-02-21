@@ -14,5 +14,6 @@ function makeQueen(color, x, y){
   // queen.events.onDragStop.add(queenMove, queen);
   queen.originX = queen.x;
   queen.originY = queen.y;
+
   return queen
 }
