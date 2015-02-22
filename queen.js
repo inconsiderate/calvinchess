@@ -223,7 +223,22 @@ Piece.prototype = {
             return false;
           }
       } // <-- end of isHere function
+      function isPieceBetween(element){
+        for(var i = item.originX + 100, a = item.originY + 100; i < item.x; i += 100, a += 100){
+          if(element.sprite.x === i && element.sprite.y === a){
+            console.log(element);
+            return true;
+          }
+        }
+        for(var i = item.originX - 100, a = item.originY - 100; i > item.x; i -= 100, a -= 100){
+          if (element.sprite.x === i && element.sprite.y === a){
+            return true;
+          }
+        }
+      }
       var match = allPiecesArray.filter(isPieceHere);
+      var between = allPiecesArray.filter(isPieceBetween);
+      console.log(between); 
       function valid(item) {
         if (match.length > 0 && match[0].sprite.color === item.color){
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
@@ -231,6 +246,8 @@ Piece.prototype = {
           match[0].sprite.destroy();
           item.originX = item.x;
           item.originY = item.y;
+        } else if(between.length > 0){
+          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
         } else {
           item.originX = item.x;
           item.originY = item.y;
