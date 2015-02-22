@@ -133,9 +133,18 @@ Piece.prototype = {
     }
   },
   pawnMove: function(item, pointer){
-    if (Math.abs(item.originY - item.y) > 100 || item.originX != item.x) {
-      game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+    if (Math.abs(item.originY - item.y) > 100 || Math.abs(item.originX - item.x) > 100) {
+      if(item.counter > 0){
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+      } else if((Math.abs(item.originY - item.y) > 200 || Math.abs(item.originX - item.x) > 200)){
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+      } else {
+        item.counter++
+        item.originX = item.x;
+        item.originY = item.y;
+      }
     } else {
+      item.counter++
       item.originX = item.x;
       item.originY = item.y;
     }
