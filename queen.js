@@ -1,8 +1,9 @@
-function Piece(game, color){
+function Piece(game, color, xcoor, ycoor, piecename){
   this.game = game;
   this.color = color;
-  console.log("this.color: ", this.color);
-  this.test(color);
+  this.sprite = null;
+  // this.create(xcoor, ycoor, piecename);
+// add function that will call 'create' in the 
 }
 
 Piece.prototype = {
@@ -23,9 +24,6 @@ Piece.prototype = {
       console.log(rule);
       console.log(this.sprite);
       this.sprite.events.onDragStop.add(this.rule(), this);
-  },
-  test: function(color){
-    console.log(color);
   },
   rookMove: function(item, pointer){
     console.log(item.originX);
@@ -75,10 +73,9 @@ Piece.prototype = {
   },
 
 }
-
-function Queen(){
+function Queen(game, color, xcoor, ycoor, pieceName){
+  this.create(xcoor, ycoor, pieceName, game);
 }
-
 Queen.prototype = new Piece();
 
 Queen.prototype.move = function(){

@@ -1,5 +1,7 @@
-function Pawn(){
+function Pawn(game, color, xcoor, ycoor, pieceName){
+  this.create(xcoor, ycoor, pieceName, game);
 }
+
 
 Pawn.prototype = new Piece();
 
