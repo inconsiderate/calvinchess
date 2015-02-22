@@ -8,6 +8,7 @@ function Piece(game, color, xcoor, ycoor, piecename){
 
 Piece.prototype = {
   create: function(xcoor, ycoor, piecename, color) {
+   console.log('create function was called!');
     var x = (xcoor * 100) + 5;
     var y = (ycoor * 100) + 5;
     this.sprite = game.add.sprite(x, y, piecename);
@@ -38,30 +39,36 @@ Piece.prototype = {
     }
   },
   kingMove: function(item, pointer){
+    console.log('king is moving!');
+    console.log('item at top: ', item);
     if (Math.abs(item.originX - item.x) > 100 || Math.abs(item.originY - item.y) > 100) {
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
     } else {
      //should be able to turn this into it's own function, but how to call it from within?
      // Ask a TA about scoping, should be able to figure 
-    function isHere(element){
-      //checks to see if there is another piece on the 'new' square
-        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite && item.color != element.sprite.color){
-            element.sprite.destroy();
-            item.originX = item.x;
-            item.originY = item.y;
+      function isPieceHere(element){
+        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
+            console.log("true: ", element);
             return true
-          } 
-          //checks to see if the other piece is of the same color or not
-        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite && item.color === element.sprite.color){
+          } else {
+            return false;
+          }
+      } // <-- end of isHere function
+      var match = allPiecesArray.filter(isPieceHere);
+      function valid(item) {
+        if (match.length > 0 && match[0].sprite.color === item.color){
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        } else if (match.length > 0 && match[0].sprite.color != item.color) {
+          match[0].sprite.destroy();
+          item.originX = item.x;
+          item.originY = item.y;
         } else {
-            return false
+          item.originX = item.x;
+          item.originY = item.y;
         }
+      }
+      valid(item);
     }
-      var match = allPiecesArray.filter(isHere);
-      item.originX = item.x;
-      item.originY = item.y;
-     }
   },
   queenMove: function(item, pointer){
 
