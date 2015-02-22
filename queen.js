@@ -34,8 +34,28 @@ Piece.prototype = {
       console.log("rook is moving back.");
     }
     else {
-      item.originX = item.x;
-      item.originY = item.y;
+      function isPieceHere(element){
+        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
+            console.log("true: ", element);
+            return true
+          } else {
+            return false;
+          }
+      } // <-- end of isHere function
+      var match = allPiecesArray.filter(isPieceHere);
+      function valid(item) {
+        if (match.length > 0 && match[0].sprite.color === item.color){
+          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        } else if (match.length > 0 && match[0].sprite.color != item.color) {
+          match[0].sprite.destroy();
+          item.originX = item.x;
+          item.originY = item.y;
+        } else {
+          item.originX = item.x;
+          item.originY = item.y;
+        }
+      }
+      valid(item);
     }
   },
   kingMove: function(item, pointer){
@@ -71,15 +91,36 @@ Piece.prototype = {
     }
   },
   queenMove: function(item, pointer){
-
+   
   },
   move: function(){
     this.sprite.events.onDragStop.add(this.rookMove, this.sprite);
   }, 
   knightMove: function(item, pointer){
     if((Math.abs(item.originX - item.x) === 200 && Math.abs(item.originY - item.y) === 100 )|| (Math.abs(item.originX - item.x) === 100 && Math.abs(item.originY - item.y) === 200)){
-      item.originX = item.x;
-      item.originY = item.y;
+      function isPieceHere(element){
+        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
+            console.log("true: ", element);
+            return true
+          } else {
+            return false;
+          }
+      } // <-- end of isHere function
+      var match = allPiecesArray.filter(isPieceHere);
+      function valid(item) {
+        if (match.length > 0 && match[0].sprite.color === item.color){
+          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        } else if (match.length > 0 && match[0].sprite.color != item.color) {
+          match[0].sprite.destroy();
+          item.originX = item.x;
+          item.originY = item.y;
+        } else {
+          item.originX = item.x;
+          item.originY = item.y;
+        }
+      }
+      valid(item);
+  
     }else{
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
     }
@@ -96,8 +137,28 @@ Piece.prototype = {
     if (item.originX === item.x || item.originY === item.y){
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
     }else{
-      item.originX = item.x;
-      item.originY = item.y;
+      function isPieceHere(element){
+        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
+            console.log("true: ", element);
+            return true
+          } else {
+            return false;
+          }
+      } // <-- end of isHere function
+      var match = allPiecesArray.filter(isPieceHere);
+      function valid(item) {
+        if (match.length > 0 && match[0].sprite.color === item.color){
+          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        } else if (match.length > 0 && match[0].sprite.color != item.color) {
+          match[0].sprite.destroy();
+          item.originX = item.x;
+          item.originY = item.y;
+        } else {
+          item.originX = item.x;
+          item.originY = item.y;
+        }
+      }
+      valid(item);
     }
   },
   validMove: function(item, pointer){
