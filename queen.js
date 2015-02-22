@@ -91,7 +91,14 @@ Piece.prototype = {
     }
   },
   queenMove: function(item, pointer){
-   
+    var xRatio = Math.abs(item.originX - item.x);
+    var yRatio = Math.abs(item.originY - item.y);
+    if(xRatio === yRatio || item.originX === item.x || item.originY === item.y){
+      item.originX = item.x;
+      item.originY = item.y;
+    } else {
+      game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+    }
   },
   move: function(){
     this.sprite.events.onDragStop.add(this.rookMove, this.sprite);
