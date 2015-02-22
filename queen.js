@@ -48,12 +48,16 @@ Piece.prototype = {
           for( i = item.originY + 100; i < item.y; i++){
             if(element.sprite.y === i){
               var betweenPiece = element;
-              console.log(betweenPiece);
               return true
-            }else {
-              return false
             }
           }
+          for( i = item.originY - 100; i > item.y; i--){
+            if(element.sprite.y === i){
+              var betweenPiece = element;
+              return true
+            }
+          }
+
         } else if(element.sprite.y === item.y && item != element.sprite){
           for(i = item.originX + 100; i < item.x; i++){
             if(element.sprite.x === i){
@@ -73,7 +77,6 @@ Piece.prototype = {
       } 
       var match = allPiecesArray.filter(isPieceHere);
       var between = allPiecesArray.filter(isPieceBetween);
-      console.log('between:', between);
       function valid(item) {
         if (match.length > 0 && match[0].sprite.color === item.color){
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
