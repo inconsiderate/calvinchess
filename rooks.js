@@ -1,5 +1,5 @@
 function Rook(game, color, xcoor, ycoor, pieceName){
-  this.create(xcoor, ycoor, pieceName, game);
+  this.create(xcoor, ycoor, pieceName, color);
 }
 
 
