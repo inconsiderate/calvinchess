@@ -59,8 +59,6 @@ Piece.prototype = {
     }
   },
   kingMove: function(item, pointer){
-    console.log('king is moving!');
-    console.log('item at top: ', item);
     if (Math.abs(item.originX - item.x) > 100 || Math.abs(item.originY - item.y) > 100) {
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
     } else {
@@ -133,6 +131,8 @@ Piece.prototype = {
     }
   },
   pawnMove: function(item, pointer){
+    var xRatio = Math.abs(item.x - item.originX);
+    var yRatio = Math.abs(item.y - item.originY);
     if (Math.abs(item.originY - item.y) > 100 || Math.abs(item.originX - item.x) > 100) {
       if(item.counter > 0){
         game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
@@ -143,12 +143,38 @@ Piece.prototype = {
         item.originX = item.x;
         item.originY = item.y;
       }
-    } else {
-      item.counter++
-      item.originX = item.x;
-      item.originY = item.y;
+    }else{
+      function isPieceHere(element){
+        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
+          console.log("true: ", element);
+          return true
+        } else {
+          return false;
+        }
+      } // <-- end of isHere function
+      var match = allPiecesArray.filter(isPieceHere);
+      function valid(item) {
+        if (match.length > 0 && item.x === item.originX){
+          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        } else if (match.length === 0 && item.x != item.originX) {
+            game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        } else if (match.length > 0 && match[0].sprite.color != item.color && xRatio === yRatio) {
+            match[0].sprite.destroy();
+            item.originX = item.x;
+            item.originY = item.y;
+            
+        } else if (match.length > 0 && item.x != item.originX){
+          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        } else {
+          item.originX = item.x;
+          item.originY = item.y;
+        }
+      }
+      valid(item);
     }
-  }, 
+
+
+}, 
   bishopMove: function(item, pointer){
     if (item.originX === item.x || item.originY === item.y){
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
