@@ -128,8 +128,46 @@ Piece.prototype = {
     var xRatio = Math.abs(item.originX - item.x);
     var yRatio = Math.abs(item.originY - item.y);
     if(xRatio === yRatio || item.originX === item.x || item.originY === item.y){
-      item.originX = item.x;
-      item.originY = item.y;
+      function isPieceHere(element){
+        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
+          console.log("true: ", element);
+          return true
+        } else {
+          return false;
+        }
+      } // <-- end of isHere function
+
+      function isPieceBetween(element){
+        console.log("piece")
+        for(var i = item.originX + 100, a = item.originY + 100; i < item.x; i += 100, a += 100){
+          if(element.sprite.x === i && element.sprite.y === a){
+            console.log(element);
+            return true;
+          }
+        }
+        for(var i = item.originX - 100, a = item.originY - 100; i > item.x; i -= 100, a -= 100){
+          if (element.sprite.x === i && element.sprite.y === a){
+            return true;
+          }
+        }
+      }
+      var match = allPiecesArray.filter(isPieceHere);
+      var between = allPiecesArray.filter(isPieceBetween);
+      function valid(item) {
+        if (match.length > 0 && match[0].sprite.color === item.color){
+          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        } else if (match.length > 0 && match[0].sprite.color != item.color) {
+          match[0].sprite.destroy();
+          item.originX = item.x;
+          item.originY = item.y;
+        } else if (between.length > 0 ){
+            game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        } else {
+          item.originX = item.x;
+          item.originY = item.y;
+        }
+      }
+      valid(item);
     } else {
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
     }
@@ -213,40 +251,73 @@ Piece.prototype = {
 }, 
   bishopMove: function(item, pointer){
     if (item.originX === item.x || item.originY === item.y){
+      console.log("Not a valid move for me!");
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
     }else{
       function isPieceHere(element){
         if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
             console.log("true: ", element);
+            debugger;
             return true
           } else {
             return false;
           }
-      } // <-- end of isHere function
+      } // <-- end of isPieceHere function
       function isPieceBetween(element){
-        for(var i = item.originX + 100, a = item.originY + 100; i < item.x; i += 100, a += 100){
-          if(element.sprite.x === i && element.sprite.y === a){
-            console.log(element);
-            return true;
+        console.log('isPieceBetween was called');
+          if (item.x > item.originX && item.y > item.originY){
+          for(var i = item.originX + 100, a = item.originY + 100; i < item.x; i += 100, a += 100){
+            if(element.sprite.x === i && element.sprite.y === a && item != element.sprite){
+              console.log(1);
+              console.log('x: ', element.sprite.x);
+              console.log('y: ', element.sprite.y);
+              return true;
+            }
+          }
+        } if(item.x < item.originX && item.y < item.originY){
+            for(var i = item.originX - 100, a = item.originY - 100; i > item.x; i -= 100, a -= 100){
+              if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
+                console.log(2);
+                console.log('x: ', element.sprite.x);
+                console.log('y: ', element.sprite.y);
+                return true;
+            }
+          }    
+        } if (item.x > item.originX && item.y < item.originY){
+          for(var i = item.originX + 100, a = item.originY - 100; i < item.x; i += 100, a -= 100){
+            if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
+              console.log(3);
+              console.log('x: ', element.sprite.x);
+              console.log('y: ', element.sprite.y);
+              return true;
+            }
+          }
+        } if(item.x < item.originX && item.y > item.originY){
+          for(var i = item.originX - 100, a = item.originY + 100; i > item.x; i -= 100, a += 100){
+            if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
+              console.log(4);
+              console.log('x: ', element.sprite.x);
+              console.log('y: ', element.sprite.y);
+
+              return true;
+            }
           }
         }
-        for(var i = item.originX - 100, a = item.originY - 100; i > item.x; i -= 100, a -= 100){
-          if (element.sprite.x === i && element.sprite.y === a){
-            return true;
-          }
-        }
+
       }
       var match = allPiecesArray.filter(isPieceHere);
       var between = allPiecesArray.filter(isPieceBetween);
       console.log(between); 
       function valid(item) {
         if (match.length > 0 && match[0].sprite.color === item.color){
+          console.log("A team mate is in this spot!");
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
         } else if (match.length > 0 && match[0].sprite.color != item.color) {
           match[0].sprite.destroy();
           item.originX = item.x;
           item.originY = item.y;
         } else if(between.length > 0){
+          console.log("somethings between me... ");
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
         } else {
           item.originX = item.x;

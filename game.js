@@ -134,6 +134,6 @@ window.onload = function() {
     }
 
     function render() {
-      game.debug.text('Tile X: ' + currentTile.x + 'Y: ' + currentTile.y, 5, 5);
+      game.debug.text('Tile X: ' + currentTile.x + 'Y: ' + currentTile.y, 100, 100);
     }
 };
