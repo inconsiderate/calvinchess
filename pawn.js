@@ -1,24 +1,8 @@
-function makePawn(color, x, y){
-  function pawnMove(item, pointer){
-     if (Math.abs(item.originY - item.y) > 100 || item.originX != item.x) {
-            game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-      } else {
-        console.log("else");
-        item.originX = item.x;
-        item.originY = item.y;
-      }
-  }
+function Pawn(){
+}
 
-	if (color == "white") {
-		pawn = game.add.sprite(x, y, 'wPawn');
-  } else {
-  	pawn = game.add.sprite(x, y, 'bPawn');
-  }
-  pawn.inputEnabled = true;
-  pawn.input.enableDrag();
-  pawn.input.enableSnap(100, 100, false, true, 5, 5);
-  pawn.events.onDragStop.add(pawnMove, pawn);
-  pawn.originX = pawn.x;
-  pawn.originY = pawn.y;
-  return pawn;
+Pawn.prototype = new Piece();
+
+Pawn.prototype.move = function(){
+  this.move = this.sprite.events.onDragStop.add(this.pawnMove, this.sprite);
 }
