@@ -42,7 +42,38 @@ Piece.prototype = {
             return false;
           }
       } // <-- end of isHere function
+      function isPieceBetween(element){
+        // refactor take this piece out 
+        if(element.sprite.x === item.x && item != element.sprite){
+          for( i = item.originY + 100; i < item.y; i++){
+            if(element.sprite.y === i){
+              var betweenPiece = element;
+              console.log(betweenPiece);
+              return true
+            }else {
+              return false
+            }
+          }
+        } else if(element.sprite.y === item.y && item != element.sprite){
+          for(i = item.originX + 100; i < item.x; i++){
+            if(element.sprite.x === i){
+              var betweenPiece = element;
+              return true
+            }
+          }
+          for (i = item.originX - 100; i > item.x; i--){
+            if(element.sprite.x === i){
+              var betweenPiece = element;
+              return true
+            }
+          }
+        }
+
+
+      } 
       var match = allPiecesArray.filter(isPieceHere);
+      var between = allPiecesArray.filter(isPieceBetween);
+      console.log('between:', between);
       function valid(item) {
         if (match.length > 0 && match[0].sprite.color === item.color){
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
@@ -50,7 +81,9 @@ Piece.prototype = {
           match[0].sprite.destroy();
           item.originX = item.x;
           item.originY = item.y;
-        } else {
+        } else if (between.length > 0){
+          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        }else {
           item.originX = item.x;
           item.originY = item.y;
         }
