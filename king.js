@@ -1,6 +1,5 @@
 function King(game, color, xcoor, ycoor, pieceName){
   this.create(xcoor, ycoor, pieceName, color);
-
 }
 
 King.prototype = new Piece();

@@ -5,9 +5,11 @@ function Rook(game, color, xcoor, ycoor, pieceName){
 
 Rook.prototype = new Piece();
 
-Rook.prototype.constructor = Piece;
-
 Rook.prototype.move = function(){
-  this.sprite.events.onDragStop.add(this.rookMove, this.sprite);
+ this.move = this.sprite.events.onDragStop.add(this.rookMove, this.sprite);
 }
 
+Rook.prototype.change = function() {
+  this.move = this.sprite.events.onDragStop.add(this.pawnMove, this.sprite);
+  console.log("Rook.change was called!");
+}

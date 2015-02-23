@@ -17,7 +17,6 @@ window.onload = function() {
     var wQueen, wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight, 
           w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn;
     
-    console.log(allPiecesArray);
     function preload () {
     
       game.load.image('background', '/images/chessboard.png');
@@ -35,7 +34,6 @@ window.onload = function() {
       game.load.image('wBishop', '/images/whitebishop.png');
       game.load.image('wKnight', '/images/whiteknight.png');
       game.load.image('wPawn', '/images/whitepawn.png');
-
   }
     var fullScreenKey
     var allPieces;
@@ -60,10 +58,6 @@ window.onload = function() {
         background.width = 800;
 
         // var allPieces = game.add.group();
-
-        game.input.onDown.add(clickedBlock, this);
- 
-
         bQueen = new Queen(game, 'black',3, 0, 'bQueen');
         bKing = new King(game, 'black', 4, 0, 'bKing');
         b1Rook = new Rook(game, 'black',7,0,'bRook');
@@ -80,8 +74,8 @@ window.onload = function() {
         b6Pawn = new Pawn(game, 'black', 5, 1, 'bPawn');
         b7Pawn = new Pawn(game, 'black', 6, 1, 'bPawn');
         b8Pawn = new Pawn(game, 'black', 7, 1, 'bPawn');
-        
-// Generate WHITE starting pieces
+          
+        // Generate WHITE starting pieces
         wQueen = new Queen(game, 'white', 3, 7, 'wQueen');
         wKing = new King(game, 'white',4, 7, 'wKing');
         w1Rook = new Rook(game, 'white', 7, 7, 'wRook');
@@ -100,10 +94,10 @@ window.onload = function() {
         w7Pawn = new Pawn(game, 'white', 6, 6, 'wPawn');
         w8Pawn = new Pawn(game, 'white', 7, 6, 'wPawn');
 
+        // add all pieces to an array, so their positions on the board can be checked
         allPiecesArray.push(bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, 
           b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn, wQueen, wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight, 
           w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn  );
-
 
         // Set F keypress to go Full Screen
         var fullScreenKey = this.input.keyboard.addKey(Phaser.Keyboard.F);
@@ -127,13 +121,17 @@ window.onload = function() {
         game.scale.startFullScreen(false);
       }
     }
-
     function update(){
       currentTile.x = this.game.math.snapToFloor(game.input.x, 100)/100;
       currentTile.y = this.game.math.snapToFloor(game.input.y, 100)/100;
+      if(wKing.sprite.status === 'dead' || bKing.sprite.status === 'dead'){
+        var style = { font: "65px Arial", fill: "#ff0044", align: "center", color: 'red' };
+        var text = game.add.text(200, 200, 'Game Over!', style);
+        wQueen.testMove(wQueen);
+      }
     }
 
     function render() {
-      game.debug.text('Tile X: ' + currentTile.x + 'Y: ' + currentTile.y, 100, 100);
+      // game.debug.text('Tile X: ' + currentTile.x + 'Y: ' + currentTile.y, 100, 100);
     }
 };
