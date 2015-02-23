@@ -5,6 +5,8 @@ function Knight(game, color, xcoor, ycoor, pieceName){
 Knight.prototype = new Piece();
 
 Knight.prototype.default_move = function() {
+var item = this.sprite;
+
 if((Math.abs(item.originX - item.x) === 200 && Math.abs(item.originY - item.y) === 100 )|| (Math.abs(item.originX - item.x) === 100 && Math.abs(item.originY - item.y) === 200)){
       function isPieceHere(element){
         if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
