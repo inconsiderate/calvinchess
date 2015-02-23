@@ -338,14 +338,15 @@ $(function() {
     updateTyping();
   });
 
-  // Chess events
+  // Chess Events
 
   function movePiece (data) {
+    console.log(data);
     var xcoord = data.xcoord,
     ycoord = data.ycoord,
     id = data.pieceId;
-    console.log(data);
-  };
+  }
+
   // Click events
 
   // Focus input when clicking anywhere on login page
@@ -374,6 +375,7 @@ $(function() {
   // Whenever the server emits 'new message', update the chat body
   socket.on('new message', function (data) {
     addChatMessage(data);
+    console.log(data);
   });
 
   // Whenever the server emits 'user joined', log it in the chat body
@@ -401,7 +403,6 @@ $(function() {
 
   // When the server emits 'piece moved', move the piece locally
   socket.on('piece moved', function (data) {
-    log(data.id);
     movePiece(data);
   });
 });
