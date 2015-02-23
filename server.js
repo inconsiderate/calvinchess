@@ -17,6 +17,7 @@ var numUsers = 0;
 
 io.on('connection', function (socket) {
   var addedUser = false;
+
   socket.on('new message', function (data) {
     socket.broadcast.emit('new message', {
       username: socket.username,
@@ -68,4 +69,17 @@ io.on('connection', function (socket) {
       });
     }
   });
+
+  // when the client emits 'movie piece', we broadcast the movement to others
+  socket.on('move piece', function (data) {
+    console.log('serverside: ');
+    console.log(data);
+    socket.broadcast.emit('piece moved', {
+      xcoord: data.xcoord,
+      ycoord: data.ycoord,
+      id: data.pieceId
+    });
+  });
 });
+
+

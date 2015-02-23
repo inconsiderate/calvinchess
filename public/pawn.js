@@ -5,6 +5,7 @@ function Pawn(game, color, xcoor, ycoor, pieceName){
 Pawn.prototype = new Piece();
 
 Pawn.prototype.default_move = function() {
+	var piece = this;
 	var item = this.sprite;
 
 	console.log(item.counter);
@@ -19,6 +20,11 @@ Pawn.prototype.default_move = function() {
 			item.counter++;
 			item.originX = item.x;
 			item.originY = item.y;
+			socket.emit('move piece', {
+				xcoord: item.x,
+				ycoord: item.y,
+				id: piece.pieceId,
+			});
 		}
 	} else if(item.color === 'black' && item.y < item.originY){
 		game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
@@ -44,6 +50,11 @@ Pawn.prototype.default_move = function() {
       		item.counter++;
       		item.originX = item.x;
       		item.originY = item.y;
+      		socket.emit('move piece', {
+						xcoord: item.x,
+						ycoord: item.y,
+						id: piece.pieceId,
+					});
 
       	} else if (match.length > 0 && item.x != item.originX){
       		game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
@@ -51,6 +62,11 @@ Pawn.prototype.default_move = function() {
       		item.counter++;
       		item.originX = item.x;
       		item.originY = item.y;
+      		socket.emit('move piece', {
+						xcoord: item.x,
+						ycoord: item.y,
+						id: piece.pieceId,
+					});
       	}
       }
       valid(item);

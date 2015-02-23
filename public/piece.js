@@ -8,6 +8,7 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
     var x = (xcoor * 100) + 5;
     var y = (ycoor * 100) + 5;
     this.sprite = game.add.sprite(x, y, piecename);
+    this.pieceId = Math.floor(Math.random() * 1000);
     this.sprite.inputEnabled = true;
     this.sprite.input.enableDrag();
     this.sprite.height = 90;
