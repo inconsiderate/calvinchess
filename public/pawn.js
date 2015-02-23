@@ -11,7 +11,7 @@ Pawn.prototype.default_move = function() {
 	var xRatio = Math.abs(item.x - item.originX);
 	var yRatio = Math.abs(item.y - item.originY);
 	if (Math.abs(item.originY - item.y) > 100 || Math.abs(item.originX - item.x) > 100) {
-		if(item.counter > 0){
+		if(item.counter > 0 || xRatio > 1){
 			game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
 		} else if((Math.abs(item.originY - item.y) > 200 || Math.abs(item.originX - item.x) > 200)){
 			game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
