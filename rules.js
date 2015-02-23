@@ -23,7 +23,8 @@ Piece.prototype = {
     this.sprite.color = color;
     this.sprite.status = 'alive';
     // this.sprite.events.onDragStop.add(this.validMove, this.sprite);
-  }, updateMove: function(item){
+  },
+  updateMove: function(item){
      item.move = item.sprite.events.onDragStop.add(this.testMove, this.sprite);
   },
   rookMove: function(item, pointer){
@@ -291,7 +292,7 @@ Piece.prototype = {
   bishopMove: function(item, pointer){
     if (item.originX === item.x || item.originY === item.y){
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-    }else{
+    } else {
       function isPieceHere(element){
         if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
             return true
@@ -345,10 +346,12 @@ Piece.prototype = {
         }
       }
       valid(item);
+      this.validMove();
     }
   },
   validMove: function(item, pointer){
-    // // function isHere(element){
+   console.log("hello");
+     // // function isHere(element){
     //   // if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
     //     element.sprite.destroy();
     //     return true

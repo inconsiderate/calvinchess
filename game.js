@@ -8,7 +8,7 @@
 // };
 
 window.onload = function() {
-    window.game = new Phaser.Game(800, 800, Phaser.AUTO, '', { preload: preload, create: create, render: render, update: update});
+    window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'game', { preload: preload, create: create, render: render, update: update});
     window.allPiecesArray = [];
     //Are you sure these have to be defined here?
     var bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, 
