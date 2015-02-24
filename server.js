@@ -86,7 +86,4 @@ io.on('connection', function (socket) {
       pieceId: data.pieceId
     });
   });
-
 });
-
-
