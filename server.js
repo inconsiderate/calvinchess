@@ -16,7 +16,9 @@ var usernames = {};
 var numUsers = 0;
 
 io.on('connection', function (socket) {
+  socket.join('chess room');
   var addedUser = false;
+
   socket.on('new message', function (data) {
     socket.broadcast.emit('new message', {
       username: socket.username,
@@ -68,4 +70,17 @@ io.on('connection', function (socket) {
       });
     }
   });
+
+  // when the client emits 'move piece', we broadcast the movement to others
+  socket.on('move piece', function (data) {
+    console.log(data);
+    socket.emit('piece moved', {
+      xcoord: data.xcoord,
+      ycoord: data.ycoord,
+      pieceId: data.pieceId
+    });
+  });
+
 });
+
+
