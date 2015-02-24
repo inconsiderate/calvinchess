@@ -11,46 +11,9 @@ Rook.prototype.default_move = function() {
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
     }
     else {
-      function isPieceHere(element){
-        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
-            return true
-          } else {
-            return false;
-          }
-      } // <-- end of isHere function
-      function isPieceBetween(element){
-        // refactor take this piece out 
-        if(element.sprite.x === item.x && item != element.sprite){
-          for( i = item.originY + 100; i < item.y; i++){
-            if(element.sprite.y === i){
-              var betweenPiece = element;
-              return true
-            }
-          }
-          for( i = item.originY - 100; i > item.y; i--){
-            if(element.sprite.y === i){
-              var betweenPiece = element;
-              return true
-            }
-          }
-
-        } else if(element.sprite.y === item.y && item != element.sprite){
-          for(i = item.originX + 100; i < item.x; i++){
-            if(element.sprite.x === i){
-              var betweenPiece = element;
-              return true
-            }
-          }
-          for (i = item.originX - 100; i > item.x; i--){
-            if(element.sprite.x === i){
-              var betweenPiece = element;
-              return true
-            }
-          }
-        }
-      } 
-      var match = allPiecesArray.filter(isPieceHere);
-      var between = allPiecesArray.filter(isPieceBetween);
+      var match = allPiecesArray.filter(this.isPieceHere, this);
+      var between = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
+      console.log(between);
       function valid(item) {
         if (match.length > 0 && match[0].sprite.color === item.color){
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
@@ -82,4 +45,5 @@ Rook.prototype.default_move = function() {
   };
  }
 Rook.prototype.move = Rook.prototype.default_move;
+
 

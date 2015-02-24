@@ -16,10 +16,6 @@ Pawn.prototype.default_move = function() {
 			game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
 		}else {
 			item.counter++;
-			console.log('originX: ', item.originX);
-			console.log('originY: ', item.originY);
-			console.log('x: ', item.x);
-			console.log('y: ', item.y);
 			item.originX = item.x;
 			item.originY = item.y;
 

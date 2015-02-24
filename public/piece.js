@@ -25,7 +25,80 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
       piece.move();
     });
 }
+/// method for bishops and queens to check if diagonal movement is valid
+Piece.prototype.isPieceBetweenDiagonal = function (element, index, array, piece){
+  var item = this.sprite
+  if (item.x > item.originX && item.y > item.originY){
+    for(var i = item.originX + 100, a = item.originY + 100; i < item.x; i += 100, a += 100){
+      if(element.sprite.x === i && element.sprite.y === a && item != element.sprite){
+        return true;
+      }
+    }
+  } if(item.x < item.originX && item.y < item.originY){
+    for(var i = item.originX - 100, a = item.originY - 100; i > item.x; i -= 100, a -= 100){
+      if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
+        return true;
+      }
+    }    
+  } if (item.x > item.originX && item.y < item.originY){
+    for(var i = item.originX + 100, a = item.originY - 100; i < item.x; i += 100, a -= 100){
+      if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
+        return true;
+      }
+    }
+  } if(item.x < item.originX && item.y > item.originY){
+    for(var i = item.originX - 100, a = item.originY + 100; i > item.x; i -= 100, a += 100){
+      if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
+        return true;
+      }
+    }
+  } else {
+    return false;
+  }
+}
 
+Piece.prototype.isPieceHere = function(element){
+  var item = this.sprite
+  if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
+    return true
+  } else {
+    return false;
+  }
+}
+
+Piece.prototype.isPieceBetweenUpDown = function(element){
+  var item = this.sprite
+  if(element.sprite.x === item.x && item != element.sprite){
+    for( i = item.originY + 100; i < item.y; i++){
+      if(element.sprite.y === i){
+        var betweenPiece = element;
+        return true
+      }
+    }
+    for( i = item.originY - 100; i > item.y; i--){
+      if(element.sprite.y === i){
+        var betweenPiece = element;
+        return true
+      }
+    }
+
+  } else if(element.sprite.y === item.y && item != element.sprite){
+    for(i = item.originX + 100; i < item.x; i++){
+      if(element.sprite.x === i){
+        var betweenPiece = element;
+        return true
+      }
+    }
+    for (i = item.originX - 100; i > item.x; i--){
+      if(element.sprite.x === i){
+        var betweenPiece = element;
+        return true
+      }
+    }
+  }
+}
+
+/// methods to switch the rules ; 
 Piece.prototype.teleport = function(){
     var item = this.sprite;
       function isPieceHere(element){

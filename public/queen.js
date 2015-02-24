@@ -5,105 +5,48 @@ Queen.prototype = new Piece();
 
 Queen.prototype.default_move = function() {
   var piece = this;
-	var item = this.sprite;
+  var item = this.sprite;
 
-	var xRatio = Math.abs(item.originX - item.x);
-    var yRatio = Math.abs(item.originY - item.y);
+  var xRatio = Math.abs(item.originX - item.x);
+  var yRatio = Math.abs(item.originY - item.y);
+    /// check to see if the move was diagonal or lateral movement
     if(xRatio === yRatio || item.originX === item.x || item.originY === item.y){
-      function isPieceHere(element){
-        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
-          return true
-        } else {
-          return false;
-        }
-      } // <-- end of isHere function
-      function isPieceBetween(element){
-          if (item.x > item.originX && item.y > item.originY){
-          for(var i = item.originX + 100, a = item.originY + 100; i < item.x; i += 100, a += 100){
-            if(element.sprite.x === i && element.sprite.y === a && item != element.sprite){
-              return true;
-            }
-          }
-        } if(item.x < item.originX && item.y < item.originY){
-            for(var i = item.originX - 100, a = item.originY - 100; i > item.x; i -= 100, a -= 100){
-              if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
-                return true;
-            }
-          }    
-        } if (item.x > item.originX && item.y < item.originY){
-          for(var i = item.originX + 100, a = item.originY - 100; i < item.x; i += 100, a -= 100){
-            if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
-              return true;
-            }
-          }
-        } if(item.x < item.originX && item.y > item.originY){
-          for(var i = item.originX - 100, a = item.originY + 100; i > item.x; i -= 100, a += 100){
-            if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
-              return true;
-            }
-          }
-        }
-         if(element.sprite.x === item.x && item != element.sprite){
-          for( i = item.originY + 100; i < item.y; i++){
-            if(element.sprite.y === i){
-              var betweenPiece = element;
-              return true
-            }
-          }
-          for( i = item.originY - 100; i > item.y; i--){
-            if(element.sprite.y === i){
-              var betweenPiece = element;
-              return true
-            }
-          }
-
-        } else if(element.sprite.y === item.y && item != element.sprite){
-          for(i = item.originX + 100; i < item.x; i++){
-            if(element.sprite.x === i){
-              var betweenPiece = element;
-              return true
-            }
-          }
-          for (i = item.originX - 100; i > item.x; i--){
-            if(element.sprite.x === i){
-              var betweenPiece = element;
-              return true
-            }
-          }
-        }
-      }
-      var match = allPiecesArray.filter(isPieceHere);
-      var between = allPiecesArray.filter(isPieceBetween);
-      function valid(item) {
-        if (match.length > 0 && match[0].sprite.color === item.color){
-          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-        } else if (match.length > 0 && match[0].sprite.color != item.color) {
-          match[0].sprite.destroy();
-          match[0].sprite.lifeStatus = 'dead';
-          item.originX = item.x;
-          item.originY = item.y;
-          // After moving, tell server that a piece has been moved.
-          socket.emit('move piece', {
-            xcoord:  item.originX,
-            ycoord: item.originY,
-            pieceId:  piece.pieceId,
-          });
-        } else if(between.length > 0){
-          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-        } else {
-          item.originX = item.x;
-          item.originY = item.y;
-          // After moving, tell server that a piece has been moved.
-          socket.emit('move piece', {
-            xcoord:  item.originX,
-            ycoord: item.originY,
-            pieceId:  piece.pieceId,
-          });
-        }
-      }
+      var match = allPiecesArray.filter(this.isPieceHere, this);
+      var betweenDiagonal = allPiecesArray.filter(this.isPieceBetweenDiagonal, this);
+      var betweenLateral = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
       valid(item);
+    //   
+    function valid(item){
+      if(match.length > 0 && match[0].sprite.color != item.color){
+        match[0].sprite.destroy();
+         // make sure the game knows the piece is dead 
+         match[0].sprite.lifeStatus = 'dead';
+         item.originX = item.x;
+         item.originY = item.y;
+          // After moving, tell server that a piece has been moved.
+          socket.emit('move piece', {
+            xcoord:  item.originX,
+            ycoord: item.originY,
+            pieceId:  piece.pieceId,
+          });
+        } else if (betweenDiagonal.length > 0 && xRatio === xRatio) {
+          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        } else if (betweenLateral.length > 0 && item.originX === item.x || betweenLateral.length > 0 && item.originY === item.y) {
+          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+        } else {
+          item.originX = item.x;
+          item.originY = item.y;
+          // After moving, tell server that a piece has been moved.
+          socket.emit('move piece', {
+            xcoord:  item.originX,
+            ycoord: item.originY,
+            pieceId:  piece.pieceId,
+          });
+        }
+      }
     } else {
-      game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-    }
+     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+   }
 };
+
 Queen.prototype.move = Queen.prototype.default_move;

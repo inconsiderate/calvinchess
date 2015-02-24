@@ -17,36 +17,9 @@ Bishop.prototype.default_move = function() {
             return false;
           }
       } // <-- end of isPieceHere function
-      function isPieceBetween(element){
-          if (item.x > item.originX && item.y > item.originY){
-          for(var i = item.originX + 100, a = item.originY + 100; i < item.x; i += 100, a += 100){
-            if(element.sprite.x === i && element.sprite.y === a && item != element.sprite){
-              return true;
-            }
-          }
-        } if(item.x < item.originX && item.y < item.originY){
-            for(var i = item.originX - 100, a = item.originY - 100; i > item.x; i -= 100, a -= 100){
-              if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
-                return true;
-            }
-          }    
-        } if (item.x > item.originX && item.y < item.originY){
-          for(var i = item.originX + 100, a = item.originY - 100; i < item.x; i += 100, a -= 100){
-            if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
-              return true;
-            }
-          }
-        } if(item.x < item.originX && item.y > item.originY){
-          for(var i = item.originX - 100, a = item.originY + 100; i > item.x; i -= 100, a += 100){
-            if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
-              return true;
-            }
-          }
-        }
-
-      }
-      var match = allPiecesArray.filter(isPieceHere);
-      var between = allPiecesArray.filter(isPieceBetween);
+      var match = allPiecesArray.filter(this.isPieceHere, this);
+      var between = allPiecesArray.filter(this.isPieceBetweenDiagonal, this);
+      console.log(between);
       function valid(item) {
         if (match.length > 0 && match[0].sprite.color === item.color){
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
