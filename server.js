@@ -33,6 +33,8 @@ io.on('connection', function (socket) {
   socket.on('add user', function (username) {
     // store the username in the socket session for this client
     socket.username = username;
+    clientIp = socket.request.connection.remoteAddress;
+    console.log(username, 'logged on from ip:', clientIp);
     // add the client's username to the global list
     usernames[username] = username;
     ++numUsers;
