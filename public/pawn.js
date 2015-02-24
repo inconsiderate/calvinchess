@@ -7,8 +7,6 @@ Pawn.prototype = new Piece();
 Pawn.prototype.default_move = function() {
 	var piece = this;
 	var item = this.sprite;
-	console.log(item.gameId);
-	console.log(item.counter);
 	var xRatio = Math.abs(item.x - item.originX);
 	var yRatio = Math.abs(item.y - item.originY);
 	if (Math.abs(item.originY - item.y) > 100 || Math.abs(item.originX - item.x) > 100) {
@@ -18,12 +16,18 @@ Pawn.prototype.default_move = function() {
 			game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
 		}else {
 			item.counter++;
+			console.log('originX: ', item.originX);
+			console.log('originY: ', item.originY);
+			console.log('x: ', item.x);
+			console.log('y: ', item.y);
 			item.originX = item.x;
 			item.originY = item.y;
+
+			// After moving, tell server that a piece has been moved.
 			socket.emit('move piece', {
-				xcoord: item.x,
-				ycoord: item.y,
-				pieceId: piece.pieceId,
+				xcoord:  item.originX,
+				ycoord: item.originY,
+				pieceId:  piece.pieceId,
 			});
 		}
 	} else if(item.color === 'black' && item.y < item.originY){

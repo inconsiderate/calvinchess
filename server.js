@@ -74,7 +74,7 @@ io.on('connection', function (socket) {
   // when the client emits 'move piece', we broadcast the movement to others
   socket.on('move piece', function (data) {
     console.log(data);
-    socket.emit('piece moved', {
+    socket.broadcast.emit('piece moved', {
       xcoord: data.xcoord,
       ycoord: data.ycoord,
       pieceId: data.pieceId

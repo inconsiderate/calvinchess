@@ -1,5 +1,6 @@
 var socket = io();
 
+
 window.onload = function() {
     window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'game', { preload: preload, create: create, render: render, update: update});
     window.allPiecesArray = [];
@@ -340,12 +341,7 @@ $(function() {
 
   // Chess Events
 
-  // function movePiece (data) {
-  //   var xcoord = data.xcoord,
-  //   ycoord = data.ycoord,
-  //   pieceId = data.pieceId;
-  // }
-
+  // Broadcast that a piece has been verified as a legal move
   function movePiece (data){
     var match = allPiecesArray.filter(isPieceId);
     function isPieceId(element) {
@@ -356,11 +352,6 @@ $(function() {
       }
     }
     var item = match[0];
-    console.log(item.pieceId);
-    // console.log("item log: ", item);
-    // console.log("item.sprite.color: ", item.sprite.color);
-    // console.log(item.color);
-    // console.log("sprite item: ", item.sprite);
     item.sprite.x = data.xcoord;
     item.sprite.y = data.ycoord;
     game.add.tween(item.sprite).to({x: data.xcoord, y: data.ycoord}, 400, Phaser.Easing.Back.Out, true);
