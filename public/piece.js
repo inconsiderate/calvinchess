@@ -66,6 +66,15 @@ Piece.prototype.isPieceHere = function(element){
   }
 }
 
+Piece.prototype.sendServerCoord = function(originX, originY, pieceId){
+  console.log("MESSAGE TO SERVER WAS SENT");
+  socket.emit('move piece', {
+    xcoord:  originX,
+    ycoord: originY,
+    pieceId: pieceId,
+  });
+}
+
 Piece.prototype.isPieceBetweenUpDown = function(element){
   var item = this.sprite
   if(element.sprite.x === item.x && item != element.sprite){

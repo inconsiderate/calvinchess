@@ -6,7 +6,6 @@ Queen.prototype = new Piece();
 Queen.prototype.default_move = function() {
   var piece = this;
   var item = this.sprite;
-
   var xRatio = Math.abs(item.originX - item.x);
   var yRatio = Math.abs(item.originY - item.y);
     /// check to see if the move was diagonal or lateral movement
@@ -24,11 +23,7 @@ Queen.prototype.default_move = function() {
          item.originX = item.x;
          item.originY = item.y;
           // After moving, tell server that a piece has been moved.
-          socket.emit('move piece', {
-            xcoord:  item.originX,
-            ycoord: item.originY,
-            pieceId:  piece.pieceId,
-          });
+          piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
         } else if (betweenDiagonal.length > 0 && xRatio === xRatio) {
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
         } else if (betweenLateral.length > 0 && item.originX === item.x || betweenLateral.length > 0 && item.originY === item.y) {
@@ -37,11 +32,7 @@ Queen.prototype.default_move = function() {
           item.originX = item.x;
           item.originY = item.y;
           // After moving, tell server that a piece has been moved.
-          socket.emit('move piece', {
-            xcoord:  item.originX,
-            ycoord: item.originY,
-            pieceId:  piece.pieceId,
-          });
+          piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
         }
       }
     } else {

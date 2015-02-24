@@ -9,14 +9,7 @@ Knight.prototype.default_move = function() {
   var item = this.sprite;
 
   if((Math.abs(item.originX - item.x) === 200 && Math.abs(item.originY - item.y) === 100 )|| (Math.abs(item.originX - item.x) === 100 && Math.abs(item.originY - item.y) === 200)){
-      function isPieceHere(element){
-        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
-          return true
-        } else {
-          return false;
-        }
-      } // <-- end of isHere function
-      var match = allPiecesArray.filter(isPieceHere);
+      var match = allPiecesArray.filter(this.isPieceHere, this);
       function valid(item) {
         if (match.length > 0 && match[0].sprite.color === item.color){
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
@@ -26,20 +19,12 @@ Knight.prototype.default_move = function() {
           item.originX = item.x;
           item.originY = item.y;
           // After moving, tell server that a piece has been moved.
-          socket.emit('move piece', {
-            xcoord:  item.originX,
-            ycoord: item.originY,
-            pieceId:  piece.pieceId,
-          });
+          piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
         } else {
           item.originX = item.x;
           item.originY = item.y;
           // After moving, tell server that a piece has been moved.
-          socket.emit('move piece', {
-            xcoord:  item.originX,
-            ycoord: item.originY,
-            pieceId:  piece.pieceId,
-          });
+          piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
         }
       }
       valid(item);

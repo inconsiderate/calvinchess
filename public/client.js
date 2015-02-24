@@ -121,7 +121,7 @@ window.onload = function() {
       if(wKing.sprite.lifeStatus === 'dead' || bKing.sprite.lifeStatus === 'dead'){
         var style = { font: "65px Arial", fill: "#ff0044", align: "center", color: 'red' };
         var text = game.add.text(200, 200, 'Game Over!', style);
-        wQueen.testMove(wQueen);
+        // wQueen.testMove(wQueen);
     }
   }
 
