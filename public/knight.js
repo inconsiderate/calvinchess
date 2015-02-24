@@ -5,9 +5,10 @@ function Knight(game, color, xcoor, ycoor, pieceName){
 Knight.prototype = new Piece();
 
 Knight.prototype.default_move = function() {
-var item = this.sprite;
+  var piece = this;
+  var item = this.sprite;
 
-if((Math.abs(item.originX - item.x) === 200 && Math.abs(item.originY - item.y) === 100 )|| (Math.abs(item.originX - item.x) === 100 && Math.abs(item.originY - item.y) === 200)){
+  if((Math.abs(item.originX - item.x) === 200 && Math.abs(item.originY - item.y) === 100 )|| (Math.abs(item.originX - item.x) === 100 && Math.abs(item.originY - item.y) === 200)){
       function isPieceHere(element){
         if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
           return true
@@ -24,9 +25,21 @@ if((Math.abs(item.originX - item.x) === 200 && Math.abs(item.originY - item.y) =
           match[0].sprite.lifeStatus = 'dead';
           item.originX = item.x;
           item.originY = item.y;
+          // After moving, tell server that a piece has been moved.
+          socket.emit('move piece', {
+            xcoord:  item.originX,
+            ycoord: item.originY,
+            pieceId:  piece.pieceId,
+          });
         } else {
           item.originX = item.x;
           item.originY = item.y;
+          // After moving, tell server that a piece has been moved.
+          socket.emit('move piece', {
+            xcoord:  item.originX,
+            ycoord: item.originY,
+            pieceId:  piece.pieceId,
+          });
         }
       }
       valid(item);

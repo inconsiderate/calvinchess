@@ -5,6 +5,7 @@ function King(game, color, xcoor, ycoor, pieceName){
 King.prototype = new Piece();
 
 King.prototype.default_move = function() {
+  var piece = this;
 	var item = this.sprite;
 	if (Math.abs(item.originX - item.x) > 100 || Math.abs(item.originY - item.y) > 100) {
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
@@ -25,9 +26,21 @@ King.prototype.default_move = function() {
           match[0].sprite.lifeStatus = 'dead';
           item.originX = item.x;
           item.originY = item.y;
+          // After moving, tell server that a piece has been moved.
+          socket.emit('move piece', {
+            xcoord:  item.originX,
+            ycoord: item.originY,
+            pieceId:  piece.pieceId,
+          });
         } else {
           item.originX = item.x;
           item.originY = item.y;
+          // After moving, tell server that a piece has been moved.
+          socket.emit('move piece', {
+            xcoord:  item.originX,
+            ycoord: item.originY,
+            pieceId:  piece.pieceId,
+          });
         }
       }
       valid(item);

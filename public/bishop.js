@@ -5,6 +5,7 @@ function Bishop(game, color, xcoor, ycoor, pieceName){
 Bishop.prototype = new Piece();
 
 Bishop.prototype.default_move = function() {
+  var piece = this;
 	var item = this.sprite;
 	if (item.originX === item.x || item.originY === item.y){
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
@@ -54,11 +55,23 @@ Bishop.prototype.default_move = function() {
           match[0].sprite.lifeStatus = 'dead';
           item.originX = item.x;
           item.originY = item.y;
+          // After moving, tell server that a piece has been moved.
+          socket.emit('move piece', {
+            xcoord:  item.originX,
+            ycoord: item.originY,
+            pieceId:  piece.pieceId,
+          });
         } else if(between.length > 0){
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
         } else {
           item.originX = item.x;
           item.originY = item.y;
+          // After moving, tell server that a piece has been moved.
+          socket.emit('move piece', {
+            xcoord:  item.originX,
+            ycoord: item.originY,
+            pieceId:  piece.pieceId,
+          });
         }
       }
       valid(item);

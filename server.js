@@ -24,6 +24,10 @@ io.on('connection', function (socket) {
       username: socket.username,
       message: data
     });
+    console.log(data);
+    if (data === "rules change") {
+      console.log("change the rules now");
+    }
   });
 
   socket.on('add user', function (username) {
