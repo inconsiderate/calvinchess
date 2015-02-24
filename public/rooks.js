@@ -6,80 +6,35 @@ Rook.prototype = new Piece();
 
 Rook.prototype.default_move = function() {
   var piece = this;
-	var item = this.sprite;
-	if (item.originX != item.x && item.originY != item.y){
-      game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-    }
-    else {
-      function isPieceHere(element){
-        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
-            return true
-          } else {
-            return false;
-          }
-      } // <-- end of isHere function
-      function isPieceBetween(element){
-        // refactor take this piece out 
-        if(element.sprite.x === item.x && item != element.sprite){
-          for( i = item.originY + 100; i < item.y; i++){
-            if(element.sprite.y === i){
-              var betweenPiece = element;
-              return true
-            }
-          }
-          for( i = item.originY - 100; i > item.y; i--){
-            if(element.sprite.y === i){
-              var betweenPiece = element;
-              return true
-            }
-          }
-
-        } else if(element.sprite.y === item.y && item != element.sprite){
-          for(i = item.originX + 100; i < item.x; i++){
-            if(element.sprite.x === i){
-              var betweenPiece = element;
-              return true
-            }
-          }
-          for (i = item.originX - 100; i > item.x; i--){
-            if(element.sprite.x === i){
-              var betweenPiece = element;
-              return true
-            }
-          }
-        }
-      } 
-      var match = allPiecesArray.filter(isPieceHere);
-      var between = allPiecesArray.filter(isPieceBetween);
-      function valid(item) {
-        if (match.length > 0 && match[0].sprite.color === item.color){
-          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-        } else if (match.length > 0 && match[0].sprite.color != item.color) {
-          match[0].sprite.destroy();
-          match[0].sprite.lifeStatus = 'dead';
-          item.originX = item.x;
-          item.originY = item.y;
+  var item = this.sprite;
+  if (item.originX != item.x && item.originY != item.y){
+    game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+  }
+  else {
+    var match = allPiecesArray.filter(this.isPieceHere, this);
+    var between = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
+    function valid(item) {
+      if (match.length > 0 && match[0].sprite.color === item.color){
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+      } else if (match.length > 0 && match[0].sprite.color != item.color) {
+        match[0].sprite.destroy();
+        match[0].sprite.lifeStatus = 'dead';
+        item.originX = item.x;
+        item.originY = item.y;
           // After moving, tell server that a piece has been moved.
-          socket.emit('move piece', {
-            xcoord:  item.originX,
-            ycoord: item.originY,
-            pieceId:  piece.pieceId,
-          });
+          piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
         } else if (between.length > 0){
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
         }else {
           item.originX = item.x;
           item.originY = item.y;
           // After moving, tell server that a piece has been moved.
-          socket.emit('move piece', {
-            xcoord:  item.originX,
-            ycoord: item.originY,
-            pieceId:  piece.pieceId,
-          });
+          piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
         }
       }
-    valid(item);
-  };
- }
+      valid(item);
+    };
+  }
 Rook.prototype.move = Rook.prototype.default_move;
+
 
