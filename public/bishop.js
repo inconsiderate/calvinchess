@@ -51,7 +51,7 @@ Bishop.prototype.default_move = function() {
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
         } else if (match.length > 0 && match[0].sprite.color != item.color) {
           match[0].sprite.destroy();
-          match[0].sprite.status = 'dead';
+          match[0].sprite.lifeStatus = 'dead';
           item.originX = item.x;
           item.originY = item.y;
         } else if(between.length > 0){

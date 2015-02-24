@@ -6,7 +6,7 @@ window.onload = function() {
     //Are you sure these have to be defined here?
     var bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, 
           b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn;
-    //Are you sure these have to be defined here?
+
     var wQueen, wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight, 
           w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn;
     
@@ -117,12 +117,12 @@ window.onload = function() {
     function update(){
       currentTile.x = this.game.math.snapToFloor(game.input.x, 100)/100;
       currentTile.y = this.game.math.snapToFloor(game.input.y, 100)/100;
-      if(wKing.sprite.status === 'dead' || bKing.sprite.status === 'dead'){
+      if(wKing.sprite.lifeStatus === 'dead' || bKing.sprite.lifeStatus === 'dead'){
         var style = { font: "65px Arial", fill: "#ff0044", align: "center", color: 'red' };
         var text = game.add.text(200, 200, 'Game Over!', style);
         wQueen.testMove(wQueen);
-      }
     }
+  }
 
     function render() {
       // game.debug.text('Tile X: ' + currentTile.x + 'Y: ' + currentTile.y, 100, 100);
@@ -350,26 +350,21 @@ $(function() {
     var match = allPiecesArray.filter(isPieceId);
     function isPieceId(element) {
       if(element.pieceId === data.pieceId){
-        console.log(element);
         return true;
       } else {
-        console.log("nothing matched");
         return false;
       }
     }
-    console.log("piece matched: ", match);
-  
-
     var item = match[0];
-    console.log("item log: ", item);
-    console.log("item.sprite.color: ", item.sprite.color);
-    console.log(item.color);
-    console.log("sprite item: ", item.sprite);
+    console.log(item.pieceId);
+    // console.log("item log: ", item);
+    // console.log("item.sprite.color: ", item.sprite.color);
+    // console.log(item.color);
+    // console.log("sprite item: ", item.sprite);
     item.sprite.x = data.xcoord;
     item.sprite.y = data.ycoord;
-    item.sprite.destroy();
     game.add.tween(item.sprite).to({x: data.xcoord, y: data.ycoord}, 400, Phaser.Easing.Back.Out, true);
-    }
+  }
 
   // Click events
 

@@ -5,10 +5,11 @@ function Piece(game, color, xcoor, ycoor, piecename){
 };
 
 Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
+    // game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
     var x = (xcoor * 100) + 5;
     var y = (ycoor * 100) + 5;
     this.sprite = game.add.sprite(x, y, piecename);
-    this.pieceId = Math.floor(Math.random() * 1000);
+    this.pieceId = piecename + xcoor //Math.floor(Math.random() * 1000);
     this.sprite.inputEnabled = true;
     this.sprite.input.enableDrag();
     this.sprite.height = 90;
@@ -17,7 +18,7 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
     this.sprite.originX = x;
     this.sprite.originY = y;
     this.sprite.color = color;
-    this.sprite.status = 'alive';
+    this.sprite.lifeStatus = 'alive';
     this.sprite.counter = 0; 
     var piece = this;
     this.sprite.events.onDragStop.add(function() {
