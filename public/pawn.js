@@ -23,7 +23,7 @@ Pawn.prototype.default_move = function() {
 			socket.emit('move piece', {
 				xcoord: item.x,
 				ycoord: item.y,
-				id: piece.pieceId,
+				pieceId: piece.pieceId,
 			});
 		}
 	} else if(item.color === 'black' && item.y < item.originY){
@@ -53,7 +53,7 @@ Pawn.prototype.default_move = function() {
       		socket.emit('move piece', {
 						xcoord: item.x,
 						ycoord: item.y,
-						id: piece.pieceId,
+						pieceId: piece.pieceId,
 					});
 
       	} else if (match.length > 0 && item.x != item.originX){
@@ -65,7 +65,7 @@ Pawn.prototype.default_move = function() {
       		socket.emit('move piece', {
 						xcoord: item.x,
 						ycoord: item.y,
-						id: piece.pieceId,
+						pieceId: piece.pieceId,
 					});
       	}
       }

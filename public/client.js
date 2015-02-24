@@ -340,12 +340,36 @@ $(function() {
 
   // Chess Events
 
-  function movePiece (data) {
-    console.log(data);
-    var xcoord = data.xcoord,
-    ycoord = data.ycoord,
-    id = data.pieceId;
-  }
+  // function movePiece (data) {
+  //   var xcoord = data.xcoord,
+  //   ycoord = data.ycoord,
+  //   pieceId = data.pieceId;
+  // }
+
+  function movePiece (data){
+    var match = allPiecesArray.filter(isPieceId);
+    function isPieceId(element) {
+      if(element.pieceId === data.pieceId){
+        console.log(element);
+        return true;
+      } else {
+        console.log("nothing matched");
+        return false;
+      }
+    }
+    console.log("piece matched: ", match);
+  
+
+    var item = match[0];
+    console.log("item log: ", item);
+    console.log("item.sprite.color: ", item.sprite.color);
+    console.log(item.color);
+    console.log("sprite item: ", item.sprite);
+    item.sprite.x = data.xcoord;
+    item.sprite.y = data.ycoord;
+    item.sprite.destroy();
+    game.add.tween(item.sprite).to({x: data.xcoord, y: data.ycoord}, 400, Phaser.Easing.Back.Out, true);
+    }
 
   // Click events
 
@@ -375,7 +399,6 @@ $(function() {
   // Whenever the server emits 'new message', update the chat body
   socket.on('new message', function (data) {
     addChatMessage(data);
-    console.log(data);
   });
 
   // Whenever the server emits 'user joined', log it in the chat body
