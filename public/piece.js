@@ -72,12 +72,15 @@ Piece.prototype.rookBishopMoveValidation = function (item) {
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   } else if (match.length > 0 && match[0].sprite.color != item.color) {
     piece.killAction(item);
+    console.log("something is here and I killed it!");
     item.originX = item.x;
     item.originY = item.y;
-      piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
+    piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
   } else if (between.length > 0){
+    console.log("Something is between !");
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   }else {
+    console.log("Bottom of the rookBishopMoveValidation function");
     item.originX = item.x;
     item.originY = item.y;
     piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
