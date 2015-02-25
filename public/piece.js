@@ -39,8 +39,8 @@ Piece.prototype.killAction = function (item, match) {
     return true
   } else if (match.length > 0 && match[0].sprite.color != item.color) {
     piece.sendServerKill(match[0]);
-    // match[0].sprite.destroy();
-    // match[0].sprite.lifeStatus = 'dead';
+    match[0].sprite.destroy();
+    match[0].sprite.lifeStatus = 'dead';
 
     var explosionPiece = game.add.sprite(match[0].sprite.originX, match[0].sprite.originY, 'explosion');
     explosionPiece.height = 90;

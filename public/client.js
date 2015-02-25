@@ -459,10 +459,21 @@ function rulesChange (ruleNumber) {
   });
 
   socket.on('kill piece', function (data) {
-    match = data.pieceId;
     x = data.xcoord;
     y = data.ycoord;
-    console.log(match, x, y);
+    var match = allPiecesArray.filter(isPieceId);
+    function isPieceId(element) {
+      if(element.pieceId === data.pieceId){
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    match[0].sprite.destroy();
+    match[0].sprite.lifeStatus = 'dead';
+
+    console.log(match[0], x, y);
     var explosionPiece = game.add.sprite(x, y, 'explosion');
     explosionPiece.height = 90;
     explosionPiece.animations.add('boom');
@@ -470,3 +481,4 @@ function rulesChange (ruleNumber) {
 
   });
 });
+
