@@ -18,9 +18,7 @@ Queen.prototype.default_move = function() {
     //   
     function valid(item){
       if(match.length > 0 && match[0].sprite.color != item.color){
-        match[0].sprite.destroy();
-         // make sure the game knows the piece is dead 
-        match[0].sprite.lifeStatus = 'dead';
+        piece.killAction(item);
         item.originX = item.x;
         item.originY = item.y;
           // After moving, tell server that a piece has been moved.

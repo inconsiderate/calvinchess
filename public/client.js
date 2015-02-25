@@ -7,6 +7,8 @@ window.onload = function() {
     window.ruleChange = [['If a queen moves, all pawns will be captured', function(){wQueen.onBoard = Piece.prototype.deletePawns; bQueen.onBoard = Piece.prototype.deletePawns;}], ['two', 'drei'], ['three', 'zwei']];
     //Are you sure these have to be defined here?
     
+    var explosionPiece;
+
     var bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, 
           b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn;
     window.wQueen;
@@ -30,6 +32,7 @@ window.onload = function() {
 
     function preload () {
     
+      game.load.spritesheet('explosion', '/spritesheets/explosion.png', 64, 64, 24);
       game.load.image('background', '/images/chessboard.png');
       game.load.image('square', '/images/grid.jpeg');
       game.load.image('bQueen', '/images/blackqueen.png');
@@ -45,7 +48,7 @@ window.onload = function() {
       game.load.image('wBishop', '/images/whitebishop.png');
       game.load.image('wKnight', '/images/whiteknight.png');
       game.load.image('wPawn', '/images/whitepawn.png');
-  }
+    }
     var fullScreenKey
     var allPieces;
     var grid = [];
@@ -69,6 +72,7 @@ window.onload = function() {
         background.width = 800;
 
         // var allPieces = game.add.group();
+
         bQueen = new Queen(game, 'black',3, 0, 'bQueen');
         bKing = new King(game, 'black', 4, 0, 'bKing');
         b1Rook = new Rook(game, 'black',7,0,'bRook');

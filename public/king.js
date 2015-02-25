@@ -12,5 +12,5 @@ King.prototype.default_move = function() {
       this.kingKnightMoveValidation(item);
     }
   };
-King.prototype.move = King.prototype.default_move;
 
+King.prototype.move = King.prototype.default_move;

@@ -30,6 +30,18 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
 }
 // METHODS THAT ARE USED IN ALL PIECE MOVEMENTS
 
+Piece.prototype.killAction = function (item) {
+  var match = allPiecesArray.filter(this.isPieceHere, this);
+  match[0].sprite.destroy();
+  match[0].sprite.lifeStatus = 'dead';
+  var explosionPiece = game.add.sprite(match[0].sprite.originX, match[0].sprite.originY, 'explosion');
+  explosionPiece.height = 90;
+  explosionPiece.width = 90;
+  explosionPiece.animations.add('boom');
+  explosionPiece.animations.play('boom', 20, false, true);
+ }
+
+//King and Knight have the same movement validation. Check if move is valid and if a kill occurs.
 Piece.prototype.kingKnightMoveValidation = function (item) {
   var piece = this;
   var match = allPiecesArray.filter(this.isPieceHere, this);
@@ -38,22 +50,20 @@ Piece.prototype.kingKnightMoveValidation = function (item) {
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
     return true
   } else if (match.length > 0 && match[0].sprite.color != item.color) {
-    match[0].sprite.destroy();
-    match[0].sprite.lifeStatus = 'dead';
+    piece.killAction(item);
     item.originX = item.x;
     item.originY = item.y;
-    // After moving, tell server that a piece has been moved.
     piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
     return true;
   } else {
     item.originX = item.x;
     item.originY = item.y;
-    // After moving, tell server that a piece has been moved.
     piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
     return true;
   }
 }
 
+//Rook and Bishop have the same movement validation. Check if move is valid and if a kill occurs.
 Piece.prototype.rookBishopMoveValidation = function (item) {
   var piece = this;
   var match = allPiecesArray.filter(this.isPieceHere, this);
@@ -61,18 +71,15 @@ Piece.prototype.rookBishopMoveValidation = function (item) {
   if (match.length > 0 && match[0].sprite.color === item.color){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   } else if (match.length > 0 && match[0].sprite.color != item.color) {
-    match[0].sprite.destroy();
-    match[0].sprite.lifeStatus = 'dead';
+    piece.killAction(item);
     item.originX = item.x;
     item.originY = item.y;
-      // After moving, tell server that a piece has been moved.
       piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
   } else if (between.length > 0){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   }else {
     item.originX = item.x;
     item.originY = item.y;
-    // After moving, tell server that a piece has been moved.
     piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
   }
 }
@@ -127,7 +134,6 @@ Piece.prototype.isPieceHere = function(element){
 }
 
 Piece.prototype.sendServerCoord = function(originX, originY, pieceId){
-  console.log("MESSAGE TO SERVER WAS SENT");
   socket.emit('move piece', {
     xcoord:  originX,
     ycoord: originY,
