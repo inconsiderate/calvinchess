@@ -12,7 +12,6 @@ Bishop.prototype.default_move = function() {
     } else {
       var match = allPiecesArray.filter(this.isPieceHere, this);
       var between = allPiecesArray.filter(this.isPieceBetweenDiagonal, this);
-      console.log(between);
       function valid(item) {
         if (match.length > 0 && match[0].sprite.color === item.color){
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);

@@ -24,31 +24,44 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
     this.sprite.events.onDragStop.add(function() {
       piece.move();
     });
+    this.sprite.events.onDragStop.add(function(){
+      piece.onBoard();
+    })
 }
+// METHODS THAT ARE USED IN ALL PIECE MOVEMENTS
 /// method for bishops and queens to check if diagonal movement is valid
+
+Piece.prototype.onBoard = function() {
+
+}
+
 Piece.prototype.isPieceBetweenDiagonal = function (element, index, array, piece){
   var item = this.sprite
   if (item.x > item.originX && item.y > item.originY){
     for(var i = item.originX + 100, a = item.originY + 100; i < item.x; i += 100, a += 100){
-      if(element.sprite.x === i && element.sprite.y === a && item != element.sprite){
+      if(element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead'){
+        console.log("ONE");
         return true;
       }
     }
   } if(item.x < item.originX && item.y < item.originY){
     for(var i = item.originX - 100, a = item.originY - 100; i > item.x; i -= 100, a -= 100){
-      if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
+      if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead'){
+        console.log("TWO");
         return true;
       }
     }    
   } if (item.x > item.originX && item.y < item.originY){
     for(var i = item.originX + 100, a = item.originY - 100; i < item.x; i += 100, a -= 100){
-      if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
+      if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead'){
+        console.log("THREE");
         return true;
       }
     }
   } if(item.x < item.originX && item.y > item.originY){
     for(var i = item.originX - 100, a = item.originY + 100; i > item.x; i -= 100, a += 100){
-      if (element.sprite.x === i && element.sprite.y === a && item != element.sprite){
+      if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead'){
+        console.log("FOUR");
         return true;
       }
     }
@@ -59,7 +72,7 @@ Piece.prototype.isPieceBetweenDiagonal = function (element, index, array, piece)
 
 Piece.prototype.isPieceHere = function(element){
   var item = this.sprite
-  if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
+  if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite && element.sprite.lifeStatus != 'dead'){
     return true
   } else {
     return false;
@@ -107,7 +120,8 @@ Piece.prototype.isPieceBetweenUpDown = function(element){
   }
 }
 
-/// methods to switch the rules ; 
+/// FUN METHODS THAT CHANGE ALL THE RULES
+
 Piece.prototype.teleport = function(){
     var item = this.sprite;
       function isPieceHere(element){
@@ -143,66 +157,53 @@ Piece.prototype.stuck = function(){
 Piece.prototype.sideways = function(){
   var item = this.sprite;
     // piece can only move on the x axis
-    if(item.y != item.originY){
-      game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-    } else {
-      function isPieceHere(element){
-        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
-          return true
-        } else {
-          return false;
-        }
+  if(item.y != item.originY){
+    game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+  } else {
+    var match = allPiecesArray.filter(this.isPieceHere, this);
+    function valid(item) {
+      if (match.length > 0 && match[0].sprite.color === item.color){
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+      } else if (match.length > 0 && match[0].sprite.color != item.color) {
+        match[0].sprite.destroy();
+        match[0].sprite.status = 'dead';
+        item.originX = item.x;
+        item.originY = item.y;
+      } else {
+        item.originX = item.x;
+        item.originY = item.y;
       }
-      var match = allPiecesArray.filter(isPieceHere);
-      function valid(item) {
-        if (match.length > 0 && match[0].sprite.color === item.color){
-          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-        } else if (match.length > 0 && match[0].sprite.color != item.color) {
-          match[0].sprite.destroy();
-          match[0].sprite.status = 'dead';
-          item.originX = item.x;
-          item.originY = item.y;
-        } else {
-          item.originX = item.x;
-          item.originY = item.y;
-        }
-      }
-      valid(item);
     }
+    valid(item);
+  }
 }
 
 Piece.prototype.vertical = function(){
-    var item = this.sprite;
-    // piece can only move on the x axis
-    if(item.x != item.originX){
-      game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-    } else {
-      function isPieceHere(element){
-        if(element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite){
-          return true
-        } else {
-          return false;
-        }
+  var item = this.sprite;
+  // piece can only move on the x axis
+  if(item.x != item.originX){
+    game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+  } else {
+    var match = allPiecesArray.filter(this.isPieceHere, this);
+    function valid(item) {
+      if (match.length > 0 && match[0].sprite.color === item.color){
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+      } else if (match.length > 0 && match[0].sprite.color != item.color) {
+        match[0].sprite.destroy();
+        match[0].sprite.status = 'dead';
+        item.originX = item.x;
+        item.originY = item.y;
+      } else {
+        item.originX = item.x;
+        item.originY = item.y;
       }
-      var match = allPiecesArray.filter(isPieceHere);
-      function valid(item) {
-        if (match.length > 0 && match[0].sprite.color === item.color){
-          game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-        } else if (match.length > 0 && match[0].sprite.color != item.color) {
-          match[0].sprite.destroy();
-          match[0].sprite.status = 'dead';
-          item.originX = item.x;
-          item.originY = item.y;
-        } else {
-          item.originX = item.x;
-          item.originY = item.y;
-        }
-      }
-      valid(item);
     }
+    valid(item);
+  }
 }
 
 Piece.prototype.deletePawns = function(){
+  // check to see if the other player can see this happen 
   var match = allPiecesArray.filter(isPawn);
   function isPawn(element){
     if(element instanceof Pawn){
@@ -214,6 +215,7 @@ Piece.prototype.deletePawns = function(){
   if(match.length > 0){
     for(i = 0; i < match.length; i++ ){
       match[i].sprite.destroy();
+      match[i].sprite.lifeStatus = 'dead';
     }
   }
 }
@@ -222,7 +224,6 @@ Piece.prototype.deletePieces = function(pieceType){
   // call this function like: wQueen.move = Piece.prototype.deletePieces(Knight);
   // OR wQueen.move = Piece.prototype.deletePieces;
   // Queen.move(Knight);
-
   var match = allPiecesArray.filter(isPiece);
   function isPiece(element){
     if(element instanceof pieceType){
@@ -237,7 +238,6 @@ Piece.prototype.deletePieces = function(pieceType){
     }
   }
 }
-
 
 
 

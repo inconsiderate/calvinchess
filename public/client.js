@@ -4,13 +4,30 @@ var socket = io();
 window.onload = function() {
     window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'game', { preload: preload, create: create, render: render, update: update});
     window.allPiecesArray = [];
+    window.ruleChange = [['If a queen moves, all pawns will be captured', function(){wQueen.onBoard = Piece.prototype.deletePawns; bQueen.onBoard = Piece.prototype.deletePawns;}], ['two', 'drei'], ['three', 'zwei']];
     //Are you sure these have to be defined here?
+    
     var bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, 
           b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn;
-
-    var wQueen, wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight, 
+    window.wQueen;
+    var  wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight, 
           w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn;
-    
+
+    // window.ruleChange = {
+    //   'one' : function(){
+    //     wQueen.onBoard = Piece.prototype.deletePawns;
+    //     bQueen.onBoard = 
+    //     // if th
+    //   }, 
+    //   'two' : function(){
+    //     wQueen.move = Piece.prototype.teleport;
+    //     bQueen.move = Piece.prototype.teleport;
+    //     // queens can now teleport
+    //   }
+    // }
+
+
+
     function preload () {
     
       game.load.image('background', '/images/chessboard.png');
@@ -121,7 +138,7 @@ window.onload = function() {
       if(wKing.sprite.lifeStatus === 'dead' || bKing.sprite.lifeStatus === 'dead'){
         var style = { font: "65px Arial", fill: "#ff0044", align: "center", color: 'red' };
         var text = game.add.text(200, 200, 'Game Over!', style);
-        // wQueen.testMove(wQueen);
+        wQueen.move = Piece.prototype.deletePawns;
     }
   }
 
@@ -206,6 +223,16 @@ $(function() {
   function addChatMessage (data, options) {
     // Don't fade the message in if there is an 'X was typing'
     var $typingMessages = getTypingMessages(data);
+    // checking to see if the the user has made a rules change request
+    if(data.message === 'rule change'){
+      // wQueen.onBoard = Piece.prototype.deletePawns;
+      console.log("The rules should change now");
+      // console.log('testing here!: ', ruleChange[0][0]);
+      console.log()
+      ruleChange[0][1]();
+      addMessageElement($ruleChangeDiv, options);
+    }
+
     options = options || {};
     if ($typingMessages.length !== 0) {
       options.fade = false;
@@ -215,14 +242,25 @@ $(function() {
     var $usernameDiv = $('<span class="username"/>')
       .text(data.username)
       .css('color', getUsernameColor(data.username));
+    
+    var $calvinnameDiv = $('<span class="username"/>')
+      .text(ruleChange[0][0]);
+
     var $messageBodyDiv = $('<span class="messageBody">')
       .text(data.message);
+    var $messageRuleDiv = $('<spac class="messageBody">')
+      .text('hello');
 
     var typingClass = data.typing ? 'typing' : '';
     var $messageDiv = $('<li class="message"/>')
       .data('username', data.username)
       .addClass(typingClass)
       .append($usernameDiv, $messageBodyDiv);
+
+    var $ruleChangeDiv = $('<li class="message"/>')
+      .data('username', 'Calvin')
+      .addClass(typingClass)
+      .append($calvinnameDiv, $messageRuleDiv);
 
     addMessageElement($messageDiv, options);
   }
@@ -384,6 +422,7 @@ $(function() {
 
   // Whenever the server emits 'new message', update the chat body
   socket.on('new message', function (data) {
+    console.log(data);
     addChatMessage(data);
   });
 
