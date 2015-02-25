@@ -30,47 +30,64 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
 }
 // METHODS THAT ARE USED IN ALL PIECE MOVEMENTS
 
+// Check if move is valid and if a kill occurs.
 Piece.prototype.killAction = function (item, match) {
-  match[0].sprite.destroy();
-  match[0].sprite.lifeStatus = 'dead';
-  var explosionPiece = game.add.sprite(match[0].sprite.originX, match[0].sprite.originY, 'explosion');
-  explosionPiece.height = 90;
-  explosionPiece.width = 90;
-  explosionPiece.animations.add('boom');
-  explosionPiece.animations.play('boom', 20, false, true);
- }
+  console.log('inside the kill action');
+  var piece = this;
+  if (match.length > 0 && match[0].sprite.color === item.color){
+    game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+    return true
+  } else if (match.length > 0 && match[0].sprite.color != item.color) {
+    piece.sendServerKill(match[0]);
+    // match[0].sprite.destroy();
+    // match[0].sprite.lifeStatus = 'dead';
 
- Piece.prototype.resetOrigin = function(item, x, y, piece){
-    item.originX = item.x;
-    item.originY = item.y;
-    piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
- }
+    var explosionPiece = game.add.sprite(match[0].sprite.originX, match[0].sprite.originY, 'explosion');
+    explosionPiece.height = 90;
+    explosionPiece.animations.add('boom');
+    explosionPiece.animations.play('boom', 20, false, true);
+    piece.resetOrigin(item, item.x, item.y, piece);
+    return true
+  }
+  return false
+}
 
-//King and Knight have the same movement validation. Check if move is valid and if a kill occurs.
+Piece.prototype.sendServerKill = function(item) {
+  console.log(item.sprite.x);
+  console.log(item.sprite.y);
+  console.log(item.pieceId);
+  socket.emit('piece killed', {
+    coordX: item.sprite.x,
+    coordY: item.sprite.y,
+    pieceId: item.pieceId
+  });
+}
+
+Piece.prototype.resetOrigin = function(item, x, y, piece){
+  item.originX = item.x;
+  item.originY = item.y;
+  piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
+}
+
+//King and Knight have the same movement validation.
 Piece.prototype.kingKnightMoveValidation = function (item) {
   var piece = this;
   var match = allPiecesArray.filter(this.isPieceHere, this);
   var item = this.sprite
-  if (match.length > 0 && match[0].sprite.color === item.color){
-    game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-  } else if (match.length > 0 && match[0].sprite.color != item.color) {
-    piece.killAction(item, match);
-    piece.resetOrigin(item, item.x, item.y, piece);
+  if (piece.killAction(item, match) === true) {
+    console.log('knight kill action');
   } else {
     piece.resetOrigin(item, item.x, item.y, piece);
   }
 }
 
-//Rook and Bishop have the same movement validation. Check if move is valid and if a kill occurs.
+//Rook and Bishop have the same movement validation.
 Piece.prototype.rookBishopMoveValidation = function (item) {
   var piece = this;
   var match = allPiecesArray.filter(this.isPieceHere, this);
   var between = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
-  if (match.length > 0 && match[0].sprite.color === item.color){
-    game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-  } else if (match.length > 0 && match[0].sprite.color != item.color) {
-    piece.killAction(item, match);
-    piece.resetOrigin(item, item.x, item.y, piece);
+  if (piece.killAction(item, match) === true) {
+    console.log('knight kill action');
   } else if (between.length > 0){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   } else {
@@ -277,10 +294,3 @@ Piece.prototype.deletePieces = function(pieceType){
     }
   }
 }
-
-
-
-
-
-
-

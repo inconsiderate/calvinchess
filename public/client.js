@@ -378,13 +378,13 @@ $(function() {
       }
     }
     var item = match[0];
+
     item.sprite.x = data.xcoord;
     item.sprite.y = data.ycoord;
     game.add.tween(item.sprite).to({x: data.xcoord, y: data.ycoord}, 400, Phaser.Easing.Back.Out, true);
   }
 
 function rulesChange (ruleNumber) {
-  console.log("The rules should change now");
   ruleChange[0][1]();
   var $calvinnameDiv = $('<span class="username"/>')
     .text('CalvinBot');
@@ -456,5 +456,17 @@ function rulesChange (ruleNumber) {
 
   socket.on('rules changed', function (data) {
     rulesChange();
+  });
+
+  socket.on('kill piece', function (data) {
+    match = data.pieceId;
+    x = data.xcoord;
+    y = data.ycoord;
+    console.log(match, x, y);
+    var explosionPiece = game.add.sprite(x, y, 'explosion');
+    explosionPiece.height = 90;
+    explosionPiece.animations.add('boom');
+    explosionPiece.animations.play('boom', 20, false, true);
+
   });
 });

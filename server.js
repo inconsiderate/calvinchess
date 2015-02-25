@@ -80,11 +80,22 @@ io.on('connection', function (socket) {
 
   // when the client emits 'move piece', we broadcast the movement to others
   socket.on('move piece', function (data) {
-    console.log(data);
     socket.broadcast.emit('piece moved', {
       xcoord: data.xcoord,
       ycoord: data.ycoord,
       pieceId: data.pieceId
     });
   });
+
+  socket.on('piece killed', function (data) {
+    console.log(data.pieceId);
+    console.log(data.coordX);
+    console.log(data.coordY);
+    socket.broadcast.emit('kill piece', {
+      xcoord: data.coordX,
+      ycoord: data.coordY,
+      pieceId: data.pieceId
+    });
+  });
+
 });
