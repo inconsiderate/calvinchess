@@ -30,8 +30,7 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
 }
 // METHODS THAT ARE USED IN ALL PIECE MOVEMENTS
 
-Piece.prototype.killAction = function (item) {
-  var match = allPiecesArray.filter(this.isPieceHere, this);
+Piece.prototype.killAction = function (item, match) {
   match[0].sprite.destroy();
   match[0].sprite.lifeStatus = 'dead';
   var explosionPiece = game.add.sprite(match[0].sprite.originX, match[0].sprite.originY, 'explosion');
@@ -41,6 +40,12 @@ Piece.prototype.killAction = function (item) {
   explosionPiece.animations.play('boom', 20, false, true);
  }
 
+ Piece.prototype.resetOrigin = function(item, x, y, piece){
+    item.originX = item.x;
+    item.originY = item.y;
+    piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
+ }
+
 //King and Knight have the same movement validation. Check if move is valid and if a kill occurs.
 Piece.prototype.kingKnightMoveValidation = function (item) {
   var piece = this;
@@ -48,18 +53,11 @@ Piece.prototype.kingKnightMoveValidation = function (item) {
   var item = this.sprite
   if (match.length > 0 && match[0].sprite.color === item.color){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-    return true
   } else if (match.length > 0 && match[0].sprite.color != item.color) {
-    piece.killAction(item);
-    item.originX = item.x;
-    item.originY = item.y;
-    piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
-    return true;
+    piece.killAction(item, match);
+    piece.resetOrigin(item, item.x, item.y, piece);
   } else {
-    item.originX = item.x;
-    item.originY = item.y;
-    piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
-    return true;
+    piece.resetOrigin(item, item.x, item.y, piece);
   }
 }
 
@@ -71,22 +69,14 @@ Piece.prototype.rookBishopMoveValidation = function (item) {
   if (match.length > 0 && match[0].sprite.color === item.color){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   } else if (match.length > 0 && match[0].sprite.color != item.color) {
-    piece.killAction(item);
-    console.log("something is here and I killed it!");
-    item.originX = item.x;
-    item.originY = item.y;
-    piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
+    piece.killAction(item, match);
+    piece.resetOrigin(item, item.x, item.y, piece);
   } else if (between.length > 0){
-    console.log("Something is between !");
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-  }else {
-    console.log("Bottom of the rookBishopMoveValidation function");
-    item.originX = item.x;
-    item.originY = item.y;
-    piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
+  } else {
+    piece.resetOrigin(item, item.x, item.y, piece);
   }
 }
-/// method for bishops and queens to check if diagonal movement is valid
 
 Piece.prototype.onBoard = function() {
 
@@ -97,28 +87,24 @@ Piece.prototype.isPieceBetweenDiagonal = function (element, index, array, piece)
   if (item.x > item.originX && item.y > item.originY){
     for(var i = item.originX + 100, a = item.originY + 100; i < item.x; i += 100, a += 100){
       if(element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead'){
-        console.log("ONE");
         return true;
       }
     }
   } if(item.x < item.originX && item.y < item.originY){
     for(var i = item.originX - 100, a = item.originY - 100; i > item.x; i -= 100, a -= 100){
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead'){
-        console.log("TWO");
         return true;
       }
     }    
   } if (item.x > item.originX && item.y < item.originY){
     for(var i = item.originX + 100, a = item.originY - 100; i < item.x; i += 100, a -= 100){
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead'){
-        console.log("THREE");
         return true;
       }
     }
   } if(item.x < item.originX && item.y > item.originY){
     for(var i = item.originX - 100, a = item.originY + 100; i > item.x; i -= 100, a += 100){
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead'){
-        console.log("FOUR");
         return true;
       }
     }
@@ -277,9 +263,6 @@ Piece.prototype.deletePawns = function(){
 }
 
 Piece.prototype.deletePieces = function(pieceType){
-  // call this function like: wQueen.move = Piece.prototype.deletePieces(Knight);
-  // OR wQueen.move = Piece.prototype.deletePieces;
-  // Queen.move(Knight);
   var match = allPiecesArray.filter(isPiece);
   function isPiece(element){
     if(element instanceof pieceType){

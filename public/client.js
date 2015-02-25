@@ -236,12 +236,9 @@ $(function() {
     var $typingMessages = getTypingMessages(data);
     // checking to see if the the user has made a rules change request
     if(data.message === 'rule change'){
-      // wQueen.onBoard = Piece.prototype.deletePawns;
       console.log("The rules should change now");
-      // console.log('testing here!: ', ruleChange[0][0]);
-      console.log()
       ruleChange[0][1]();
-      addMessageElement($ruleChangeDiv, options);
+      // addMessageElement($ruleChangeDiv, options);
     }
 
     options = options || {};
@@ -255,12 +252,12 @@ $(function() {
       .css('color', getUsernameColor(data.username));
     
     var $calvinnameDiv = $('<span class="username"/>')
-      .text(ruleChange[0][0]);
+      .text('Calvin');
 
     var $messageBodyDiv = $('<span class="messageBody">')
       .text(data.message);
     var $messageRuleDiv = $('<spac class="messageBody">')
-      .text('hello');
+      .text(ruleChange[0][0]);
 
     var typingClass = data.typing ? 'typing' : '';
     var $messageDiv = $('<li class="message"/>')
@@ -274,6 +271,7 @@ $(function() {
       .append($calvinnameDiv, $messageRuleDiv);
 
     addMessageElement($messageDiv, options);
+    addMessageElement($ruleChangeDiv, options);
   }
 
   // Adds the visual chat typing message

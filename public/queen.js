@@ -11,14 +11,13 @@ Queen.prototype.default_move = function() {
     /// check to see if the move was diagonal or lateral movement
     if(xRatio === yRatio || item.originX === item.x || item.originY === item.y){
       var match = allPiecesArray.filter(this.isPieceHere, this);
-      console.log(match);
       var betweenDiagonal = allPiecesArray.filter(this.isPieceBetweenDiagonal, this);
       var betweenLateral = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
       valid(item);
     //   
     function valid(item){
       if(match.length > 0 && match[0].sprite.color != item.color){
-        piece.killAction(item);
+        piece.killAction(item, match);
         item.originX = item.x;
         item.originY = item.y;
           // After moving, tell server that a piece has been moved.
