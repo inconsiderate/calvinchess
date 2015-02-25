@@ -32,7 +32,9 @@ window.onload = function() {
 
     function preload () {
     
-      game.load.spritesheet('explosion', '/spritesheets/explosion.png', 64, 64, 24);
+      game.load.spritesheet('explosion', '/spritesheets/explosion.png', 64, 64, 24);    
+      game.load.spritesheet('duke', '/spritesheets/duke.png', 50, 71, 10);
+
       game.load.image('background', '/images/chessboard.png');
       game.load.image('square', '/images/grid.jpeg');
       game.load.image('bQueen', '/images/blackqueen.png');
@@ -72,6 +74,11 @@ window.onload = function() {
         background.width = 800;
 
         // var allPieces = game.add.group();
+
+        duke = game.add.sprite(325,300, 'duke');
+        duke.height = 90;
+        duke.animations.add('wave');
+        duke.animations.play('wave', 10, true);
 
         bQueen = new Queen(game, 'black',3, 0, 'bQueen');
         bKing = new King(game, 'black', 4, 0, 'bKing');
