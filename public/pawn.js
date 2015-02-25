@@ -33,7 +33,7 @@ Pawn.prototype.default_move = function() {
       	} else if (match.length === 0 && item.x != item.originX) {
       		game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       	} else if (match.length > 0 && match[0].sprite.color != item.color && xRatio === yRatio) {
-          piece.killAction(item);
+          piece.killAction(item, match);
       		item.counter++;
       		item.originX = item.x;
       		item.originY = item.y;
