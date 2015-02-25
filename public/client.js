@@ -122,7 +122,7 @@ window.onload = function() {
           w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn  );
 
         // Set F keypress to go Full Screen
-        var fullScreenKey = this.input.keyboard.addKey(Phaser.Keyboard.F);
+        var fullScreenKey = this.input.keyboard.addKey(Phaser.Keyboard.TILDE);
         fullScreenKey.onDown.add(gofull, this);
     }
 
@@ -234,45 +234,21 @@ $(function() {
   function addChatMessage (data, options) {
     // Don't fade the message in if there is an 'X was typing'
     var $typingMessages = getTypingMessages(data);
-    // checking to see if the the user has made a rules change request
-    if(data.message === 'rule change'){
-      // wQueen.onBoard = Piece.prototype.deletePawns;
-      console.log("The rules should change now");
-      // console.log('testing here!: ', ruleChange[0][0]);
-      console.log()
-      ruleChange[0][1]();
-      addMessageElement($ruleChangeDiv, options);
-    }
-
     options = options || {};
     if ($typingMessages.length !== 0) {
       options.fade = false;
       $typingMessages.remove();
     }
-
     var $usernameDiv = $('<span class="username"/>')
       .text(data.username)
       .css('color', getUsernameColor(data.username));
-    
-    var $calvinnameDiv = $('<span class="username"/>')
-      .text(ruleChange[0][0]);
-
     var $messageBodyDiv = $('<span class="messageBody">')
       .text(data.message);
-    var $messageRuleDiv = $('<spac class="messageBody">')
-      .text('hello');
-
     var typingClass = data.typing ? 'typing' : '';
     var $messageDiv = $('<li class="message"/>')
       .data('username', data.username)
       .addClass(typingClass)
       .append($usernameDiv, $messageBodyDiv);
-
-    var $ruleChangeDiv = $('<li class="message"/>')
-      .data('username', 'Calvin')
-      .addClass(typingClass)
-      .append($calvinnameDiv, $messageRuleDiv);
-
     addMessageElement($messageDiv, options);
   }
 
@@ -388,7 +364,7 @@ $(function() {
     updateTyping();
   });
 
-  // Chess Events
+  // Chess events
 
   // Broadcast that a piece has been verified as a legal move
   function movePiece (data){
@@ -406,6 +382,19 @@ $(function() {
     game.add.tween(item.sprite).to({x: data.xcoord, y: data.ycoord}, 400, Phaser.Easing.Back.Out, true);
   }
 
+function rulesChange (ruleNumber) {
+  console.log("The rules should change now");
+  ruleChange[0][1]();
+  var $calvinnameDiv = $('<span class="username"/>')
+    .text('CalvinBot');
+  var $messageRuleDiv = $('<spac class="messageBody">')
+    .text(ruleChange[0][0]);
+  var $ruleChangeDiv = $('<li class="message"/>')
+    .data('username', 'CalvinBot')
+    .append($calvinnameDiv, $messageRuleDiv);
+  addMessageElement($ruleChangeDiv);
+}
+
   // Click events
 
   // Focus input when clicking anywhere on login page
@@ -418,7 +407,7 @@ $(function() {
     $inputMessage.focus();
   });
 
-  // Socket events
+  // SOCKET EVENTS
 
   // Whenever the server emits 'login', log the login message
   socket.on('login', function (data) {
@@ -433,7 +422,6 @@ $(function() {
 
   // Whenever the server emits 'new message', update the chat body
   socket.on('new message', function (data) {
-    console.log(data);
     addChatMessage(data);
   });
 
@@ -463,5 +451,9 @@ $(function() {
   // When the server emits 'piece moved', move the piece locally
   socket.on('piece moved', function (data) {
     movePiece(data);
+  });
+
+  socket.on('rules changed', function (data) {
+    rulesChange();
   });
 });

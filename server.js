@@ -26,7 +26,8 @@ io.on('connection', function (socket) {
     });
     console.log(data);
     if (data === "rules change") {
-      console.log("change the rules now");
+      io.sockets.emit('rules changed', {
+      });
     }
   });
 
