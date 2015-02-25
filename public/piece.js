@@ -30,10 +30,10 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
 }
 // METHODS THAT ARE USED IN ALL PIECE MOVEMENTS
 
-Piece.prototype.killAction = function (item, match) {
-  match[0].sprite.destroy();
-  match[0].sprite.lifeStatus = 'dead';
-  var explosionPiece = game.add.sprite(match[0].sprite.originX, match[0].sprite.originY, 'explosion');
+Piece.prototype.killAction = function (match) {
+  match.sprite.destroy();
+  match.sprite.lifeStatus = 'dead';
+  var explosionPiece = game.add.sprite(match.sprite.originX, match.sprite.originY, 'explosion');
   explosionPiece.height = 90;
   explosionPiece.width = 90;
   explosionPiece.animations.add('boom');
@@ -54,7 +54,7 @@ Piece.prototype.kingKnightMoveValidation = function (item) {
   if (match.length > 0 && match[0].sprite.color === item.color){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   } else if (match.length > 0 && match[0].sprite.color != item.color) {
-    piece.killAction(item, match);
+    piece.killAction(match[0]);
     piece.resetOrigin(item, item.x, item.y, piece);
   } else {
     piece.resetOrigin(item, item.x, item.y, piece);
@@ -69,7 +69,7 @@ Piece.prototype.rookBishopMoveValidation = function (item) {
   if (match.length > 0 && match[0].sprite.color === item.color){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   } else if (match.length > 0 && match[0].sprite.color != item.color) {
-    piece.killAction(item, match);
+    piece.killAction(match[0]);
     piece.resetOrigin(item, item.x, item.y, piece);
   } else if (between.length > 0){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
@@ -79,7 +79,7 @@ Piece.prototype.rookBishopMoveValidation = function (item) {
 }
 
 Piece.prototype.onBoard = function() {
-
+  console.log('onBoard function was called!');
 }
 
 Piece.prototype.isPieceBetweenDiagonal = function (element, index, array, piece){
@@ -120,6 +120,10 @@ Piece.prototype.isPieceHere = function(element){
   } else {
     return false;
   }
+}
+
+Piece.prototype.testRuleChange = function(){
+  console.log("THE RULES HAVE CHANGED!!!");
 }
 
 Piece.prototype.sendServerCoord = function(originX, originY, pieceId){
@@ -178,14 +182,10 @@ Piece.prototype.teleport = function(){
         if (match.length > 0 && match[0].sprite.color === item.color){
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
         } else if (match.length > 0 && match[0].sprite.color != item.color) {
-          match[0].sprite.destroy();
-          match[0].sprite.status = 'dead';
-          item.originX = item.x;
-          item.originY = item.y;
-      
+          piece.killAction(match[0]);
+          piece.resetOrigin(item, item.x, item.y, piece);
         } else {
-          item.originX = item.x;
-          item.originY = item.y;
+          piece.resetOrigin(item, item.x, item.y, piece);
         }
       }
       valid(item);
@@ -207,13 +207,10 @@ Piece.prototype.sideways = function(){
       if (match.length > 0 && match[0].sprite.color === item.color){
         game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       } else if (match.length > 0 && match[0].sprite.color != item.color) {
-        match[0].sprite.destroy();
-        match[0].sprite.status = 'dead';
-        item.originX = item.x;
-        item.originY = item.y;
+        piece.killAction(match[0]);
+        piece.resetOrigin(item, item.x, item.y, piece);
       } else {
-        item.originX = item.x;
-        item.originY = item.y;
+        piece.resetOrigin(item, item.x, item.y, piece);
       }
     }
     valid(item);
@@ -231,13 +228,10 @@ Piece.prototype.vertical = function(){
       if (match.length > 0 && match[0].sprite.color === item.color){
         game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       } else if (match.length > 0 && match[0].sprite.color != item.color) {
-        match[0].sprite.destroy();
-        match[0].sprite.status = 'dead';
-        item.originX = item.x;
-        item.originY = item.y;
+        piece.killAction(match[0]);
+        piece.resetOrigin(item, item.x, item.y, piece);
       } else {
-        item.originX = item.x;
-        item.originY = item.y;
+        piece.resetOrigin(item, item.x, item.y, piece);
       }
     }
     valid(item);
@@ -245,7 +239,9 @@ Piece.prototype.vertical = function(){
 }
 
 Piece.prototype.deletePawns = function(){
+  var piece = this;
   // check to see if the other player can see this happen 
+  console.log("DELETEPAWNS WAS CALLED! ");
   var match = allPiecesArray.filter(isPawn);
   function isPawn(element){
     if(element instanceof Pawn){
@@ -256,8 +252,9 @@ Piece.prototype.deletePawns = function(){
   }
   if(match.length > 0){
     for(i = 0; i < match.length; i++ ){
-      match[i].sprite.destroy();
-      match[i].sprite.lifeStatus = 'dead';
+      var matchedPiece = match[i]  
+      piece.killAction(matchedPiece);
+      // send this info to the server so the other player can 
     }
   }
 }
@@ -273,7 +270,9 @@ Piece.prototype.deletePieces = function(pieceType){
   }
   if(match.length > 0){
     for(i = 0; i < match.length; i++ ){
-      match[i].sprite.destroy();
+      var matchedPiece = match[i]  
+      piece.killAction(match[i]);
+      // will have to send this to the server too
     }
   }
 }

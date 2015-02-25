@@ -16,10 +16,7 @@ Pawn.prototype.default_move = function() {
 			game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
 		} else {
 			item.counter++;
-			item.originX = item.x;
-			item.originY = item.y;
-			// After moving, tell server that a piece has been moved.
-			piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
+			piece.resetOrigin(item, item.x, item.y, piece);
 		}
 	} else if(item.color === 'black' && item.y < item.originY){
 		game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
@@ -33,19 +30,14 @@ Pawn.prototype.default_move = function() {
       	} else if (match.length === 0 && item.x != item.originX) {
       		game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       	} else if (match.length > 0 && match[0].sprite.color != item.color && xRatio === yRatio) {
-          piece.killAction(item, match);
+          piece.killAction(match[0]);
       		item.counter++;
-      		item.originX = item.x;
-      		item.originY = item.y;
-      		piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
-
+      		piece.resetOrigin(item, item.x, item.y, piece);
       	} else if (match.length > 0 && item.x != item.originX){
       		game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       	} else {
       		item.counter++;
-      		item.originX = item.x;
-      		item.originY = item.y;
-      		piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
+					piece.resetOrigin(item, item.x, item.y, piece);
       	}
       }
       valid(item);

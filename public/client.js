@@ -4,7 +4,7 @@ var socket = io();
 window.onload = function() {
     window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'game', { preload: preload, create: create, render: render, update: update});
     window.allPiecesArray = [];
-    window.ruleChange = [['If a queen moves, all pawns will be captured', function(){wQueen.onBoard = Piece.prototype.deletePawns; bQueen.onBoard = Piece.prototype.deletePawns;}], ['two', 'drei'], ['three', 'zwei']];
+    window.ruleChange = [['If a queen moves, all pawns will be captured', function(){wQueen.onBoard = Piece.prototype.testRuleChange; bQueen.onBoard = Piece.prototype.testRuleChange;}], ['two', 'drei'], ['three', 'zwei']];
     //Are you sure these have to be defined here?
     
     var explosionPiece;
