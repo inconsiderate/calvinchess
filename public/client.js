@@ -459,9 +459,9 @@ function rulesChange (ruleNumber) {
   });
 
   socket.on('kill piece', function (data) {
-    x = data.xcoord;
-    y = data.ycoord;
-    var match = allPiecesArray.filter(isPieceId);
+    var x = data.xcoord,
+    y = data.ycoord,
+    match = allPiecesArray.filter(isPieceId);
     function isPieceId(element) {
       if(element.pieceId === data.pieceId){
         return true;
@@ -469,16 +469,12 @@ function rulesChange (ruleNumber) {
         return false;
       }
     }
-
     match[0].sprite.destroy();
     match[0].sprite.lifeStatus = 'dead';
-
-    console.log(match[0], x, y);
     var explosionPiece = game.add.sprite(x, y, 'explosion');
     explosionPiece.height = 90;
     explosionPiece.animations.add('boom');
     explosionPiece.animations.play('boom', 20, false, true);
-
   });
 });
 
