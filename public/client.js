@@ -250,7 +250,6 @@ $(function() {
       .addClass(typingClass)
       .append($usernameDiv, $messageBodyDiv);
     addMessageElement($messageDiv, options);
-    addMessageElement($ruleChangeDiv, options);
   }
 
   // Adds the visual chat typing message

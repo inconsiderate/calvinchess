@@ -16,7 +16,6 @@ var usernames = {};
 var numUsers = 0;
 
 io.on('connection', function (socket) {
-  socket.join('chess room');
   var addedUser = false;
 
   socket.on('new message', function (data) {
