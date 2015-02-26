@@ -8,27 +8,6 @@ window.onload = function() {
     window.whitePieces = [];
     window.turnCounter = 0 
 
-    window.changeTurn = function() {
-      if (turnCounter % 2 === 0){
-        console.log("Player One's Turn!");
-        for(i = 0; i < whitePieces.length; i ++){
-          whitePieces[i].sprite.input.draggable = true;
-        }
-        for(i = 0; i < blackPieces.length; i ++){
-          blackPieces[i].sprite.input.draggable = false;
-        }
-
-      } else {
-        console.log("Player Two's Turn!");
-        for(i = 0; i < blackPieces.length; i ++){
-          blackPieces[i].sprite.input.draggable = true;
-        }
-        for(i = 0; i < whitePieces.length; i ++){
-          whitePieces[i].sprite.input.draggable = false;
-        }
-      }
-    }
-
     var explosionPiece;
 
     var bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, 
@@ -396,6 +375,26 @@ $(function() {
     game.add.tween(item.sprite).to({x: data.xcoord, y: data.ycoord}, 400, Phaser.Easing.Back.Out, true);
   }
 
+function playerOne(){
+  console.log("PLAYER ONE");
+  for(i = 0; i < blackPieces.length; i ++){
+    blackPieces[i].sprite.input.draggable = true;
+  }
+  for(i = 0; i < whitePieces.length; i ++){
+    whitePieces[i].sprite.input.draggable = false;
+  }
+}
+
+function playerTwo(){
+  console.log("PLAYER TWO");
+  for(i = 0; i < whitePieces.length; i ++){
+    whitePieces[i].sprite.input.draggable = true;
+  }
+  for(i = 0; i < blackPieces.length; i ++){
+    blackPieces[i].sprite.input.draggable = false;
+  }
+}
+
 function rulesChange (ruleNumber) {
   allRulesArray[0][1]();
   var $calvinnameDiv = $('<span class="username"/>')
@@ -488,5 +487,15 @@ function rulesChange (ruleNumber) {
     explosionPiece.animations.add('boom');
     explosionPiece.animations.play('boom', 20, false, true);
   });
+
+    socket.on('player1', function(){
+      playerOne();
+      console.log("Player 1, client side.");
+    });
+    
+    socket.on('player2', function(){
+      console.log("Player 2, client side");
+      playerTwo();
+    });
 });
 
