@@ -18,18 +18,33 @@ var player1 = "";
 var player2 = "";
 
 io.on('connection', function(socket) {
+  socket.join('default');
   var addedUser = false;
 
   socket.on('new message', function(data) {
-    socket.broadcast.emit('new message', {
+    console.log(data);
+    io.to(data.channel).emit('new message', {
       username: socket.username,
-      message: data
+      message: data.message
     });
 
     // echo globally to all users that a rule has changed
-    console.log(data);
-    if (data === "rule change") {
+    console.log(socket.username, 'posted:', data.message);
+    if (data.message === "rule change") {
       io.sockets.emit('rules changed', {});
+    } else if (data.message.indexOf("join channel") > -1) {
+      var splitData = data.message.split(" "),
+        channelName = splitData[2];
+      io.sockets.emit('new message', {
+        username: 'SYSTEM',
+        message: 'Player ' + socket.username + ' switched to channel: ' + channelName
+      });
+      socket.join(channelName);
+      socket.emit('current channel', {
+        currentChannel: channelName
+      });
+    } else {
+      return false;
     }
   });
 
