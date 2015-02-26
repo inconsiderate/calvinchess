@@ -40,12 +40,14 @@ io.on('connection', function (socket) {
     if (player1 === "") {
       player1 = username;
       console.log('Player 1 assigned to:',player1);
+      socket.emit('player1 active', {});
     }else if (player2 === "") {
       player2 = username;
       console.log('Player 2 assigned to:',player2);
+      socket.emit('player inactive', {});
     } else {
-      socket.emit('player1 inactive', {});
-      socket.emit('player2 inactive', {});
+      console.log('Spectator joined:',socket.username);
+      socket.emit('player inactive', {});
     };
 
     clientIp = socket.request.connection.remoteAddress;
@@ -109,11 +111,11 @@ io.on('connection', function (socket) {
     });
     if (socket.username == player1) {
       socket.broadcast.emit('player2 active', {});
-      socket.emit('player1 inactive', {});
+      socket.emit('player inactive', {});
       console.log("player 1 moved");
     } else if (socket.username == player2) {
       socket.broadcast.emit('player1 active', {});
-      socket.emit('player2 inactive', {});
+      socket.emit('player inactive', {});
       console.log("player 2 moved");
     }
   });
