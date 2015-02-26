@@ -44,8 +44,8 @@ var kingsBecomeBatman = function(){
 	allPiecesArray[17].sprite.destroy();
 	allPiecesArray[17].sprite.destroy();
 	// generate batman on the king coords
-  bKing = new King(game, 'black', (x1 / 100), (y1 / 100), 'batman');
-  wKing = new King(game, 'white', (x2 / 100), (y2 / 100), 'batman');
+  var bKing = new King(game, 'black', (x1 / 100), (y1 / 100), 'batman');
+  var wKing = new King(game, 'white', (x2 / 100), (y2 / 100), 'batman');
 
   bKing.height = 200;
   bKing.width = 200;
@@ -59,6 +59,6 @@ window.allRulesArray = [['If a queen moves, all pawns will be captured', queenKi
 ['All rooks can now move like queens', rooksToQueens], 
 ['One piece on the board can now teleport', oneTeleport],
 ['Both Queens are now stuck', stuckQueens], 
-['Rooks can only move horizontally', horizontalRooks],
-['Kings are now Batman', kingsBecomeBatman]];
+['Kings are now Batman', kingsBecomeBatman],
+['Rooks can only move horizontally', horizontalRooks]];
 
