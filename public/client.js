@@ -408,6 +408,8 @@ $(function() {
 
           item.sprite.x = data.xcoord;
           item.sprite.y = data.ycoord;
+          item.sprite.originX = data.xcoord;
+          item.sprite.originY = data.ycoord;
           game.add.tween(item.sprite).to({
             x: data.xcoord,
             y: data.ycoord
