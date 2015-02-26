@@ -93,7 +93,11 @@ Piece.prototype.rookMoveValidation = function (item) {
   } else if (between.length > 0){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   } else {
-    piece.resetOrigin(item, item.x, item.y, piece);
+    if (item.x === item.originX && item.y === item.originY) {
+      return true;
+    } else {
+      piece.resetOrigin(item, item.x, item.y, piece);
+    }
   }
 }
 Piece.prototype.BishopMoveValidation = function (item) {
@@ -105,7 +109,11 @@ Piece.prototype.BishopMoveValidation = function (item) {
   } else if (between.length > 0){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   } else {
-    piece.resetOrigin(item, item.x, item.y, piece);
+    if (item.x === item.originX && item.y === item.originY) {
+      return true;
+    } else {
+      piece.resetOrigin(item, item.x, item.y, piece);
+    }
   }
 }
 Piece.prototype.onBoard = function() {
