@@ -14,6 +14,8 @@ app.use(express.static(__dirname + '/public'));
 
 var usernames = {};
 var numUsers = 0;
+var player1 = "";
+var player2 = "";
 
 io.on('connection', function (socket) {
   var addedUser = false;
@@ -33,6 +35,14 @@ io.on('connection', function (socket) {
   socket.on('add user', function (username) {
     // store the username in the socket session for this client
     socket.username = username;
+    if (player1 === "") {
+      player1 = username;
+      console.log('Player 1 assigned to:',player1);
+    }else if (player2 === "") {
+      player2 = username;
+      console.log('Player 2 assigned to:',player2);
+    };
+
     clientIp = socket.request.connection.remoteAddress;
     console.log(username, 'logged on from ip:', clientIp);
     // add the client's username to the global list
@@ -68,12 +78,18 @@ io.on('connection', function (socket) {
     if (addedUser) {
       delete usernames[socket.username];
       --numUsers;
-
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
         username: socket.username,
         numUsers: numUsers
       });
+      console.log("before disconnect:", player1, player2);
+      if (player1 === socket.username) {
+        player1 = "";
+      } else if (player2 === socket.username) {
+        player2 = "";
+      }
+      console.log("after disconnect:", player1, player2);
     }
   });
 
