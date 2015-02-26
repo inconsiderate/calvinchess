@@ -309,10 +309,7 @@ Piece.prototype.vertical = function() {
 
     function valid(item) {
       if (match.length > 0 && match[0].sprite.color === item.color) {
-        game.add.tween(item).to({
-          x: item.originX,
-          y: item.originY
-        }, 400, Phaser.Easing.Back.Out, true);
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       } else if (match.length > 0 && match[0].sprite.color != item.color) {
         piece.killAction(item, match);
         piece.resetOrigin(item, item.x, item.y, piece);
@@ -324,12 +321,12 @@ Piece.prototype.vertical = function() {
   }
 }
 
-Piece.prototype.deletePawns = function() {
+Piece.prototype.deletePiece = function(Piece) {
   // check to see if the other player can see this happen 
   var match = allPiecesArray.filter(isPawn);
 
   function isPawn(element) {
-      if (element instanceof Pawn) {
+      if (element instanceof Piece) {
         return true;
       } else {
         return false;
