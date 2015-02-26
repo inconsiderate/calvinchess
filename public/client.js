@@ -4,9 +4,11 @@ var socket = io();
 window.onload = function() {
     window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'game', { preload: preload, create: create, render: render, update: update});
     window.allPiecesArray = [];
+    window.blackPieces = [];
+    window.whitePieces = [];
     window.ruleChange = [['If a queen moves, all pawns will be captured', function(){wQueen.onBoard = Piece.prototype.deletePawns; bQueen.onBoard = Piece.prototype.deletePawns;}], ['two', 'drei'], ['three', 'zwei']];
-    //Are you sure these have to be defined here?
-    
+    window.turnCounter = 0 
+
     var explosionPiece;
 
     var bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, 
@@ -14,21 +16,6 @@ window.onload = function() {
     window.wQueen;
     var  wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight, 
           w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn;
-
-    // window.ruleChange = {
-    //   'one' : function(){
-    //     wQueen.onBoard = Piece.prototype.deletePawns;
-    //     bQueen.onBoard = 
-    //     // if th
-    //   }, 
-    //   'two' : function(){
-    //     wQueen.move = Piece.prototype.teleport;
-    //     bQueen.move = Piece.prototype.teleport;
-    //     // queens can now teleport
-    //   }
-    // }
-
-
 
     function preload () {
     
@@ -121,6 +108,12 @@ window.onload = function() {
           b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn, wQueen, wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight, 
           w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn  );
 
+        blackPieces.push(bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, 
+          b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn);
+
+        whitePieces.push( wQueen, wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight, 
+          w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn);
+
         // Set F keypress to go Full Screen
         var fullScreenKey = this.input.keyboard.addKey(Phaser.Keyboard.TILDE);
         fullScreenKey.onDown.add(gofull, this);
@@ -152,7 +145,6 @@ window.onload = function() {
         wQueen.move = Piece.prototype.deletePawns;
     }
   }
-
     function render() {
       // game.debug.text('Tile X: ' + currentTile.x + 'Y: ' + currentTile.y, 100, 100);
     }
