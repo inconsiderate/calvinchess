@@ -335,10 +335,9 @@ Piece.prototype.deletePawns = function() {
         return false;
       }
     }
-    // piece.killAction(item, match);
-    // add a thing in KillAction which tests to see if array is bigger than 1 and then delets all. 
   if (match.length > 0) {
     for (i = 0; i < match.length; i++) {
+      piece.sendServerKill(match[i]);
       match[i].sprite.destroy();
       match[i].sprite.lifeStatus = 'dead';
     }
