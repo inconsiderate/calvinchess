@@ -22,6 +22,7 @@ window.onload = function() {
     
       game.load.spritesheet('explosion', '/spritesheets/explosion.png', 64, 64, 24);    
       game.load.spritesheet('duke', '/spritesheets/duke.png', 50, 71, 10);
+      game.load.spritesheet('batman', '/spritesheets/batman.png', 69, 69, 30);
 
       game.load.image('background', '/images/chessboard.png');
       game.load.image('square', '/images/grid.jpeg');
@@ -63,10 +64,16 @@ window.onload = function() {
 
         // var allPieces = game.add.group();
 
-        duke = game.add.sprite(325,300, 'duke');
-        duke.height = 90;
-        duke.animations.add('wave');
-        duke.animations.play('wave', 10, true);
+        batman = game.add.sprite(300,300, 'batman');
+        batman.height = 100;
+        batman.width = 100;
+        batman.animations.add('wave');
+        batman.animations.play('wave', 10, true);
+
+        // duke = game.add.sprite(325,300, 'duke');
+        // duke.height = 90;
+        // duke.animations.add('wave');
+        // duke.animations.play('wave', 10, true);
 
         bQueen = new Queen(game, 'black',3, 0, 'bQueen');
         bKing = new King(game, 'black', 4, 0, 'bKing');
@@ -377,11 +384,11 @@ $(function() {
   }
 
 function rulesChange (ruleNumber) {
-  allRulesArray[4][1]();
+  allRulesArray[5][1]();
   var $calvinnameDiv = $('<span class="username"/>')
     .text('CalvinBot');
   var $messageRuleDiv = $('<spac class="messageBody">')
-    .text(allRulesArray[4][0]);
+    .text(allRulesArray[5][0]);
   var $ruleChangeDiv = $('<li class="message"/>')
     .data('username', 'CalvinBot')
     .append($calvinnameDiv, $messageRuleDiv);
