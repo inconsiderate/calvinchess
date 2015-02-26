@@ -10,7 +10,7 @@ Bishop.prototype.default_move = function() {
 	if (Math.abs(item.originX -item.x) != Math.abs(item.originY - item.y)) {
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   } else {
-    this.rookBishopMoveValidation(item);
+    this.BishopMoveValidation(item);
   }
 };
 

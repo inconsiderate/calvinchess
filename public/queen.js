@@ -2,7 +2,6 @@ function Queen(game, color, xcoor, ycoor, pieceName){
   this.create(xcoor, ycoor, pieceName, color);
 }
 Queen.prototype = new Piece();
-
 Queen.prototype.default_move = function() {
   var piece = this,
   item = this.sprite,
@@ -21,18 +20,16 @@ Queen.prototype.default_move = function() {
         item.originX = item.x;
         item.originY = item.y;
         // After moving, tell server that a piece has been moved.
+
         piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
       } else if (betweenDiagonal.length > 0 && xRatio === xRatio) {
         game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       } else if (betweenLateral.length > 0 && item.originX === item.x || betweenLateral.length > 0 && item.originY === item.y) {
         game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       } else {
-        console.log(item.x, item.originX);
         if (item.x === item.originX && item.y === item.originY) {
           return true;
         } else {
-          item.originX = item.x;
-          item.originY = item.y;
           piece.resetOrigin(item, item.x, item.y, piece);
         }
       }
@@ -44,4 +41,5 @@ Queen.prototype.default_move = function() {
 
 Queen.prototype.move = Queen.prototype.default_move;
 
-Queen.prototype.onBoard = Queen.prototype.onBoard;
+Queen.prototype.onBoard = Queen.prototype.onBoard;  
+

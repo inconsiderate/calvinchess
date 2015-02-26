@@ -84,7 +84,7 @@ Piece.prototype.kingKnightMoveValidation = function (item) {
 }
 
 //Rook and Bishop have the same movement validation.
-Piece.prototype.rookBishopMoveValidation = function (item) {
+Piece.prototype.rookMoveValidation = function (item) {
   var piece = this;
   var match = allPiecesArray.filter(this.isPieceHere, this);
   var between = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
@@ -96,7 +96,18 @@ Piece.prototype.rookBishopMoveValidation = function (item) {
     piece.resetOrigin(item, item.x, item.y, piece);
   }
 }
-
+Piece.prototype.BishopMoveValidation = function (item) {
+  var piece = this;
+  var match = allPiecesArray.filter(this.isPieceHere, this);
+  var between = allPiecesArray.filter(this.isPieceBetweenDiagonal, this);
+  if (piece.killAction(item, match) === true) {
+    console.log('knight kill action');
+  } else if (between.length > 0){
+    game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+  } else {
+    piece.resetOrigin(item, item.x, item.y, piece);
+  }
+}
 Piece.prototype.onBoard = function() {
 
 }
@@ -197,14 +208,10 @@ Piece.prototype.teleport = function(){
         if (match.length > 0 && match[0].sprite.color === item.color){
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
         } else if (match.length > 0 && match[0].sprite.color != item.color) {
-          match[0].sprite.destroy();
-          match[0].sprite.status = 'dead';
-          item.originX = item.x;
-          item.originY = item.y;
-      
+            piece.killAction(item, match);        
+            piece.resetOrigin(item, item.x, item.y, piece);
         } else {
-          item.originX = item.x;
-          item.originY = item.y;
+          piece.resetOrigin(item, item.x, item.y, piece);
         }
       }
       valid(item);
@@ -226,13 +233,10 @@ Piece.prototype.sideways = function(){
       if (match.length > 0 && match[0].sprite.color === item.color){
         game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       } else if (match.length > 0 && match[0].sprite.color != item.color) {
-        match[0].sprite.destroy();
-        match[0].sprite.status = 'dead';
-        item.originX = item.x;
-        item.originY = item.y;
+        piece.killAction(item, match);
+        piece.resetOrigin(item, item.x, item.y, piece);
       } else {
-        item.originX = item.x;
-        item.originY = item.y;
+        piece.resetOrigin(item, item.x, item.y, piece);      
       }
     }
     valid(item);
@@ -250,13 +254,10 @@ Piece.prototype.vertical = function(){
       if (match.length > 0 && match[0].sprite.color === item.color){
         game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       } else if (match.length > 0 && match[0].sprite.color != item.color) {
-        match[0].sprite.destroy();
-        match[0].sprite.status = 'dead';
-        item.originX = item.x;
-        item.originY = item.y;
+        piece.killAction(item, match);
+        piece.resetOrigin(item, item.x, item.y, piece);      
       } else {
-        item.originX = item.x;
-        item.originY = item.y;
+        piece.resetOrigin(item, item.x, item.y, piece);
       }
     }
     valid(item);
@@ -273,6 +274,8 @@ Piece.prototype.deletePawns = function(){
       return false;
     }
   }
+  // piece.killAction(item, match);
+  // add a thing in KillAction which tests to see if array is bigger than 1 and then delets all. 
   if(match.length > 0){
     for(i = 0; i < match.length; i++ ){
       match[i].sprite.destroy();
@@ -281,18 +284,3 @@ Piece.prototype.deletePawns = function(){
   }
 }
 
-Piece.prototype.deletePieces = function(pieceType){
-  var match = allPiecesArray.filter(isPiece);
-  function isPiece(element){
-    if(element instanceof pieceType){
-      return true;
-    } else {
-      return false;
-    }
-  }
-  if(match.length > 0){
-    for(i = 0; i < match.length; i++ ){
-      match[i].sprite.destroy();
-    }
-  }
-}

@@ -11,7 +11,7 @@ Rook.prototype.default_move = function() {
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   }
   else {
-    this.rookBishopMoveValidation(item);
+    this.rookMoveValidation(item);
   };
 }
 
