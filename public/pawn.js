@@ -15,7 +15,6 @@ Pawn.prototype.default_move = function() {
 		} else if(yRatio > 200 || xRatio > 200){
 			game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
 		} else {
-			item.counter++;
 			piece.resetOrigin(item, item.x, item.y, piece);
 		}
 	} else if(item.color === 'black' && item.y < item.originY){
@@ -31,13 +30,11 @@ Pawn.prototype.default_move = function() {
       		game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       	} else if (match.length > 0 && match[0].sprite.color != item.color && xRatio === yRatio) {
           piece.killAction(item, match);
-      		item.counter++;
       		piece.resetOrigin(item, item.x, item.y, piece);
 
       	} else if (match.length > 0 && item.x != item.originX){
       		game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       	} else {
-      		item.counter++;
       		piece.resetOrigin(item, item.x, item.y, piece);
       	}
       }

@@ -7,6 +7,28 @@ window.onload = function() {
     window.blackPieces = [];
     window.whitePieces = [];
     window.turnCounter = 0 
+
+    window.changeTurn = function() {
+      if (turnCounter % 2 === 0){
+        console.log("Player One's Turn!");
+        for(i = 0; i < whitePieces.length; i ++){
+          whitePieces[i].sprite.input.draggable = true;
+        }
+        for(i = 0; i < blackPieces.length; i ++){
+          blackPieces[i].sprite.input.draggable = false;
+        }
+
+      } else {
+        console.log("Player Two's Turn!");
+        for(i = 0; i < blackPieces.length; i ++){
+          blackPieces[i].sprite.input.draggable = true;
+        }
+        for(i = 0; i < whitePieces.length; i ++){
+          whitePieces[i].sprite.input.draggable = false;
+        }
+      }
+    }
+
     var explosionPiece;
 
     var bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, 
