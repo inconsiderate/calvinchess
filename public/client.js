@@ -2,24 +2,29 @@ var socket = io();
 
 
 window.onload = function() {
-  window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'game', { preload: preload, create: create, render: render, update: update});
+  window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'game', {
+    preload: preload,
+    create: create,
+    render: render,
+    update: update
+  });
   window.allPiecesArray = [];
   window.blackPieces = [];
   window.whitePieces = [];
-  window.turnCounter = 0 
+  window.turnCounter = 0
   window.allRulesArray;
 
   var explosionPiece;
 
-  var bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, 
-      b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn;
+  var bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight,
+    b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn;
   window.bQueen;
   window.wQueen;
-  var  wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight, 
-      w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn;
+  var wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight,
+    w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn;
 
-  function preload () {
-    game.load.spritesheet('explosion', '/spritesheets/explosion.png', 64, 64, 24);    
+  function preload() {
+    game.load.spritesheet('explosion', '/spritesheets/explosion.png', 64, 64, 24);
     game.load.spritesheet('duke', '/spritesheets/duke.png', 50, 71, 10);
     game.load.spritesheet('batman', '/spritesheets/batman.png', 69, 69, 30);
 
@@ -43,17 +48,16 @@ window.onload = function() {
   var allPieces;
   var grid = [];
   var currentTile = new Phaser.Point();
-  
-  function create () {
+
+  function create() {
 
     game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     // Create GRID for units to move over.
-    for (var y=0; y<8; y++) 
-    {
-      grid[y]= [];
-      for (var x=0; x<8; x++){
+    for (var y = 0; y < 8; y++) {
+      grid[y] = [];
+      for (var x = 0; x < 8; x++) {
         grid[y][x] = game.add.image(x * 100, y * 100, 'square');
       }
     }
@@ -74,12 +78,12 @@ window.onload = function() {
     // duke.animations.add('wave');
     // duke.animations.play('wave', 10, true);
 
-    bQueen = new Queen(game, 'black',3, 0, 'bQueen');
+    bQueen = new Queen(game, 'black', 3, 0, 'bQueen');
     bKing = new King(game, 'black', 4, 0, 'bKing');
-    b1Rook = new Rook(game, 'black',7,0,'bRook');
-    b2Rook = new Rook(game, 'black',0,0, 'bRook');
-    b1Bishop = new Bishop(game, 'black', 2,0, 'bBishop');
-    b2Bishop = new Bishop(game, 'black', 6,0, 'bBishop');
+    b1Rook = new Rook(game, 'black', 7, 0, 'bRook');
+    b2Rook = new Rook(game, 'black', 0, 0, 'bRook');
+    b1Bishop = new Bishop(game, 'black', 2, 0, 'bBishop');
+    b2Bishop = new Bishop(game, 'black', 6, 0, 'bBishop');
     b1Knight = new Knight(game, 'black', 1, 0, 'bKnight');
     b2Knight = new Knight(game, 'black', 5, 0, 'bKnight');
     b1Pawn = new Pawn(game, 'black', 0, 1, 'bPawn');
@@ -90,12 +94,12 @@ window.onload = function() {
     b6Pawn = new Pawn(game, 'black', 5, 1, 'bPawn');
     b7Pawn = new Pawn(game, 'black', 6, 1, 'bPawn');
     b8Pawn = new Pawn(game, 'black', 7, 1, 'bPawn');
-      
+
     // Generate WHITE starting pieces
     wQueen = new Queen(game, 'white', 3, 7, 'wQueen');
-    wKing = new King(game, 'white',4, 7, 'wKing');
+    wKing = new King(game, 'white', 4, 7, 'wKing');
     w1Rook = new Rook(game, 'white', 7, 7, 'wRook');
-    w2Rook = new Rook(game, 'white',0, 7, 'wRook');
+    w2Rook = new Rook(game, 'white', 0, 7, 'wRook');
     w1Bishop = new Bishop(game, 'white', 2, 7, 'wBishop');
     w2Bishop = new Bishop(game, 'white', 6, 7, 'wBishop');
     w1Knight = new Knight(game, 'white', 1, 7, 'wKnight');
@@ -111,25 +115,25 @@ window.onload = function() {
     w8Pawn = new Pawn(game, 'white', 7, 6, 'wPawn');
 
     // add all pieces to an array, so their positions on the board can be checked
-    allPiecesArray.push(bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, 
-      b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn, wQueen, wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight, 
-      w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn  );
+    allPiecesArray.push(bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight,
+      b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn, wQueen, wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight,
+      w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn);
 
-    blackPieces.push(bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, 
+    blackPieces.push(bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight,
       b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn);
 
-    whitePieces.push( wQueen, wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight, 
+    whitePieces.push(wQueen, wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight,
       w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn);
 
     // Set F keypress to go Full Screen
     var fullScreenKey = this.input.keyboard.addKey(Phaser.Keyboard.TILDE);
     fullScreenKey.onDown.add(gofull, this);
 
-    function lockPlayers() { 
-      for(i = 0; i < blackPieces.length; i ++){
+    function lockPlayers() {
+      for (i = 0; i < blackPieces.length; i++) {
         blackPieces[i].sprite.input.draggable = false;
       }
-      for(i = 0; i < whitePieces.length; i ++){
+      for (i = 0; i < whitePieces.length; i++) {
         whitePieces[i].sprite.input.draggable = false;
       }
     }
@@ -137,8 +141,7 @@ window.onload = function() {
   }
 
   function clickedBlock() {
-    if (currentTile.x >= 0 && currentTile.x <= 8 && currentTile.y >= 0 && currentTile.y <= 8)
-    {
+    if (currentTile.x >= 0 && currentTile.x <= 8 && currentTile.y >= 0 && currentTile.y <= 8) {
       square = grid[currentTile.y][currentTile.x];
       square.alpha = 0.5;
     }
@@ -146,22 +149,28 @@ window.onload = function() {
   }
 
   function gofull() {
-    if (game.scale.isFullScreen)
-    {
+    if (game.scale.isFullScreen) {
       game.scale.stopFullScreen();
     } else {
       game.scale.startFullScreen(false);
     }
   }
-  function update(){
-    currentTile.x = this.game.math.snapToFloor(game.input.x, 100)/100;
-    currentTile.y = this.game.math.snapToFloor(game.input.y, 100)/100;
-    if(wKing.sprite.lifeStatus === 'dead' || bKing.sprite.lifeStatus === 'dead'){
-      var style = { font: "65px Arial", fill: "#ff0044", align: "center", color: 'red' };
+
+  function update() {
+    currentTile.x = this.game.math.snapToFloor(game.input.x, 100) / 100;
+    currentTile.y = this.game.math.snapToFloor(game.input.y, 100) / 100;
+    if (wKing.sprite.lifeStatus === 'dead' || bKing.sprite.lifeStatus === 'dead') {
+      var style = {
+        font: "65px Arial",
+        fill: "#ff0044",
+        align: "center",
+        color: 'red'
+      };
       var text = game.add.text(200, 200, 'Game Over!', style);
       wQueen.move = Piece.prototype.deletePawns;
+    }
   }
-}
+
   function render() {
     // game.debug.text('Tile X: ' + currentTile.x + 'Y: ' + currentTile.y, 100, 100);
   }
@@ -191,7 +200,7 @@ $(function() {
   var lastTypingTime;
   var $currentInput = $usernameInput.focus();
 
-  function addParticipantsMessage (data) {
+  function addParticipantsMessage(data) {
     var message = '';
     if (data.numUsers === 1) {
       message += "there's 1 participant";
@@ -202,7 +211,7 @@ $(function() {
   }
 
   // Sets the client's username
-  function setUsername () {
+  function setUsername() {
     username = cleanInput($usernameInput.val().trim());
 
     // If the username is valid
@@ -218,7 +227,7 @@ $(function() {
   }
 
   // Sends a chat message
-  function sendMessage () {
+  function sendMessage() {
     var message = $inputMessage.val();
     message = cleanInput(message);
     // if there is a non-empty message and a socket connection
@@ -234,14 +243,14 @@ $(function() {
   }
 
   // Log a message
-  function log (message, options) {
+  function log(message, options) {
     var $el = $('<li>').addClass('log').text(message);
     addMessageElement($el, options);
   }
 
   // Adds the visual chat message to the message list
 
-    function addChatMessage (data, options) {
+  function addChatMessage(data, options) {
     // Don't fade the message in if there is an 'X was typing'
     var $typingMessages = getTypingMessages(data);
     options = options || {};
@@ -264,20 +273,20 @@ $(function() {
 
 
   // Adds the visual chat typing message
-  function addChatTyping (data) {
+  function addChatTyping(data) {
     data.typing = true;
     data.message = 'is typing';
     addChatMessage(data);
   }
 
   // Removes the visual chat typing message
-  function removeChatTyping (data) {
-    getTypingMessages(data).fadeOut(function () {
+  function removeChatTyping(data) {
+    getTypingMessages(data).fadeOut(function() {
       $(this).remove();
     });
   }
 
-  function addMessageElement (el, options) {
+  function addMessageElement(el, options) {
     var $el = $(el);
 
     // Setup default options
@@ -304,12 +313,12 @@ $(function() {
   }
 
   // Prevents input from having injected markup
-  function cleanInput (input) {
+  function cleanInput(input) {
     return $('<div/>').text(input).text();
   }
 
   // Updates the typing event
-  function updateTyping () {
+  function updateTyping() {
     if (connected) {
       if (!typing) {
         typing = true;
@@ -317,7 +326,7 @@ $(function() {
       }
       lastTypingTime = (new Date()).getTime();
 
-      setTimeout(function () {
+      setTimeout(function() {
         var typingTimer = (new Date()).getTime();
         var timeDiff = typingTimer - lastTypingTime;
         if (timeDiff >= TYPING_TIMER_LENGTH && typing) {
@@ -329,18 +338,18 @@ $(function() {
   }
 
   // Gets the 'X is typing' messages of a user
-  function getTypingMessages (data) {
-    return $('.typing.message').filter(function (i) {
+  function getTypingMessages(data) {
+    return $('.typing.message').filter(function(i) {
       return $(this).data('username') === data.username;
     });
   }
 
   // Gets the color of a username through our hash function
-  function getUsernameColor (username) {
+  function getUsernameColor(username) {
     // Compute hash code
     var hash = 7;
     for (var i = 0; i < username.length; i++) {
-       hash = username.charCodeAt(i) + (hash << 5) - hash;
+      hash = username.charCodeAt(i) + (hash << 5) - hash;
     }
     // Calculate color
     var index = Math.abs(hash % COLORS.length);
@@ -349,7 +358,7 @@ $(function() {
 
   // Keyboard events
 
-  $window.keydown(function (event) {
+  $window.keydown(function(event) {
     // Auto-focus the current input when a key is typed
     if (!(event.ctrlKey || event.metaKey || event.altKey)) {
       $currentInput.focus();
@@ -373,10 +382,11 @@ $(function() {
   // Chess events
 
   // Broadcast that a piece has been verified as a legal move
-  function movePiece (data){
+  function movePiece(data) {
     var match = allPiecesArray.filter(isPieceId);
+
     function isPieceId(element) {
-      if(element.pieceId === data.pieceId){
+      if (element.pieceId === data.pieceId) {
         return true;
       } else {
         return false;
@@ -386,37 +396,40 @@ $(function() {
 
     item.sprite.x = data.xcoord;
     item.sprite.y = data.ycoord;
-    game.add.tween(item.sprite).to({x: data.xcoord, y: data.ycoord}, 400, Phaser.Easing.Back.Out, true);
+    game.add.tween(item.sprite).to({
+      x: data.xcoord,
+      y: data.ycoord
+    }, 400, Phaser.Easing.Back.Out, true);
   }
 
-function rulesChange (ruleNumber) {
-  allRulesArray[4][1]();
-  var $calvinnameDiv = $('<span class="username"/>')
-    .text('CalvinBot');
-  var $messageRuleDiv = $('<spac class="messageBody">')
-    .text(allRulesArray[4][0]);
-  var $ruleChangeDiv = $('<li class="message"/>')
-    .data('username', 'CalvinBot')
-    .append($calvinnameDiv, $messageRuleDiv);
-  addMessageElement($ruleChangeDiv);
-}
+  function rulesChange(ruleNumber) {
+    allRulesArray[4][1]();
+    var $calvinnameDiv = $('<span class="username"/>')
+      .text('CalvinBot');
+    var $messageRuleDiv = $('<spac class="messageBody">')
+      .text(allRulesArray[4][0]);
+    var $ruleChangeDiv = $('<li class="message"/>')
+      .data('username', 'CalvinBot')
+      .append($calvinnameDiv, $messageRuleDiv);
+    addMessageElement($ruleChangeDiv);
+  }
 
   // Click events
 
   // Focus input when clicking anywhere on login page
-  $loginPage.click(function () {
+  $loginPage.click(function() {
     $currentInput.focus();
   });
 
   // Focus input when clicking on the message input's border
-  $inputMessage.click(function () {
+  $inputMessage.click(function() {
     $inputMessage.focus();
   });
 
   // SOCKET EVENTS
 
   // Whenever the server emits 'login', log the login message
-  socket.on('login', function (data) {
+  socket.on('login', function(data) {
     connected = true;
     // Display the welcome message
     var message = "Lighthouse Plays Calvin Chess – ";
@@ -427,48 +440,49 @@ function rulesChange (ruleNumber) {
   });
 
   // Whenever the server emits 'new message', update the chat body
-  socket.on('new message', function (data) {
+  socket.on('new message', function(data) {
     addChatMessage(data);
   });
 
   // Whenever the server emits 'user joined', log it in the chat body
-  socket.on('user joined', function (data) {
+  socket.on('user joined', function(data) {
     log(data.username + ' joined');
     addParticipantsMessage(data);
   });
 
   // Whenever the server emits 'user left', log it in the chat body
-  socket.on('user left', function (data) {
+  socket.on('user left', function(data) {
     log(data.username + ' left');
     addParticipantsMessage(data);
     removeChatTyping(data);
   });
 
   // Whenever the server emits 'typing', show the typing message
-  socket.on('typing', function (data) {
+  socket.on('typing', function(data) {
     addChatTyping(data);
   });
 
   // Whenever the server emits 'stop typing', kill the typing message
-  socket.on('stop typing', function (data) {
+  socket.on('stop typing', function(data) {
     removeChatTyping(data);
   });
 
   // When the server emits 'piece moved', move the piece locally
-  socket.on('piece moved', function (data) {
+  socket.on('piece moved', function(data) {
     movePiece(data);
   });
 
-  socket.on('rules changed', function (data) {
+  socket.on('rules changed', function(data) {
     rulesChange();
   });
 
-  socket.on('kill piece', function (data) {
+  socket.on('kill piece', function(data) {
     var x = data.xcoord,
-    y = data.ycoord,
-    match = allPiecesArray.filter(isPieceId);
+      y = data.ycoord,
+      match = allPiecesArray.filter(isPieceId);
+
     function isPieceId(element) {
-      if(element.pieceId === data.pieceId){
+      if (element.pieceId === data.pieceId) {
         return true;
       } else {
         return false;
@@ -482,28 +496,27 @@ function rulesChange (ruleNumber) {
     explosionPiece.animations.play('boom', 20, false, true);
   });
 
-  socket.on('player2 active', function(){
+  socket.on('player2 active', function() {
     console.log("PLAYER TWO");
-    for(i = 0; i < blackPieces.length; i ++){
+    for (i = 0; i < blackPieces.length; i++) {
       blackPieces[i].sprite.input.draggable = true;
     }
   });
 
-  socket.on('player1 active', function(){
+  socket.on('player1 active', function() {
     console.log("PLAYER ONE");
-    for(i = 0; i < whitePieces.length; i ++){
+    for (i = 0; i < whitePieces.length; i++) {
       whitePieces[i].sprite.input.draggable = true;
     }
   });
 
   socket.on('player inactive', function() {
     console.log("player 1 inactive");
-    for(i = 0; i < blackPieces.length; i ++){
+    for (i = 0; i < blackPieces.length; i++) {
       blackPieces[i].sprite.input.draggable = false;
     }
-    for(i = 0; i < whitePieces.length; i ++){
+    for (i = 0; i < whitePieces.length; i++) {
       whitePieces[i].sprite.input.draggable = false;
     }
   });
 });
-

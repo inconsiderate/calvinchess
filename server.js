@@ -5,7 +5,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
 var turnCounter = 1;
-server.listen(port, function () {
+server.listen(port, function() {
   console.log('Server listening at port %d', port);
 });
 
@@ -17,10 +17,10 @@ var numUsers = 0;
 var player1 = "";
 var player2 = "";
 
-io.on('connection', function (socket) {
+io.on('connection', function(socket) {
   var addedUser = false;
 
-  socket.on('new message', function (data) {
+  socket.on('new message', function(data) {
     socket.broadcast.emit('new message', {
       username: socket.username,
       message: data
@@ -29,24 +29,23 @@ io.on('connection', function (socket) {
     // echo globally to all users that a rule has changed
     console.log(data);
     if (data === "rule change") {
-      io.sockets.emit('rules changed', {
-      });
+      io.sockets.emit('rules changed', {});
     }
   });
 
-  socket.on('add user', function (username) {
+  socket.on('add user', function(username) {
     // store the username in the socket session for this client
     socket.username = username;
     if (player1 === "") {
       player1 = username;
-      console.log('Player 1 assigned to:',player1);
+      console.log('Player 1 assigned to:', player1);
       socket.emit('player1 active', {});
-    }else if (player2 === "") {
+    } else if (player2 === "") {
       player2 = username;
-      console.log('Player 2 assigned to:',player2);
+      console.log('Player 2 assigned to:', player2);
       socket.emit('player inactive', {});
     } else {
-      console.log('Spectator joined:',socket.username);
+      console.log('Spectator joined:', socket.username);
       socket.emit('player inactive', {});
     };
 
@@ -67,20 +66,20 @@ io.on('connection', function (socket) {
   });
 
   // when the client emits 'typing', we broadcast it to others
-  socket.on('typing', function () {
+  socket.on('typing', function() {
     socket.broadcast.emit('typing', {
       username: socket.username
     });
   });
 
   // when the client emits 'stop typing', we broadcast it to others
-  socket.on('stop typing', function () {
+  socket.on('stop typing', function() {
     socket.broadcast.emit('stop typing', {
       username: socket.username
     });
   });
 
-  socket.on('disconnect', function () {
+  socket.on('disconnect', function() {
     // remove the username from global usernames list
     if (addedUser) {
       delete usernames[socket.username];
@@ -100,7 +99,7 @@ io.on('connection', function (socket) {
   });
 
   // when the client emits 'move piece', we broadcast the movement to others
-  socket.on('move piece', function (data) {
+  socket.on('move piece', function(data) {
     console.log('PIECE MOVED!!!!! LOLWUT');
     turnCounter += 1;
     socket.broadcast.emit('piece moved', {
@@ -119,7 +118,7 @@ io.on('connection', function (socket) {
     }
   });
 
-  socket.on('piece killed', function (data) {
+  socket.on('piece killed', function(data) {
     console.log(data.pieceId);
     console.log(data.coordX);
     console.log(data.coordY);
