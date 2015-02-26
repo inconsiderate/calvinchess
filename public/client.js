@@ -376,26 +376,6 @@ $(function() {
     game.add.tween(item.sprite).to({x: data.xcoord, y: data.ycoord}, 400, Phaser.Easing.Back.Out, true);
   }
 
-function playerOne(){
-  console.log("PLAYER ONE");
-  for(i = 0; i < blackPieces.length; i ++){
-    blackPieces[i].sprite.input.draggable = true;
-  }
-  for(i = 0; i < whitePieces.length; i ++){
-    whitePieces[i].sprite.input.draggable = false;
-  }
-}
-
-function playerTwo(){
-  console.log("PLAYER TWO");
-  for(i = 0; i < whitePieces.length; i ++){
-    whitePieces[i].sprite.input.draggable = true;
-  }
-  for(i = 0; i < blackPieces.length; i ++){
-    blackPieces[i].sprite.input.draggable = false;
-  }
-}
-
 function rulesChange (ruleNumber) {
   allRulesArray[0][1]();
   var $calvinnameDiv = $('<span class="username"/>')
@@ -489,14 +469,45 @@ function rulesChange (ruleNumber) {
     explosionPiece.animations.play('boom', 20, false, true);
   });
 
-    socket.on('player1', function(){
-      playerOne();
-      console.log("Player 1, client side.");
-    });
-    
-    socket.on('player2', function(){
-      console.log("Player 2, client side");
-      playerTwo();
-    });
+  socket.on('player1 active', function(){
+    console.log("PLAYER ONE");
+    for(i = 0; i < blackPieces.length; i ++){
+      blackPieces[i].sprite.input.draggable = true;
+    }
+    for(i = 0; i < whitePieces.length; i ++){
+      whitePieces[i].sprite.input.draggable = false;
+    }
+  });
+
+  socket.on('player2 active', function(){
+    console.log("PLAYER TWO");
+    for(i = 0; i < whitePieces.length; i ++){
+      whitePieces[i].sprite.input.draggable = true;
+    }
+    for(i = 0; i < blackPieces.length; i ++){
+      blackPieces[i].sprite.input.draggable = false;
+    }
+  });
+
+  socket.on('player1 inactive', function() {
+    console.log("player 1 inactive");
+    for(i = 0; i < blackPieces.length; i ++){
+      blackPieces[i].sprite.input.draggable = false;
+    }
+    for(i = 0; i < whitePieces.length; i ++){
+      whitePieces[i].sprite.input.draggable = false;
+    }
+  });
+
+  socket.on('player2 inactive', function() {
+    console.log("player 2 inactive");
+    for(i = 0; i < whitePieces.length; i ++){
+      whitePieces[i].sprite.input.draggable = false;
+    }
+    for(i = 0; i < blackPieces.length; i ++){
+      blackPieces[i].sprite.input.draggable = false;
+    }
+  });
+
 });
 

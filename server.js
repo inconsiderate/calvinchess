@@ -103,11 +103,14 @@ io.on('connection', function (socket) {
       ycoord: data.ycoord,
       pieceId: data.pieceId
     });
-
-     if (turnCounter % 2 === 0) {
-      io.sockets.emit('player1', {});
-    } else {
-      io.sockets.emit('player2', {});
+    if (socket.username == player1) {
+      socket.broadcast.emit('player2 active', {});
+      socket.emit('player1 inactive', {});
+      console.log("player 1 moved");
+    } else if (socket.username == player2) {
+      socket.broadcast.emit('player1 active', {});
+      socket.emit('player2 inactive', {});
+      console.log("player 2 moved");
     }
   });
 

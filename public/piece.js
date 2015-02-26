@@ -30,9 +30,8 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
 }
 // METHODS THAT ARE USED IN ALL PIECE MOVEMENTS
 
-// Check if move is valid and if a kill occurs.
+// Check if move is valid, and if a kill occurs, and send off to server.
 Piece.prototype.killAction = function (item, match) {
-  console.log('inside the kill action');
   var piece = this;
   if (match.length > 0 && match[0].sprite.color === item.color){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
@@ -53,9 +52,6 @@ Piece.prototype.killAction = function (item, match) {
 }
 
 Piece.prototype.sendServerKill = function(item) {
-  console.log(item.sprite.x);
-  console.log(item.sprite.y);
-  console.log(item.pieceId);
   socket.emit('piece killed', {
     coordX: item.sprite.x,
     coordY: item.sprite.y,
@@ -78,7 +74,6 @@ Piece.prototype.kingKnightMoveValidation = function (item) {
   var match = allPiecesArray.filter(this.isPieceHere, this);
   var item = this.sprite
   if (piece.killAction(item, match) === true) {
-    console.log('knight kill action');
   } else {
     piece.resetOrigin(item, item.x, item.y, piece);
   }
