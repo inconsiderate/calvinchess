@@ -4,13 +4,14 @@ var socket = io();
 window.onload = function() {
     window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'game', { preload: preload, create: create, render: render, update: update});
     window.allPiecesArray = [];
-    window.ruleChange = [['If a queen moves, all pawns will be captured', function(){wQueen.onBoard = Piece.prototype.deletePawns; bQueen.onBoard = Piece.prototype.deletePawns;}], ['two', 'drei'], ['three', 'zwei']];
+    // window.allRulesArray = [['If a queen moves, all pawns will be captured', function(){wQueen.onBoard = Piece.prototype.deletePawns; bQueen.onBoard = Piece.prototype.deletePawns;}], ['two', 'drei'], ['three', 'zwei']];
     //Are you sure these have to be defined here?
     
     var explosionPiece;
 
     var bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight, 
           b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn;
+    window.bQueen;
     window.wQueen;
     var  wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight, 
           w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn;
@@ -384,11 +385,11 @@ $(function() {
   }
 
 function rulesChange (ruleNumber) {
-  ruleChange[0][1]();
+  allRulesArray[0][1]();
   var $calvinnameDiv = $('<span class="username"/>')
     .text('CalvinBot');
   var $messageRuleDiv = $('<spac class="messageBody">')
-    .text(ruleChange[0][0]);
+    .text(allRulesArray[0][0]);
   var $ruleChangeDiv = $('<li class="message"/>')
     .data('username', 'CalvinBot')
     .append($calvinnameDiv, $messageRuleDiv);

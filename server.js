@@ -25,8 +25,10 @@ io.on('connection', function (socket) {
       username: socket.username,
       message: data
     });
+
+    // echo globally to all users that a rule has changed
     console.log(data);
-    if (data === "rules change") {
+    if (data === "rule change") {
       io.sockets.emit('rules changed', {
       });
     }
