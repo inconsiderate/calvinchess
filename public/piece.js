@@ -85,7 +85,7 @@ Piece.prototype.kingKnightMoveValidation = function (item) {
 }
 
 //Rook and Bishop have the same movement validation.
-Piece.prototype.rookBishopMoveValidation = function (item) {
+Piece.prototype.rookMoveValidation = function (item) {
   var piece = this;
   var match = allPiecesArray.filter(this.isPieceHere, this);
   var between = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
@@ -97,7 +97,18 @@ Piece.prototype.rookBishopMoveValidation = function (item) {
     piece.resetOrigin(item, item.x, item.y, piece);
   }
 }
-
+Piece.prototype.BishopMoveValidation = function (item) {
+  var piece = this;
+  var match = allPiecesArray.filter(this.isPieceHere, this);
+  var between = allPiecesArray.filter(this.isPieceBetweenDiagonal, this);
+  if (piece.killAction(item, match) === true) {
+    console.log('knight kill action');
+  } else if (between.length > 0){
+    game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+  } else {
+    piece.resetOrigin(item, item.x, item.y, piece);
+  }
+}
 Piece.prototype.onBoard = function() {
 
 }

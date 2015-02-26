@@ -3,7 +3,8 @@ function Queen(game, color, xcoor, ycoor, pieceName){
 }
 Queen.prototype = new Piece();
 
-Queen.prototype.default_move = function() {
+Queen.prototype.default_move = function() { 
+
   var piece = this;
   var item = this.sprite;
   var xRatio = Math.abs(item.originX - item.x);
@@ -37,3 +38,4 @@ Queen.prototype.default_move = function() {
 Queen.prototype.move = Queen.prototype.default_move;
 
 Queen.prototype.onBoard = Queen.prototype.onBoard;  
+
