@@ -35,6 +35,7 @@ Piece.prototype.killAction = function (item, match) {
   var piece = this;
   if (match.length > 0 && match[0].sprite.color === item.color){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+    console.log('elastic move?');
     return true
   } else if (match.length > 0 && match[0].sprite.color != item.color) {
     piece.sendServerKill(match[0]);
@@ -46,8 +47,10 @@ Piece.prototype.killAction = function (item, match) {
     explosionPiece.animations.add('boom');
     explosionPiece.animations.play('boom', 20, false, true);
     piece.resetOrigin(item, item.x, item.y, piece);
+    console.log('kill move');
     return true
   }
+  console.log('false return');
   return false
 }
 
@@ -65,6 +68,7 @@ Piece.prototype.resetOrigin = function(item, x, y, piece){
   }
   item.originX = item.x;
   item.originY = item.y;
+  console.log('reset origin');
   piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
 }
 

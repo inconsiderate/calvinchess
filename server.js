@@ -43,6 +43,9 @@ io.on('connection', function (socket) {
     }else if (player2 === "") {
       player2 = username;
       console.log('Player 2 assigned to:',player2);
+    } else {
+      socket.emit('player1 inactive', {});
+      socket.emit('player2 inactive', {});
     };
 
     clientIp = socket.request.connection.remoteAddress;
@@ -97,6 +100,7 @@ io.on('connection', function (socket) {
 
   // when the client emits 'move piece', we broadcast the movement to others
   socket.on('move piece', function (data) {
+    console.log('PIECE MOVED!!!!! LOLWUT');
     turnCounter += 1;
     socket.broadcast.emit('piece moved', {
       xcoord: data.xcoord,
