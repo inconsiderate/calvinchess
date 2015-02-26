@@ -240,7 +240,8 @@ $(function() {
   }
 
   // Adds the visual chat message to the message list
-  function addChatMessage (data, options) {
+
+    function addChatMessage (data, options) {
     // Don't fade the message in if there is an 'X was typing'
     var $typingMessages = getTypingMessages(data);
     options = options || {};
@@ -261,6 +262,7 @@ $(function() {
     addMessageElement($messageDiv, options);
   }
 
+
   // Adds the visual chat typing message
   function addChatTyping (data) {
     data.typing = true;
@@ -275,11 +277,6 @@ $(function() {
     });
   }
 
-  // Adds a message element to the messages and scrolls to the bottom
-  // el - The element to add as a message
-  // options.fade - If the element should fade-in (default = true)
-  // options.prepend - If the element should prepend
-  //   all other messages (default = false)
   function addMessageElement (el, options) {
     var $el = $(el);
 
@@ -490,18 +487,12 @@ function rulesChange (ruleNumber) {
     for(i = 0; i < blackPieces.length; i ++){
       blackPieces[i].sprite.input.draggable = true;
     }
-    for(i = 0; i < whitePieces.length; i ++){
-      whitePieces[i].sprite.input.draggable = false;
-    }
   });
 
   socket.on('player1 active', function(){
     console.log("PLAYER ONE");
     for(i = 0; i < whitePieces.length; i ++){
       whitePieces[i].sprite.input.draggable = true;
-    }
-    for(i = 0; i < blackPieces.length; i ++){
-      blackPieces[i].sprite.input.draggable = false;
     }
   });
 
@@ -514,16 +505,5 @@ function rulesChange (ruleNumber) {
       whitePieces[i].sprite.input.draggable = false;
     }
   });
-
-  // socket.on('player2 inactive', function() {
-  //   console.log("player 2 inactive");
-  //   for(i = 0; i < whitePieces.length; i ++){
-  //     whitePieces[i].sprite.input.draggable = false;
-  //   }
-  //   for(i = 0; i < blackPieces.length; i ++){
-  //     blackPieces[i].sprite.input.draggable = false;
-  //   }
-  // });
-
 });
 

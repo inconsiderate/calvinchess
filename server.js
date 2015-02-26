@@ -90,13 +90,12 @@ io.on('connection', function (socket) {
         username: socket.username,
         numUsers: numUsers
       });
-      console.log("before disconnect:", player1, player2);
+      console.log("user disconnected:", player1, player2);
       if (player1 === socket.username) {
         player1 = "";
       } else if (player2 === socket.username) {
         player2 = "";
       }
-      console.log("after disconnect:", player1, player2);
     }
   });
 
