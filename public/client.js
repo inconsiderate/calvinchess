@@ -377,11 +377,11 @@ $(function() {
   }
 
 function rulesChange (ruleNumber) {
-  allRulesArray[0][1]();
+  allRulesArray[4][1]();
   var $calvinnameDiv = $('<span class="username"/>')
     .text('CalvinBot');
   var $messageRuleDiv = $('<spac class="messageBody">')
-    .text(allRulesArray[0][0]);
+    .text(allRulesArray[4][0]);
   var $ruleChangeDiv = $('<li class="message"/>')
     .data('username', 'CalvinBot')
     .append($calvinnameDiv, $messageRuleDiv);
