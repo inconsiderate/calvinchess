@@ -23,7 +23,7 @@ io.on('connection', function(socket) {
 
   socket.on('new message', function(data) {
     console.log(data);
-    io.to(data.channel).emit('new message', {
+    socket.broadcast.to(data.channel).emit('new message', {
       username: socket.username,
       message: data.message
     });
@@ -31,14 +31,15 @@ io.on('connection', function(socket) {
     // echo globally to all users that a rule has changed
     console.log(socket.username, 'posted:', data.message);
     if (data.message === "rule change") {
-      io.sockets.emit('rules changed', {});
+      socket.broadcast.to(data.channel).emit('rules changed', {});
     } else if (data.message.indexOf("join channel") > -1) {
       var splitData = data.message.split(" "),
         channelName = splitData[2];
-      io.sockets.emit('new message', {
+      io.to(data.channel).emit('new message', {
         username: 'SYSTEM',
         message: 'Player ' + socket.username + ' switched to channel: ' + channelName
       });
+      socket.leave('default');
       socket.join(channelName);
       socket.emit('current channel', {
         currentChannel: channelName
