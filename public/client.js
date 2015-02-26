@@ -7,6 +7,7 @@ window.onload = function() {
     window.blackPieces = [];
     window.whitePieces = [];
     window.turnCounter = 0 
+    window.allRulesArray;
 
     window.changeTurn = function() {
       if (turnCounter % 2 === 0){
