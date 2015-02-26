@@ -35,7 +35,6 @@ Piece.prototype.killAction = function (item, match) {
   var piece = this;
   if (match.length > 0 && match[0].sprite.color === item.color){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
-    console.log('elastic move?');
     return true
   } else if (match.length > 0 && match[0].sprite.color != item.color) {
     piece.sendServerKill(match[0]);
@@ -47,10 +46,8 @@ Piece.prototype.killAction = function (item, match) {
     explosionPiece.animations.add('boom');
     explosionPiece.animations.play('boom', 20, false, true);
     piece.resetOrigin(item, item.x, item.y, piece);
-    console.log('kill move');
     return true
   }
-  console.log('false return');
   return false
 }
 
@@ -83,13 +80,30 @@ Piece.prototype.kingKnightMoveValidation = function (item) {
   }
 }
 
-//Rook and Bishop have the same movement validation.
+// Piece.prototype.rookBishopMoveValidation = function (item) {
+//   var piece = this;
+//   var match = allPiecesArray.filter(this.isPieceHere, this);
+//   var rookBetween = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
+//   var bishopBetween = allPiecesArray.filter(this.isPieceBetweenDiagonal, this);
+//   if (piece.killAction(item, match) === true) {
+//    // if piece is rook, rookBetween.length, if bishop, bishopBetween.length
+//   } else if (between.length > 0){  
+//     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+//   } else {
+//     if (item.x === item.originX && item.y === item.originY) {
+//       return true;
+//     } else {
+//       piece.resetOrigin(item, item.x, item.y, piece);
+//     }
+//   }
+// }
+
 Piece.prototype.rookMoveValidation = function (item) {
   var piece = this;
   var match = allPiecesArray.filter(this.isPieceHere, this);
   var between = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
   if (piece.killAction(item, match) === true) {
-    console.log('knight kill action');
+    console.log('rook kill action');
   } else if (between.length > 0){
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   } else {
@@ -100,6 +114,7 @@ Piece.prototype.rookMoveValidation = function (item) {
     }
   }
 }
+
 Piece.prototype.BishopMoveValidation = function (item) {
   var piece = this;
   var match = allPiecesArray.filter(this.isPieceHere, this);
@@ -116,6 +131,7 @@ Piece.prototype.BishopMoveValidation = function (item) {
     }
   }
 }
+
 Piece.prototype.onBoard = function() {
 
 }

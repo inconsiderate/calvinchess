@@ -469,8 +469,8 @@ function rulesChange (ruleNumber) {
     explosionPiece.animations.play('boom', 20, false, true);
   });
 
-  socket.on('player1 active', function(){
-    console.log("PLAYER ONE");
+  socket.on('player2 active', function(){
+    console.log("PLAYER TWO");
     for(i = 0; i < blackPieces.length; i ++){
       blackPieces[i].sprite.input.draggable = true;
     }
@@ -479,8 +479,8 @@ function rulesChange (ruleNumber) {
     }
   });
 
-  socket.on('player2 active', function(){
-    console.log("PLAYER TWO");
+  socket.on('player1 active', function(){
+    console.log("PLAYER ONE");
     for(i = 0; i < whitePieces.length; i ++){
       whitePieces[i].sprite.input.draggable = true;
     }
@@ -489,7 +489,7 @@ function rulesChange (ruleNumber) {
     }
   });
 
-  socket.on('player1 inactive', function() {
+  socket.on('player inactive', function() {
     console.log("player 1 inactive");
     for(i = 0; i < blackPieces.length; i ++){
       blackPieces[i].sprite.input.draggable = false;
@@ -499,15 +499,15 @@ function rulesChange (ruleNumber) {
     }
   });
 
-  socket.on('player2 inactive', function() {
-    console.log("player 2 inactive");
-    for(i = 0; i < whitePieces.length; i ++){
-      whitePieces[i].sprite.input.draggable = false;
-    }
-    for(i = 0; i < blackPieces.length; i ++){
-      blackPieces[i].sprite.input.draggable = false;
-    }
-  });
+  // socket.on('player2 inactive', function() {
+  //   console.log("player 2 inactive");
+  //   for(i = 0; i < whitePieces.length; i ++){
+  //     whitePieces[i].sprite.input.draggable = false;
+  //   }
+  //   for(i = 0; i < blackPieces.length; i ++){
+  //     blackPieces[i].sprite.input.draggable = false;
+  //   }
+  // });
 
 });
 
