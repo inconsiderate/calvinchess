@@ -18,8 +18,7 @@ Queen.prototype.default_move = function() {
     function valid(item){
       if(match.length > 0 && match[0].sprite.color != item.color){
         piece.killAction(item, match);
-        item.originX = item.x;
-        item.originY = item.y;
+        piece.resetOrigin(item, item.x, item.y, piece);
           // After moving, tell server that a piece has been moved.
         piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
         } else if (betweenDiagonal.length > 0 && xRatio === xRatio) {
@@ -27,10 +26,7 @@ Queen.prototype.default_move = function() {
         } else if (betweenLateral.length > 0 && item.originX === item.x || betweenLateral.length > 0 && item.originY === item.y) {
           game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
         } else {
-          item.originX = item.x;
-          item.originY = item.y;
-          // After moving, tell server that a piece has been moved.
-          piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
+          piece.resetOrigin(item, item.x, item.y, piece);
         }
       }
     } else {
@@ -40,4 +36,4 @@ Queen.prototype.default_move = function() {
 
 Queen.prototype.move = Queen.prototype.default_move;
 
-Queen.prototype.onBoard = Queen.prototype.onBoard;
+Queen.prototype.onBoard = Queen.prototype.onBoard;  
