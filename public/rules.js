@@ -34,24 +34,33 @@ var horizontalRooks = function(){
 
 var kingsBecomeBatman = function(){
 	// grab the current coords of the two kings
-	var x1 = allPiecesArray[1].sprite.x,
-	y1 = allPiecesArray[1].sprite.y,
-	x2 = allPiecesArray[17].sprite.x,
-	y2 = allPiecesArray[17].sprite.y;
-	// destroy the kings, with a fun smoke bomb
+	var blackX = allPiecesArray[1].sprite.x,
+	blackY = allPiecesArray[1].sprite.y,
+	whiteX = allPiecesArray[17].sprite.x,
+	whiteY = allPiecesArray[17].sprite.y,
+	blackID = allPiecesArray[1].pieceId,
+	whiteID = allPiecesArray[17].pieceId;
+
+	// destroy the kings, insert a fun smoke animation or something
+
+	console.log('before transform',allPiecesArray[1].pieceId);
+
 	allPiecesArray[1].sprite.destroy();
 	allPiecesArray[1].sprite.destroy();
 	allPiecesArray[17].sprite.destroy();
 	allPiecesArray[17].sprite.destroy();
 	// generate batman on the king coords
-  var bKing = new King(game, 'black', (x1 / 100), (y1 / 100), 'batman');
-  var wKing = new King(game, 'white', (x2 / 100), (y2 / 100), 'batman');
+  var bKing = new King(game, 'black', (blackX / 100), (blackY / 100), 'batman');
+  var wKing = new King(game, 'white', (whiteX / 100), (whiteY / 100), 'batman');
+  bKing.pieceId = blackID;
+  wKing.pieceId = whiteID;
+  // ensure that pieceId identifier stays the same after recreating the kings
+	console.log('after transform',bKing.pieceId);
 
-  bKing.height = 200;
-  bKing.width = 200;
-  bKing.animations.add('quiver');
-  bKing.animations.play('quiver', 10, true);
-
+  // bKing.height = 200;
+  // bKing.width = 200;
+  // bKing.animations.add('quiver');
+  // bKing.animations.play('quiver', 10, true);
 }
 
 
