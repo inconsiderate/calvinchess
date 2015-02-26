@@ -15,34 +15,22 @@ Queen.prototype.default_move = function() {
     valid(item);
 
     function valid(item) {
-      if (match.length > 0 && match[0].sprite.color != item.color) {
-        piece.killAction(item, match);
-        item.originX = item.x;
-        item.originY = item.y;
-        // After moving, tell server that a piece has been moved.
-
-        piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
-      } else if (betweenDiagonal.length > 0 && xRatio === xRatio) {
-        game.add.tween(item).to({
-          x: item.originX,
-          y: item.originY
-        }, 400, Phaser.Easing.Back.Out, true);
+      if (betweenDiagonal.length > 0 && xRatio === xRatio) {
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       } else if (betweenLateral.length > 0 && item.originX === item.x || betweenLateral.length > 0 && item.originY === item.y) {
-        game.add.tween(item).to({
-          x: item.originX,
-          y: item.originY
-        }, 400, Phaser.Easing.Back.Out, true);
+        game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       } else {
         if (item.x === item.originX && item.y === item.originY) {
           return true;
+        } else if (match.length > 0 && match[0].sprite.color != item.color) {
+          piece.killAction(item, match);
+          piece.resetOrigin(item, item.x, item.y, piece);
         } else {
           piece.resetOrigin(item, item.x, item.y, piece);
         }
       }
     }
   }
-  // } else {
-  //   game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
 };
 
 Queen.prototype.move = Queen.prototype.default_move;

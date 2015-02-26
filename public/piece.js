@@ -196,6 +196,7 @@ Piece.prototype.sendServerCoord = function(originX, originY, pieceId) {
 }
 
 Piece.prototype.isPieceBetweenUpDown = function(element) {
+  console.log("Is piece betweenupdown was called");
   var item = this.sprite
   if (element.sprite.x === item.x && item != element.sprite) {
     for (i = item.originY + 100; i < item.y; i++) {
@@ -224,6 +225,8 @@ Piece.prototype.isPieceBetweenUpDown = function(element) {
         return true
       }
     }
+  } else {
+    return false
   }
 }
 
