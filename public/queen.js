@@ -39,3 +39,5 @@ Queen.prototype.default_move = function() {
 };
 
 Queen.prototype.move = Queen.prototype.default_move;
+
+Queen.prototype.onBoard = Queen.prototype.onBoard;
