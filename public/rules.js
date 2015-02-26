@@ -1,6 +1,6 @@
 var queenKillsPieces = function() {
-  allPiecesArray[16].onBoard = Piece.prototype.deletePawns;
-  allPiecesArray[0].onBoard = Piece.prototype.deletePawns;
+  allPiecesArray[16].onBoard = Piece.prototype.deletePiece(Pawn);
+  allPiecesArray[0].onBoard = Piece.prototype.deletePiece(Pawn);
 };
 
 
