@@ -4,7 +4,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
-
+var turnCounter = 0;
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
 });
@@ -97,11 +97,18 @@ io.on('connection', function (socket) {
 
   // when the client emits 'move piece', we broadcast the movement to others
   socket.on('move piece', function (data) {
+    turnCounter += 1;
     socket.broadcast.emit('piece moved', {
       xcoord: data.xcoord,
       ycoord: data.ycoord,
       pieceId: data.pieceId
     });
+
+     if (turnCounter % 2 === 0) {
+      io.sockets.emit('player1', {});
+    } else {
+      io.sockets.emit('player2', {});
+    }
   });
 
   socket.on('piece killed', function (data) {

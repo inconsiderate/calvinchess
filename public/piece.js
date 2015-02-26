@@ -66,9 +66,6 @@ Piece.prototype.sendServerKill = function(item) {
 Piece.prototype.resetOrigin = function(item, x, y, piece){
   if(item.originX != item.x || item.originY != item.y){
     item.counter++;
-    console.log('Turn Count: ', turnCounter);
-    turnCounter += 1;
-    changeTurn();
   }
   item.originX = item.x;
   item.originY = item.y;
