@@ -109,6 +109,7 @@ Piece.prototype.canCastle = function(item){
     item.originX = x;
     item.originY = y;
     game.add.tween(item).to({x: x, y: y}, 400, Phaser.Easing.Back.Out, true);
+    piece.resetOrigin(item, item.x, item.y, piece);
   }  
   if(this.pieceId === 'bRook7'){
     moveToNewPlace(this.sprite, 405, 5);
@@ -226,7 +227,6 @@ Piece.prototype.sendServerCoord = function(originX, originY, pieceId) {
 }
 
 Piece.prototype.isPieceBetweenUpDown = function(element) {
-  console.log("Is piece betweenupdown was called");
   var item = this.sprite
   if (element.sprite.x === item.x && item != element.sprite) {
     for (i = item.originY + 100; i < item.y; i++) {
