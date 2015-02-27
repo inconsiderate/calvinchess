@@ -1,8 +1,18 @@
 {
   "name": "calvinchess",
   "version": "1.0.0",
-  "description": "An awesome game full of amazing awesomeness",
-  "main": "server.js",
+  "description": "This is an empty readme.md file. YAY AWESOME!",
+  "main": "calvinQuotes.js",
+  "dependencies": {
+    "express": "^4.12.0",
+    "fs": "0.0.2",
+    "jquery": "^2.1.3",
+    "js-yaml": "^3.2.7",
+    "path": "^0.11.14",
+    "phaser": "^2.2.2",
+    "socket.io": "^1.3.4"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -11,17 +21,10 @@
     "type": "git",
     "url": "https://github.com/inconsiderate/calvinchess.git"
   },
-  "keywords": [
-    "chess"
-  ],
-  "author": "Maggie Moss, Michael Kant",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/inconsiderate/calvinchess/issues"
   },
-  "homepage": "https://github.com/inconsiderate/calvinchess",
-  "engines": {
-    "node": "0.10.33",
-    "npm": "2.6.0"
-  },
+  "homepage": "https://github.com/inconsiderate/calvinchess"
 }
