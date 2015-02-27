@@ -57,7 +57,9 @@ window.onload = function() {
 
   function create() {
 
-    game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+    // game.scaleMode = Phaser.StageScaleMode.EXACT_FIT;
+    game.scale.setScreenSize(true);
+    game.scaleMode = Phaser.ScaleManager.EXACT_FIT;
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     // Create GRID for units to move over.
