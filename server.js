@@ -31,7 +31,7 @@ io.on('connection', function(socket) {
     // echo globally to all users that a rule has changed
     console.log(socket.username, 'posted:', data.message);
     if (data.message === "rule change") {
-      socket.broadcast.to(data.channel).emit('rules changed', {});
+      io.to(data.channel).emit('rules changed', {});
     } else if (data.message.indexOf("join channel") > -1) {
       var splitData = data.message.split(" "),
         channelName = splitData[2];
