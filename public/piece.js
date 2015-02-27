@@ -12,6 +12,8 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
     this.pieceId = piecename + xcoor //Math.floor(Math.random() * 1000);
     this.sprite.inputEnabled = true;
     this.sprite.input.enableDrag();
+    this.sprite.input.draggable = false;
+
     this.sprite.height = 90;
     this.sprite.width = 90;
     this.sprite.input.enableSnap(100, 100, false, true, 5, 5);

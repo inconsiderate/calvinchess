@@ -44,6 +44,8 @@ var kingsBecomeBatman = function() {
 
   console.log('before transform', allPiecesArray[1].pieceId);
 
+  whooshSound.play();
+
   allPiecesArray[1].sprite.destroy();
   allPiecesArray[1].sprite.destroy();
   allPiecesArray[17].sprite.destroy();
@@ -54,12 +56,15 @@ var kingsBecomeBatman = function() {
   bKing.pieceId = blackID;
   wKing.pieceId = whiteID;
   // ensure that pieceId identifier stays the same after recreating the kings
-  console.log('after transform', bKing.pieceId);
 
-  // bKing.height = 200;
-  // bKing.width = 200;
-  // bKing.animations.add('quiver');
-  // bKing.animations.play('quiver', 10, true);
+  bKing.sprite.height = 95;
+  bKing.sprite.width = 95;
+  bKing.sprite.animations.add('quiver');
+  bKing.sprite.animations.play('quiver', 10, false);
+  wKing.sprite.height = 95;
+  wKing.sprite.width = 95;
+  wKing.sprite.animations.add('quiver');
+  wKing.sprite.animations.play('quiver', 10, false);
 }
 
 

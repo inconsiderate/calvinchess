@@ -25,11 +25,16 @@ window.onload = function() {
     w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn;
 
   function preload() {
+
+    game.load.audio('background', '/audio/backgroundLoop.mp3');
+    game.load.audio('shotgun', '/audio/shotgun.mp3');
+    game.load.audio('whoosh', '/audio/whoosh.mp3');
+
     game.load.spritesheet('explosion', '/spritesheets/explosion.png', 64, 64, 24);
     game.load.spritesheet('duke', '/spritesheets/duke.png', 50, 71, 10);
     game.load.spritesheet('batman', '/spritesheets/batman.png', 69, 69, 30);
 
-    game.load.image('background', '/images/chessboard.png');
+    game.load.image('background', '/images/calvinBoard2.png');
     game.load.image('square', '/images/grid.jpeg');
     game.load.image('bQueen', '/images/blackqueen.png');
     game.load.image('bKing', '/images/blackking.png');
@@ -65,6 +70,13 @@ window.onload = function() {
     var background = game.add.image(0, 0, 'background');
     background.height = 800;
     background.width = 800;
+
+    var backgroundMusic = game.add.audio('background', 0.5, true);
+    backgroundMusic.loop = true;
+    backgroundMusic.play();
+
+    window.shotgunSound = game.add.audio('shotgun', 1, false);
+    window.whooshSound = game.add.audio('whoosh', 1, false);
 
     // var allPieces = game.add.group();
 
@@ -138,7 +150,6 @@ window.onload = function() {
         whitePieces[i].sprite.input.draggable = false;
       }
     }
-    lockPlayers();
   }
 
   function clickedBlock() {
@@ -259,7 +270,6 @@ $(function() {
           var $el = $('<li>').addClass('log').text(message);
           addMessageElement($el, options);
         }
-
         // Adds the visual chat message to the message list
 
         function addChatMessage(data, options) {
@@ -492,6 +502,7 @@ $(function() {
         });
 
         socket.on('rules changed', function(data) {
+          console.log('is THIS working?');
           rulesChange();
         });
 
