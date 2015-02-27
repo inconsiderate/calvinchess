@@ -5,7 +5,6 @@ function Piece(game, color, xcoor, ycoor, piecename) {
 };
 
 Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
-    // game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
     var x = (xcoor * 100) + 5;
     var y = (ycoor * 100) + 5;
     this.sprite = game.add.sprite(x, y, piecename);
@@ -40,7 +39,7 @@ Piece.prototype.killAction = function(item, match) {
       x: item.originX,
       y: item.originY
     }, 400, Phaser.Easing.Back.Out, true);
-    return true
+    return false
   } else if (match.length > 0 && match[0].sprite.color != item.color) {
     piece.sendServerKill(match[0]);
     match[0].sprite.destroy();
@@ -115,20 +114,22 @@ Piece.prototype.rookMoveValidation = function(item) {
   var between = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
   //TODO: perhaps factor out into validator class instead??
   
-  console.log("first piece in between array: ", between[0])
+  console.log("first piece in match array: ", match[0])
 
   if (piece.killAction(item, match) === true) {
-  } else if (between.length > 0) {
-    if (item.counter === 0 && between[0] instanceof King) {
-      console.log(between[0]);
-      piece.canCastle(between[0]);
+  } else if (match.length > 0) {
+    if (item.counter === 0 && match[0] instanceof King) {
+      console.log("CALLING CAN CASTLE METHOD")
+      piece.canCastle(match[0]);
     } else {
+      console.log("SEND THE ROOK BACK, INVALID MOVE.")
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
     }
   } else {
     if (item.x === item.originX && item.y === item.originY) {
       return true;
     } else {
+      console.log("EVERYTHING GOOD, THE ROOK IS SETTLING IN.");
       piece.resetOrigin(item, item.x, item.y, piece);
     }
   }
