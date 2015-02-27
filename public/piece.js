@@ -65,6 +65,7 @@ Piece.prototype.sendServerKill = function(item) {
 Piece.prototype.resetOrigin = function(item, x, y, piece) {
   if (item.originX != item.x || item.originY != item.y) {
     item.counter++;
+    console.log(item.counter);
   }
   item.originX = item.x;
   item.originY = item.y;
@@ -99,18 +100,78 @@ Piece.prototype.kingKnightMoveValidation = function(item) {
 //     }
 //   }
 // }
+Piece.prototype.canCastle = function(item){
+  console.log("IN CASTLE FUNCTION");
+  console.log("item: ", item.sprite);
+  console.log("This", this.sprite);
+  if(this.pieceId === 'bRook7'){
+    this.sprite.x = 405;
+    this.sprite.y = 5;
+    this.sprite.originX = 405;
+    this.sprite.originY = 5;
+
+    game.add.tween(this.sprite).to({x: 405, y: 5}, 400, Phaser.Easing.Back.Out, true);
+
+
+    item.sprite.x = 505;
+    item.sprite.y = 5;
+    item.sprite.originX = 505;
+    item.sprite.originY = 5;
+
+    game.add.tween(item.sprite).to({x: 505, y: 5}, 400, Phaser.Easing.Back.Out, true);
+
+
+  } else if(this.pieceId === 'brook0'){
+    this.sprite.x = 305;
+    this.sprite.y = 5;
+    this.sprite.originX = 305;
+    this.sprite.originY = 5;
+    game.add.tween(this.sprite).to({x: 305, y: 5}, 400, Phaser.Easing.Back.Out, true);
+    item.sprite.x = 205;
+    item.sprite.y = 5;
+    item.sprite.originX = 205;
+    item.sprite.originY = 5;
+    game.add.tween(item.sprite).to({x: 205, y: 5}, 400, Phaser.Easing.Back.Out, true);  }
+} else if( this.pieceId ==== 'wRook0'){
+    this.sprite.x = 305;
+    this.sprite.y = 705;
+    this.sprite.originX = 305;
+    this.sprite.originY = 705;
+    game.add.tween(this.sprite).to({x: 305, y: 705}, 400, Phaser.Easing.Back.Out, true);
+    item.sprite.x = 205;
+    item.sprite.y = 705;
+    item.sprite.originX = 205;
+    item.sprite.originY = 705;
+    game.add.tween(item.sprite).to({x: 205, y: 705}, 400, Phaser.Easing.Back.Out, true);
+} else if( this.pieceId === 'wRook7'){
+    this.sprite.x = 305;
+    this.sprite.y = 705;
+    this.sprite.originX = 305;
+    this.sprite.originY = 705;
+    game.add.tween(this.sprite).to({x: 305, y: 705}, 400, Phaser.Easing.Back.Out, true);
+    item.sprite.x = 205;
+    item.sprite.y = 705;
+    item.sprite.originX = 205;
+    item.sprite.originY = 705;
+    game.add.tween(item.sprite).to({x: 205, y: 705}, 400, Phaser.Easing.Back.Out, true);
+}
 
 Piece.prototype.rookMoveValidation = function(item) {
   var piece = this;
   var match = allPiecesArray.filter(this.isPieceHere, this);
   var between = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
+  //TODO: perhaps factor out into validator class instead??
+  
+  console.log("first piece in between array: ", between[0])
+
   if (piece.killAction(item, match) === true) {
-    console.log('rook kill action');
   } else if (between.length > 0) {
-    game.add.tween(item).to({
-      x: item.originX,
-      y: item.originY
-    }, 400, Phaser.Easing.Back.Out, true);
+    if (item.counter === 0 && between[0] instanceof King) {
+      console.log(between[0]);
+      piece.canCastle(between[0]);
+    } else {
+      game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+    }
   } else {
     if (item.x === item.originX && item.y === item.originY) {
       return true;
