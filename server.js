@@ -30,7 +30,6 @@ io.on('connection', function(socket) {
   var addedUser = false;
 
   socket.on('new message', function(data) {
-    console.log(data);
     socket.broadcast.to(data.channel).emit('new message', {
       username: socket.username,
       message: data.message
@@ -39,6 +38,7 @@ io.on('connection', function(socket) {
     // echo globally to all users that a rule has changed
     console.log(socket.username, 'posted:', data.message);
     if (data.message === "rule change") {
+      console.log('is this working?');
       io.to(data.channel).emit('rules changed', {});
     } else if (data.message.indexOf("join channel") > -1) {
       var splitData = data.message.split(" "),
@@ -118,10 +118,6 @@ io.on('connection', function(socket) {
       socket.broadcast.emit('user left', {
         username: socket.username,
         numUsers: numUsers
-      });
-      io.to(data.channel).emit('new message', {
-        username: 'SYSTEM MESSAGE',
-        message: 'Player ' + socket.username + ' has left the game.'
       });
       console.log("user disconnected:", player1, player2);
       if (player1 === socket.username) {
