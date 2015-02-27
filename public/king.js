@@ -15,7 +15,7 @@ King.prototype.default_move = function() {
     if (item.x === item.originX && item.y === item.originY) {
       return true;
     } else {
-      piece.resetOrigin(item, item.x, item.y, piece);
+      this.kingKnightMoveValidation(item);
     }
   }
 };
