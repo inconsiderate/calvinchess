@@ -5,7 +5,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var yaml = require('js-yaml');
 var path = require('path');
-var fs   = require('fs');
+var fs = require('fs');
 
 var port = process.env.PORT || 3000;
 var turnCounter = 1;
@@ -24,8 +24,8 @@ var player1ID = "";
 var player2ID = "";
 
 var filename = path.join(__dirname, 'calvinQuotes.yml'),
-    contents = fs.readFileSync(filename, 'utf8'),
-    calvinQuotes     = yaml.load(contents);
+  contents = fs.readFileSync(filename, 'utf8'),
+  calvinQuotes = yaml.load(contents);
 
 io.on('connection', function(socket) {
   socket.join('default');
@@ -56,7 +56,7 @@ io.on('connection', function(socket) {
         currentChannel: channelName
       });
     } else if (Math.floor(Math.random(10) * 10) === 4 || data.message.indexOf("calvin") > -1) {
-      calvinNumber = (Math.floor(Math.random(calvinQuotes.length) * 10) -1 );
+      calvinNumber = (Math.floor(Math.random(calvinQuotes.length) * 10) - 1);
       io.to(data.channel).emit('new message', {
         username: 'CalvinBot',
         message: calvinQuotes[calvinNumber]
@@ -79,7 +79,7 @@ io.on('connection', function(socket) {
       console.log('Player 2 assigned to:', player2);
       player2ID = socket.id;
       socket.emit('player inactive', {});
-    } else { 
+    } else {
       console.log('Spectator joined:', socket.username);
       socket.emit('player inactive', {});
     };

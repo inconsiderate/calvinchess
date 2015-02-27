@@ -1,1 +1,11 @@
-This is an empty readme.md file. YAY AWESOME!
+# Calvin Chess
+
+## Summary
+A chaotic game of chess, wherein the rules randomly change. Inspired by Calvinball from the Calvin and Hobbes comic strip.
+
+- Developed as a class project at Lighthouse Labs by Maggie Moss <maggie@maggierox.com>, and Michael Kant <contact@michaelkant.com>
+
+## Installation 
+
+npm install
+node server.js
