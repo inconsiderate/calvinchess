@@ -14,7 +14,10 @@ Knight.prototype.default_move = function() {
     if (item.x === item.originX && item.y === item.originY) {
       return true;
     } else {
-      piece.resetOrigin(item, item.x, item.y, piece);
+    game.add.tween(item).to({
+      x: item.originX,
+      y: item.originY
+    }, 400, Phaser.Easing.Back.Out, true);
     }
   }
 };
