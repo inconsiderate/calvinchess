@@ -103,59 +103,26 @@ Piece.prototype.kingKnightMoveValidation = function(item) {
 //   }
 // }
 Piece.prototype.canCastle = function(item){
-  console.log("IN CASTLE FUNCTION");
-  console.log("item: ", item.sprite);
-  console.log("This", this.sprite);
+  function moveToNewPlace(item, x, y) {
+    item.x = x;
+    item.y = y;
+    item.originX = x;
+    item.originY = y;
+    game.add.tween(item).to({x: x, y: y}, 400, Phaser.Easing.Back.Out, true);
+  }  
   if(this.pieceId === 'bRook7'){
-    this.sprite.x = 405;
-    this.sprite.y = 5;
-    this.sprite.originX = 405;
-    this.sprite.originY = 5;
-
-    game.add.tween(this.sprite).to({x: 405, y: 5}, 400, Phaser.Easing.Back.Out, true);
-
-
-    item.sprite.x = 505;
-    item.sprite.y = 5;
-    item.sprite.originX = 505;
-    item.sprite.originY = 5;
-
-    game.add.tween(item.sprite).to({x: 505, y: 5}, 400, Phaser.Easing.Back.Out, true);
-
-
+    moveToNewPlace(this.sprite, 405, 5);
+    moveToNewPlace(item.sprite, 505, 5);
   } else if(this.pieceId === 'brook0'){
-    this.sprite.x = 305;
-    this.sprite.y = 5;
-    this.sprite.originX = 305;
-    this.sprite.originY = 5;
-    game.add.tween(this.sprite).to({x: 305, y: 5}, 400, Phaser.Easing.Back.Out, true);
-    item.sprite.x = 205;
-    item.sprite.y = 5;
-    item.sprite.originX = 205;
-    item.sprite.originY = 5;
-    game.add.tween(item.sprite).to({x: 205, y: 5}, 400, Phaser.Easing.Back.Out, true);  }
-} else if( this.pieceId ==== 'wRook0'){
-    this.sprite.x = 305;
-    this.sprite.y = 705;
-    this.sprite.originX = 305;
-    this.sprite.originY = 705;
-    game.add.tween(this.sprite).to({x: 305, y: 705}, 400, Phaser.Easing.Back.Out, true);
-    item.sprite.x = 205;
-    item.sprite.y = 705;
-    item.sprite.originX = 205;
-    item.sprite.originY = 705;
-    game.add.tween(item.sprite).to({x: 205, y: 705}, 400, Phaser.Easing.Back.Out, true);
-} else if( this.pieceId === 'wRook7'){
-    this.sprite.x = 305;
-    this.sprite.y = 705;
-    this.sprite.originX = 305;
-    this.sprite.originY = 705;
-    game.add.tween(this.sprite).to({x: 305, y: 705}, 400, Phaser.Easing.Back.Out, true);
-    item.sprite.x = 205;
-    item.sprite.y = 705;
-    item.sprite.originX = 205;
-    item.sprite.originY = 705;
-    game.add.tween(item.sprite).to({x: 205, y: 705}, 400, Phaser.Easing.Back.Out, true);
+    moveToNewPlace(this.sprite, 305, 5);
+    moveToNewPlace(item.sprite, 205, 5);
+  } else if( this.pieceId === 'wRook0'){
+    moveToNewPlace(this.sprite, 305, 705);
+    moveToNewPlace(item.sprite, 205, 705);
+  } else if( this.pieceId === 'wRook7'){
+    moveToNewPlace(this.sprite, 305, 705);
+    moveToNewPlace(item.sprite, 205, 705);
+  }
 }
 
 Piece.prototype.rookMoveValidation = function(item) {
