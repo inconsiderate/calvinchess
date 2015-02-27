@@ -150,7 +150,6 @@ window.onload = function() {
         whitePieces[i].sprite.input.draggable = false;
       }
     }
-    lockPlayers();
   }
 
   function clickedBlock() {
