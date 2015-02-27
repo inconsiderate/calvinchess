@@ -101,8 +101,8 @@ io.on('connection', function(socket) {
   });
 
   // when the client emits 'typing', we broadcast it to others
-  socket.on('typing', function() {
-    socket.broadcast.emit('typing', {
+  socket.on('typing', function(data) {
+    io.to(data.channel).emit('typing', {
       username: socket.username
     });
   });
@@ -140,18 +140,25 @@ io.on('connection', function(socket) {
     io.emit('piece moved', {
       xcoord: data.xcoord,
       ycoord: data.ycoord,
-      pieceId: data.pieceId
+      pieceId: data.pieceId,
+      channel: data.channel
     });
-    console.log('player2 id:', player2ID);
     if (socket.username == player1) {
       io.sockets.connected[player2ID].emit('player2 active', {});
-      // socket.broadcast.emit('player2 active', {});
       socket.emit('player inactive', {});
       console.log("player 1 moved");
+      io.to(data.channel).emit('new message', {
+        username: 'SYSTEM MESSAGE',
+        message: player2 + ", it's your turn!"
+      });
     } else if (socket.username == player2) {
       io.sockets.connected[player1ID].emit('player1 active', {});
       socket.emit('player inactive', {});
       console.log("player 2 moved");
+      io.to(data.channel).emit('new message', {
+        username: 'SYSTEM MESSAGE',
+        message: player1 + ", it's your turn!"
+      });
     }
   });
 
@@ -159,7 +166,7 @@ io.on('connection', function(socket) {
     console.log(data.pieceId);
     console.log(data.coordX);
     console.log(data.coordY);
-    socket.broadcast.emit('kill piece', {
+    io.to(data.channel).emit('kill piece', {
       xcoord: data.coordX,
       ycoord: data.coordY,
       pieceId: data.pieceId
