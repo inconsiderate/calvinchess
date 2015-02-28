@@ -77,7 +77,6 @@ Piece.prototype.resetOrigin = function(item, x, y, piece) {
   }
   item.originX = item.x;
   item.originY = item.y;
-  console.log('reset origin');
   piece.sendServerCoord(item.originX, item.originY, piece.pieceId);
 }
 
@@ -142,7 +141,6 @@ Piece.prototype.BishopMoveValidation = function(item) {
   var match = allPiecesArray.filter(this.isPieceHere, this);
   var between = allPiecesArray.filter(this.isPieceBetweenDiagonal, this);
   if (piece.killAction(item, match) === true) {
-    console.log('knight kill action');
   } else if (between.length > 0) {
     game.add.tween(item).to({
       x: item.originX,

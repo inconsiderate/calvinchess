@@ -6,7 +6,7 @@ King.prototype = new Piece();
 
 King.prototype.default_move = function() {
   var item = this.sprite;
-  if (Math.abs(item.originX - item.x) > 100 || Math.abs(item.originY - item.y) > 100) {
+  if (Math.abs(item.originX - item.x) > adjustDistance(1) || Math.abs(item.originY - item.y) > adjustDistance(1)) {
     game.add.tween(item).to({
       x: item.originX,
       y: item.originY

@@ -8,7 +8,7 @@ Knight.prototype.default_move = function() {
   var piece = this;
   var item = this.sprite;
 
-  if ((Math.abs(item.originX - item.x) === 200 && Math.abs(item.originY - item.y) === 100) || (Math.abs(item.originX - item.x) === 100 && Math.abs(item.originY - item.y) === 200)) {
+  if ((Math.abs(item.originX - item.x) === adjustDistance(2) && Math.abs(item.originY - item.y) === adjustDistance(1)) || (Math.abs(item.originX - item.x) === adjustDistance(1) && Math.abs(item.originY - item.y) === adjustDistance(2))) {
     this.kingKnightMoveValidation(item);
   } else {
     if (item.x === item.originX && item.y === item.originY) {
