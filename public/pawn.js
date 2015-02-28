@@ -21,8 +21,13 @@ Pawn.prototype.default_move = function() {
         y: item.originY
       }, 400, Phaser.Easing.Back.Out, true);
     } else {
-      piece.resetOrigin(item, item.x, item.y, piece);
+        var match = allPiecesArray.filter(this.isPieceHere, this);
+        valid(item);
+      // this is causing a problem when you move two spaces and something is in the space
+      // it does not bounce away, but rather sits on top of the other
+      // TO DO : fix above bug
     }
+    // below if statements check for the color of the pawn - ensures they can not move backwards
   } else if (item.color === 'black' && item.y < item.originY) {
     game.add.tween(item).to({
       x: item.originX,
