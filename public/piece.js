@@ -114,22 +114,17 @@ Piece.prototype.rookMoveValidation = function(item) {
   var between = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
   //TODO: perhaps factor out into validator class instead??
   
-  console.log("first piece in match array: ", match[0])
-
   if (piece.killAction(item, match) === true) {
   } else if (match.length > 0) {
     if (item.counter === 0 && match[0] instanceof King) {
-      console.log("CALLING CAN CASTLE METHOD")
       piece.canCastle(match[0]);
     } else {
-      console.log("SEND THE ROOK BACK, INVALID MOVE.")
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
     }
   } else {
     if (item.x === item.originX && item.y === item.originY) {
       return true;
     } else {
-      console.log("EVERYTHING GOOD, THE ROOK IS SETTLING IN.");
       piece.resetOrigin(item, item.x, item.y, piece);
     }
   }
