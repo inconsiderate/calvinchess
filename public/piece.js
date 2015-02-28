@@ -58,6 +58,7 @@ Piece.prototype.killAction = function(item, match) {
 
 Piece.prototype.sendServerKill = function(item) {
   socket.emit('piece killed', {
+    channel: window.CHANNEL,
     coordX: item.sprite.x,
     coordY: item.sprite.y,
     pieceId: item.pieceId
@@ -203,6 +204,7 @@ Piece.prototype.isPieceHere = function(element) {
 
 Piece.prototype.sendServerCoord = function(originX, originY, pieceId) {
   socket.emit('move piece', {
+    channel: window.CHANNEL,
     xcoord: originX,
     ycoord: originY,
     pieceId: pieceId,

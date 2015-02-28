@@ -244,7 +244,6 @@ $(function() {
       function setCurrentChannel(data) {
         console.log('current channel:', data.currentChannel);
         window.CHANNEL = data.currentChannel;
-        console.log(window.CHANNEL);
       }
 
 
@@ -346,7 +345,10 @@ $(function() {
           if (connected) {
             if (!typing) {
               typing = true;
-              socket.emit('typing');
+              socket.emit('typing', {
+                channel: window.CHANNEL
+              });
+
             }
             lastTypingTime = (new Date()).getTime();
 
@@ -529,14 +531,14 @@ $(function() {
         });
 
         socket.on('player2 active', function() {
-          console.log("PLAYER TWO");
+          console.log("PLAYER TWO ACTIVE");
           for (i = 0; i < blackPieces.length; i++) {
             blackPieces[i].sprite.input.draggable = true;
           }
         });
 
         socket.on('player1 active', function() {
-          console.log("PLAYER ONE");
+          console.log("PLAYER ONE ACTIVE");
           for (i = 0; i < whitePieces.length; i++) {
             whitePieces[i].sprite.input.draggable = true;
           }

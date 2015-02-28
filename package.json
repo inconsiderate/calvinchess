@@ -4,14 +4,9 @@
   "description": "This is an empty readme.md file. YAY AWESOME!",
   "main": "calvinQuotes.js",
   "dependencies": {
+    "bootstrap": "^3.3.2",
     "express": "^4.12.0",
-    "fs": "0.0.2",
-    "http": "0.0.0",
-    "http-server": "^0.7.5",
-    "jquery": "^2.1.3",
     "js-yaml": "^3.2.7",
-    "path": "^0.11.14",
-    "phaser": "^2.2.2",
     "socket.io": "^1.3.4"
   },
   "devDependencies": {},
