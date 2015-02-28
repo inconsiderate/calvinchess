@@ -9,6 +9,7 @@ window.onload = function() {
     render: render,
     update: update
   });
+  
   window.allPiecesArray = [];
   window.blackPieces = [];
   window.whitePieces = [];

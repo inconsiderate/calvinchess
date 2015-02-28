@@ -14,7 +14,7 @@ function adjustDistance(num){
   return distance;
 }
 Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
-    this.sprite = game.add.sprite(x, y, piecename);
+    this.sprite = game.add.sprite(adjustCoord(xcoor), adjustCoord(ycoor), piecename);
     this.pieceId = piecename + xcoor //Math.floor(Math.random() * 1000);
     this.sprite.inputEnabled = true;
     this.sprite.input.enableDrag();
