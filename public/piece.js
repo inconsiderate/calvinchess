@@ -4,20 +4,21 @@ function Piece(game, color, xcoor, ycoor, piecename) {
   this.sprite = null;
 };
 
+function adjustCoord(num){
+  var coor = (num * 100) + 5
+  return coor
+}
 Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
-    var x = (xcoor * 100) + 5;
-    var y = (ycoor * 100) + 5;
     this.sprite = game.add.sprite(x, y, piecename);
     this.pieceId = piecename + xcoor //Math.floor(Math.random() * 1000);
     this.sprite.inputEnabled = true;
     this.sprite.input.enableDrag();
     this.sprite.input.draggable = false;
-
     this.sprite.height = 90;
     this.sprite.width = 90;
     this.sprite.input.enableSnap(100, 100, false, true, 5, 5);
-    this.sprite.originX = x;
-    this.sprite.originY = y;
+    this.sprite.originX = adjustCoord(xcoor);
+    this.sprite.originY = adjustCoord(ycoor);
     this.sprite.color = color;
     this.sprite.lifeStatus = 'alive';
     this.sprite.counter = 0;
@@ -95,17 +96,17 @@ Piece.prototype.canCastle = function(item){
     item.resetOrigin(item.sprite, item.x, item.y, item);
   }  
   if (this.pieceId === 'bRook7') {
-    moveToNewPlace(this, 405, 5);
-    moveToNewPlace(item, 505, 5);
+    moveToNewPlace(this, adjustCoord(4), adjustCoord(0));
+    moveToNewPlace(item, adjustCoord(5), adjustCoord(0));
   } else if(this.pieceId === 'brook0') {
-    moveToNewPlace(this, 305, 5);
-    moveToNewPlace(item, 205, 5);
+    moveToNewPlace(this, adjustCoord(3), adjustCoord(5));
+    moveToNewPlace(item, adjustCoord(2), adjustCoord(5));
   } else if(this.pieceId === 'wRook0') {
-    moveToNewPlace(this, 405, 705);
-    moveToNewPlace(item, 505, 705);
+    moveToNewPlace(this, adjustCoord(4), adjustCoord(7));
+    moveToNewPlace(item, adjustCoord(5), adjustCoord(7));
   } else if(this.pieceId === 'wRook7') {
-    moveToNewPlace(this, 305, 705);
-    moveToNewPlace(item, 205, 705);
+    moveToNewPlace(this, adjustCoord(3), adjustCoord(7));
+    moveToNewPlace(item, adjustCoord(2), adjustCoord(7));
   }
 }
 
@@ -158,28 +159,28 @@ Piece.prototype.onBoard = function() {
 Piece.prototype.isPieceBetweenDiagonal = function(element, index, array, piece) {
   var item = this.sprite
   if (item.x > item.originX && item.y > item.originY) {
-    for (var i = item.originX + 100, a = item.originY + 100; i < item.x; i += 100, a += 100) {
+    for (var i = item.originX + ajustCoord(1), a = item.originY + ajustCoord(1); i < item.x; i += ajustCoord(1), a += ajustCoord(1)) {
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead') {
         return true;
       }
     }
   }
   if (item.x < item.originX && item.y < item.originY) {
-    for (var i = item.originX - 100, a = item.originY - 100; i > item.x; i -= 100, a -= 100) {
+    for (var i = item.originX - ajustCoord(1), a = item.originY - ajustCoord(1); i > item.x; i -= ajustCoord(1), a -= ajustCoord(1)) {
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead') {
         return true;
       }
     }
   }
   if (item.x > item.originX && item.y < item.originY) {
-    for (var i = item.originX + 100, a = item.originY - 100; i < item.x; i += 100, a -= 100) {
+    for (var i = item.originX + ajustCoord(1), a = item.originY - ajustCoord(1); i < item.x; i += ajustCoord(1), a -= ajustCoord(1)) {
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead') {
         return true;
       }
     }
   }
   if (item.x < item.originX && item.y > item.originY) {
-    for (var i = item.originX - 100, a = item.originY + 100; i > item.x; i -= 100, a += 100) {
+    for (var i = item.originX - ajustCoord(1), a = item.originY + ajustCoord(1); i > item.x; i -= ajustCoord(1), a += ajustCoord(1)) {
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead') {
         return true;
       }
@@ -210,13 +211,13 @@ Piece.prototype.sendServerCoord = function(originX, originY, pieceId) {
 Piece.prototype.isPieceBetweenUpDown = function(element) {
   var item = this.sprite
   if (element.sprite.x === item.x && item != element.sprite) {
-    for (i = item.originY + 100; i < item.y; i++) {
+    for (i = item.originY + ajustCoord(1); i < item.y; i++) {
       if (element.sprite.y === i) {
         var betweenPiece = element;
         return true
       }
     }
-    for (i = item.originY - 100; i > item.y; i--) {
+    for (i = item.originY - ajustCoord(1); i > item.y; i--) {
       if (element.sprite.y === i) {
         var betweenPiece = element;
         return true
@@ -224,13 +225,13 @@ Piece.prototype.isPieceBetweenUpDown = function(element) {
     }
 
   } else if (element.sprite.y === item.y && item != element.sprite) {
-    for (i = item.originX + 100; i < item.x; i++) {
+    for (i = item.originX + ajustCoord(1); i < item.x; i++) {
       if (element.sprite.x === i) {
         var betweenPiece = element;
         return true
       }
     }
-    for (i = item.originX - 100; i > item.x; i--) {
+    for (i = item.originX - ajustCoord(1); i > item.x; i--) {
       if (element.sprite.x === i) {
         var betweenPiece = element;
         return true
