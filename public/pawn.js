@@ -9,13 +9,13 @@ Pawn.prototype.default_move = function() {
   var item = this.sprite;
   var xRatio = Math.abs(item.x - item.originX);
   var yRatio = Math.abs(item.y - item.originY);
-  if (Math.abs(item.originY - item.y) > 100 || Math.abs(item.originX - item.x) > 100) {
+  if (Math.abs(item.originY - item.y) > adjustDistance(1) || Math.abs(item.originX - item.x) > adjustDistance(1)) {
     if (item.counter > 0 || xRatio > 1) {
       game.add.tween(item).to({
         x: item.originX,
         y: item.originY
       }, 400, Phaser.Easing.Back.Out, true);
-    } else if (yRatio > 200 || xRatio > 200) {
+    } else if (yRatio > adjustDistance(2) || xRatio > adjustDistance(2)) {
       game.add.tween(item).to({
         x: item.originX,
         y: item.originY
