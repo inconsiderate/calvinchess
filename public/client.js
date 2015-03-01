@@ -431,12 +431,13 @@ $(function() {
           }, 400, Phaser.Easing.Back.Out, true);
         }
 
-        function rulesChange(ruleNumber) {
-          allRulesArray[4][1];
+        function rulesChange() {
+          console.log("RULES CHANGE WAS CALLED");
+          allRulesArray[2][1]();
           var $calvinnameDiv = $('<span class="username"/>')
             .text('CalvinBot');
           var $messageRuleDiv = $('<spac class="messageBody">')
-            .text(allRulesArray[4][0]);
+            .text(allRulesArray[2][0]);
           var $ruleChangeDiv = $('<li class="message"/>')
             .data('username', 'CalvinBot')
             .append($calvinnameDiv, $messageRuleDiv);
@@ -507,7 +508,6 @@ $(function() {
         });
 
         socket.on('rules changed', function(data) {
-          console.log('is THIS working?');
           rulesChange();
         });
 

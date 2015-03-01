@@ -14,7 +14,9 @@ var rooksToQueens = function() {
 };
 
 var oneTeleport = function() {
+  console.log("ONE TELEPORT HAS BEEN CALLED");
   var random = Math.floor((Math.random() * 31) + 1);
+  console.log("Teleportation Piece: ", allPiecesArray[random]);
   allPiecesArray[random].move = Piece.prototype.teleport
   console.log(allPiecesArray[random].pieceId);
 }
@@ -33,6 +35,7 @@ var horizontalRooks = function() {
 
 var kingsBecomeBatman = function() {
   // grab the current coords of the two kings
+  console.log("KINGS ARE BECOMING BATMAN");
   var blackX = allPiecesArray[1].sprite.x,
     blackY = allPiecesArray[1].sprite.y,
     whiteX = allPiecesArray[17].sprite.x,
