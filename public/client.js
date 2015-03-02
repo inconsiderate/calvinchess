@@ -3,7 +3,7 @@ window.CHANNEL = "default";
 
 
 window.onload = function() {
-  window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'game', {
+  window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'gamecanvas', {
     preload: preload,
     create: create,
     render: render,
@@ -190,20 +190,6 @@ window.onload = function() {
     // game.debug.text('Tile X: ' + currentTile.x + 'Y: ' + currentTile.y, 100, 100);
   }
 };
-
-$("#music-toggle-off").hide()
-
-$("#music-toggle-on").click(function() {
-  $("#music-toggle-on").hide()
-  $("#music-toggle-off").show()
-  window.backgroundMusic.pause()
-});
-
-$("#music-toggle-off").click(function() {
-  $("#music-toggle-on").show()
-  $("#music-toggle-off").hide()
-  window.backgroundMusic.play()
-});
 
 $(function() {
   var FADE_TIME = 150;
