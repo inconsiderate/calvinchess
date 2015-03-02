@@ -1,20 +1,6 @@
 var socket = io();
 window.CHANNEL = "default";
 
-// function resizeGame() {
-//   var gameSpaceHeight = $('#gamecanvas').height();
-//   var gameSpaceWidth = $('#gamecanvas').width();
-
-//   game.width = gameSpaceWidth;
-//   game.height = gameSpaceHeight;
-//   game.stage.bounds.width = gameSpaceWidth;
-//   game.stage.bounds.height = gameSpaceHeight;
-
-//   if (game.renderType === Phaser.WEBGL) {
-//     game.renderer.resize(gameSpaceWidth, gameSpaceHeight);
-//   }
-// }
-
 window.onload = function() {
   window.game = new Phaser.Game(600, 600, Phaser.AUTO, 'gamecanvas', {
     preload: preload,
@@ -24,7 +10,6 @@ window.onload = function() {
   });
 
   window.game.scaleMode = Phaser.ScaleManager.RESIZE;
-  // $(window).resize(function() { window.resizeGame(); } );
 
   window.allPiecesArray = [];
   window.blackPieces = [];
@@ -103,19 +88,6 @@ window.onload = function() {
     window.shotgunSound = game.add.audio('shotgun', 1, false);
     window.whooshSound = game.add.audio('whoosh', 1, false);
 
-    // var allPieces = game.add.group();
-
-    // batman = game.add.sprite(300,300, 'batman');
-    // batman.height = 110;
-    // batman.width = 110;
-    // batman.animations.add('wave');
-    // batman.animations.play('wave', 10, true);
-
-    // duke = game.add.sprite(325,300, 'duke');
-    // duke.height = 90;
-    // duke.animations.add('wave');
-    // duke.animations.play('wave', 10, true);
-
     bQueen = new Queen(game, 'black', 3, 0, 'bQueen');
     bKing = new King(game, 'black', 4, 0, 'bKing');
     b1Rook = new Rook(game, 'black', 7, 0, 'bRook');
@@ -175,9 +147,6 @@ window.onload = function() {
         whitePieces[i].sprite.input.draggable = false;
       }
     }
-
-  // window.resizeGame();
-
   }
 
   function clickedBlock() {
@@ -459,6 +428,7 @@ $(function() {
 
   function rulesChange(data) {
     console.log("RULES CHANGE WAS CALLED");
+
     allRulesArray[data][1]();
     console.log('rule active: ',data);
     var $calvinnameDiv = $('<span class="username"/>')

@@ -5,6 +5,7 @@ var queenKillsPieces = function() {
 
 
 var rooksToQueens = function() {
+  console.log(allPiecesArray[2])
   allPiecesArray[2].move = Queen.prototype.default_move;
   allPiecesArray[3].move = Queen.prototype.default_move;
   allPiecesArray[18].move = Queen.prototype.default_move;
@@ -81,5 +82,5 @@ window.allRulesArray = [
   ['If a king moves, all bishops will be captured', deleteBishops],
   ['Welp! No more board!', deleteBoard],
   ["Mystery rule! Something has changed, but what?", emptyFunction]
-
+  ["Mystery rule! Something has changed, but what?",  nothing] 
 ];
