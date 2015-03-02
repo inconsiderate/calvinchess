@@ -82,5 +82,4 @@ window.allRulesArray = [
   ['If a king moves, all bishops will be captured', deleteBishops],
   ['Welp! No more board!', deleteBoard],
   ["Mystery rule! Something has changed, but what?", emptyFunction]
-  ["Mystery rule! Something has changed, but what?",  nothing] 
 ];
