@@ -1,16 +1,14 @@
 var queenKillsPieces = function() {
-  allPiecesArray[16].onBoard = Piece.prototype.deletePiece(Pawn);
-  allPiecesArray[0].onBoard = Piece.prototype.deletePiece(Pawn);
+  allPiecesArray[16].onBoard = Piece.prototype.deletePawn;
+  allPiecesArray[0].onBoard = Piece.prototype.deletePawn;
 };
 
 
 var rooksToQueens = function() {
-  // since the array is a global variable this is the way we chose to access it.
   allPiecesArray[2].move = Queen.prototype.default_move;
   allPiecesArray[3].move = Queen.prototype.default_move;
   allPiecesArray[18].move = Queen.prototype.default_move;
   allPiecesArray[19].move = Queen.prototype.default_move;
-
 };
 
 var oneTeleport = function() {
@@ -70,6 +68,24 @@ var kingsBecomeBatman = function() {
   wKing.sprite.animations.play('quiver', 10, false);
 }
 
+var verticalQueens = function(){
+  allPiecesArray[16].move = Piece.prototype.vertical;
+  allPiecesArray[0].move = Piece.prototype.vertical;
+}
+
+var sidewaysKings = function(){
+  allPiecesArray[1].move = Piece.prototype.sideways;
+  allPiecesArray[17].move = Piece.prototype.sideways;
+}
+var deleteBishops = function(){
+  allPiecesArray[1].onBoard = Piece.prototype.deleteBishop;
+  allPiecesArray[17].onBoard = Piece.prototype.deleteBishop;
+
+}
+
+var deleteBoard = function(){
+  
+}
 
 window.allRulesArray = [
   ['If a queen moves, all pawns will be captured', queenKillsPieces],
@@ -77,5 +93,9 @@ window.allRulesArray = [
   ['One piece on the board can now teleport', oneTeleport],
   ['Both Queens are now stuck', stuckQueens],
   ['Kings are now Batman', kingsBecomeBatman],
-  ['Rooks can only move horizontally', horizontalRooks]
+  ['Rooks can only move horizontally', horizontalRooks], 
+  ['Queens can only move vertically', verticalQueens], 
+  ['Kings can only move sideways', sidewaysKings], 
+  ['If a king moves, all bishops will be captured', deleteBishops], 
+  ['Welp! No more board', deleteBoard]
 ];

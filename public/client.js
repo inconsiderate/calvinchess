@@ -31,7 +31,7 @@ window.onload = function() {
   window.whitePieces = [];
   window.turnCounter = 0
   window.allRulesArray;
-
+  window.background;
   var explosionPiece;
 
   var bQueen, bKing, b1Rook, b2Rook, b1Bishop, b2Bishop, b1Knight, b2Knight,
@@ -86,7 +86,7 @@ window.onload = function() {
         grid[y][x] = game.add.image(x * 100, y * 100, 'square');
       }
     }
-    var background = game.add.image(0, 0, 'background');
+    background = game.add.image(0, 0, 'background');
     background.height = 800;
     background.width = 800;
 
@@ -453,11 +453,11 @@ $(function() {
 
   function rulesChange() {
     console.log("RULES CHANGE WAS CALLED");
-    allRulesArray[2][1]();
+    allRulesArray[8][1]();
     var $calvinnameDiv = $('<span class="username"/>')
       .text('CalvinBot');
     var $messageRuleDiv = $('<spac class="messageBody">')
-      .text(allRulesArray[2][0]);
+      .text(allRulesArray[8][0]);
     var $ruleChangeDiv = $('<li class="message"/>')
       .data('username', 'CalvinBot')
       .append($calvinnameDiv, $messageRuleDiv);

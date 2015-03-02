@@ -13,6 +13,7 @@ function adjustDistance(num){
   var distance = (num * 100)
   return distance;
 }
+
 Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
     this.sprite = game.add.sprite(adjustCoord(xcoor), adjustCoord(ycoor), piecename);
     this.pieceId = piecename + xcoor //Math.floor(Math.random() * 1000);
@@ -156,34 +157,34 @@ Piece.prototype.BishopMoveValidation = function(item) {
 }
 
 Piece.prototype.onBoard = function() {
-
+  console.log("ON BOARD FUNCTION WAS CALLED")
 }
 
 Piece.prototype.isPieceBetweenDiagonal = function(element, index, array, piece) {
   var item = this.sprite
   if (item.x > item.originX && item.y > item.originY) {
-    for (var i = item.originX + ajustCoord(1), a = item.originY + ajustCoord(1); i < item.x; i += ajustCoord(1), a += ajustCoord(1)) {
+    for (var i = item.originX + adjustCoord(1), a = item.originY + adjustCoord(1); i < item.x; i += adjustCoord(1), a += adjustCoord(1)) {
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead') {
         return true;
       }
     }
   }
   if (item.x < item.originX && item.y < item.originY) {
-    for (var i = item.originX - ajustCoord(1), a = item.originY - ajustCoord(1); i > item.x; i -= ajustCoord(1), a -= ajustCoord(1)) {
+    for (var i = item.originX - adjustCoord(1), a = item.originY - adjustCoord(1); i > item.x; i -= adjustCoord(1), a -= adjustCoord(1)) {
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead') {
         return true;
       }
     }
   }
   if (item.x > item.originX && item.y < item.originY) {
-    for (var i = item.originX + ajustCoord(1), a = item.originY - ajustCoord(1); i < item.x; i += ajustCoord(1), a -= ajustCoord(1)) {
+    for (var i = item.originX + adjustCoord(1), a = item.originY - adjustCoord(1); i < item.x; i += adjustCoord(1), a -= adjustCoord(1)) {
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead') {
         return true;
       }
     }
   }
   if (item.x < item.originX && item.y > item.originY) {
-    for (var i = item.originX - ajustCoord(1), a = item.originY + ajustCoord(1); i > item.x; i -= ajustCoord(1), a += ajustCoord(1)) {
+    for (var i = item.originX - adjustCoord(1), a = item.originY + adjustCoord(1); i > item.x; i -= adjustCoord(1), a += adjustCoord(1)) {
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead') {
         return true;
       }
@@ -214,13 +215,13 @@ Piece.prototype.sendServerCoord = function(originX, originY, pieceId) {
 Piece.prototype.isPieceBetweenUpDown = function(element) {
   var item = this.sprite
   if (element.sprite.x === item.x && item != element.sprite) {
-    for (i = item.originY + ajustCoord(1); i < item.y; i++) {
+    for (i = item.originY + adjustCoord(1); i < item.y; i++) {
       if (element.sprite.y === i) {
         var betweenPiece = element;
         return true
       }
     }
-    for (i = item.originY - ajustCoord(1); i > item.y; i--) {
+    for (i = item.originY - adjustCoord(1); i > item.y; i--) {
       if (element.sprite.y === i) {
         var betweenPiece = element;
         return true
@@ -228,13 +229,13 @@ Piece.prototype.isPieceBetweenUpDown = function(element) {
     }
 
   } else if (element.sprite.y === item.y && item != element.sprite) {
-    for (i = item.originX + ajustCoord(1); i < item.x; i++) {
+    for (i = item.originX + adjustCoord(1); i < item.x; i++) {
       if (element.sprite.x === i) {
         var betweenPiece = element;
         return true
       }
     }
-    for (i = item.originX - ajustCoord(1); i > item.x; i--) {
+    for (i = item.originX - adjustCoord(1); i > item.x; i--) {
       if (element.sprite.x === i) {
         var betweenPiece = element;
         return true
@@ -249,7 +250,7 @@ Piece.prototype.isPieceBetweenUpDown = function(element) {
 
 Piece.prototype.teleport = function() {
   var item = this.sprite;
-
+  var piece = this;
   function isPieceHere(element) {
     if (element.sprite.x === item.x && element.sprite.y === item.y && item != element.sprite) {
       return true
@@ -285,6 +286,7 @@ Piece.prototype.stuck = function() {
 
 Piece.prototype.sideways = function() {
   var item = this.sprite;
+  var piece = this;
   // piece can only move on the x axis
   if (item.y != item.originY) {
     game.add.tween(item).to({
@@ -313,6 +315,7 @@ Piece.prototype.sideways = function() {
 
 Piece.prototype.vertical = function() {
   var item = this.sprite;
+  var piece = this;
   // piece can only move on the x axis
   if (item.x != item.originX) {
     game.add.tween(item).to({
@@ -336,12 +339,12 @@ Piece.prototype.vertical = function() {
   }
 }
 
-Piece.prototype.deletePiece = function(Piece) {
+Piece.prototype.deletePawn = function() {
   // check to see if the other player can see this happen 
   var match = allPiecesArray.filter(isPawn);
-
+  var piece = this;
   function isPawn(element) {
-      if (element instanceof Piece) {
+      if (element instanceof Pawn) {
         return true;
       } else {
         return false;
@@ -349,6 +352,25 @@ Piece.prototype.deletePiece = function(Piece) {
     }
   if (match.length > 0) {
     for (i = 0; i < match.length; i++) {
+      piece.sendServerKill(match[i]);
+      match[i].sprite.destroy();
+      match[i].sprite.lifeStatus = 'dead';
+    }
+  }
+}
+
+Piece.prototype.deleteBishop = function(){
+  var match = allPiecesArray.filter(isBishop);
+  var piece = this;
+  function isBishop(element){
+    if (element instanceof Bishop){
+      return true;
+    } else {
+      return false;
+    }
+  }
+  if (match.length > 0){
+    for (i = 0; i < match.length; i++){
       piece.sendServerKill(match[i]);
       match[i].sprite.destroy();
       match[i].sprite.lifeStatus = 'dead';
