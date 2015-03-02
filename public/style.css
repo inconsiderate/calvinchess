@@ -19,9 +19,12 @@ ul {
 }
 #container {
   position: relative;
+  display: block;
 }
 
 #gamecanvas {
+  left:0%;
+  margin:0;
 }
 
 #rules-box {
