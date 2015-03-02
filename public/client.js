@@ -434,7 +434,6 @@ $(function() {
       .text('CalvinBot');
     var $messageRuleDiv = $('<spac class="messageBody">')
      .text(allRulesArray[data][0])
-      // .text(allRulesArray[data][0]);
     var $ruleChangeDiv = $('<li class="message"/>')
       .data('username', 'CalvinBot')
       .append($calvinnameDiv, $messageRuleDiv);
