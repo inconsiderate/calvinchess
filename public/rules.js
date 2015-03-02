@@ -82,7 +82,9 @@ var deleteBishops = function(){
   allPiecesArray[17].onBoard = Piece.prototype.deleteBishop;
 
 }
-
+var deleteBoard = function(){
+  window.background.destroy();
+}
 var nothing = function(){
   
 }
@@ -98,6 +100,6 @@ window.allRulesArray = [
   ['Kings can only move sideways', sidewaysKings], 
   ['If a king moves, all bishops will be captured', deleteBishops], 
   ['Welp! No more board!', deleteBoard],
-  ["Mystery rule! Something has changed, but what?",  nothing], 
-  ["One piece has been captured!", deleteOnePiece]
+  ["Mystery rule! Something has changed, but what?",  nothing] 
+  
 ];

@@ -5,12 +5,12 @@ function Piece(game, color, xcoor, ycoor, piecename) {
 };
 
 function adjustCoord(num){
-  var coor = (num * 100) + 5
+  var coor = (num * 75) + 5
   return coor;
 }
 
 function adjustDistance(num){
-  var distance = (num * 100)
+  var distance = (num * 75)
   return distance;
 }
 
@@ -20,8 +20,8 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
     this.sprite.inputEnabled = true;
     this.sprite.input.enableDrag();
     this.sprite.input.draggable = false;
-    this.sprite.height = 90;
-    this.sprite.width = 90;
+    this.sprite.height = 70;
+    this.sprite.width = 70;
     this.sprite.input.enableSnap(adjustDistance(1), adjustDistance(1), false, true, 5, 5);
     this.sprite.originX = adjustCoord(xcoor);
     this.sprite.originY = adjustCoord(ycoor);

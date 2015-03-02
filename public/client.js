@@ -16,7 +16,7 @@ window.CHANNEL = "default";
 // }
 
 window.onload = function() {
-  window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'gamecanvas', {
+  window.game = new Phaser.Game(600, 600, Phaser.AUTO, 'gamecanvas', {
     preload: preload,
     create: create,
     render: render,
@@ -86,9 +86,9 @@ window.onload = function() {
         grid[y][x] = game.add.image(x * 100, y * 100, 'square');
       }
     }
-    var background = game.add.image(0, 0, 'background');
-    background.height = 800;
-    background.width = 800;
+    window.background = game.add.image(0, 0, 'background');
+    background.height = 600;
+    background.width = 600;
 
     window.backgroundMusic = game.add.audio('background', 0.5, true);
     window.backgroundMusic.loop = true;
@@ -191,8 +191,8 @@ window.onload = function() {
   }
 
   function update() {
-    currentTile.x = this.game.math.snapToFloor(game.input.x, 100) / 100;
-    currentTile.y = this.game.math.snapToFloor(game.input.y, 100) / 100;
+    currentTile.x = this.game.math.snapToFloor(game.input.x, 75) / 75;
+    currentTile.y = this.game.math.snapToFloor(game.input.y, 75) / 75;
     if (wKing.sprite.lifeStatus === 'dead' || bKing.sprite.lifeStatus === 'dead') {
       var style = {
         font: "65px Arial",
