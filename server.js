@@ -45,6 +45,7 @@ io.on('connection', function(socket) {
       var newRuleNumber = (Math.floor(Math.random(10) * 10));
       io.to(data.channel).emit('rules changed', {
         newRuleNumber: newRuleNumber
+      
       });
     } else if (data.message.indexOf("join channel") > -1) {
       var splitData = data.message.split(" "),

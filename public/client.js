@@ -38,6 +38,8 @@ window.onload = function() {
     b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn;
   window.bQueen;
   window.wQueen;
+  window.bKing;
+  window.wKing;
   var wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight,
     w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn;
 
@@ -51,6 +53,9 @@ window.onload = function() {
     game.load.spritesheet('duke', '/spritesheets/duke.png', 50, 71, 10);
     game.load.spritesheet('batman', '/spritesheets/batman.png', 69, 69, 30);
     game.load.spritesheet('largeExplosion', '/spritesheets/largeExplosion.png', 220, 220);
+
+    // game.load.image('background2', '/images/chessboard2.png');
+    game.load.image('background2', '/images/chessboard3.jpg');
 
     game.load.image('background', '/images/calvinBoard2.png');
     game.load.image('square', '/images/grid.jpeg');
@@ -532,7 +537,7 @@ $(function() {
 
   socket.on('rules changed', function(data) {
     // rulesChange(data.newRuleNumber);
-    rulesChange(9);
+    rulesChange(4);
   });
 
   socket.on('kill piece', function(data) {
