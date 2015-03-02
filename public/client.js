@@ -2,29 +2,29 @@ var socket = io();
 window.CHANNEL = "default";
 
 function resizeGame() {
-var height = $(window).height();
-var width = $(window).width();
-  
-game.width = width;
-game.height = height;
-game.stage.bounds.width = width;
-game.stage.bounds.height = height;
-  
-if (game.renderType === Phaser.WEBGL)
-{
-  game.renderer.resize(width, height);
-}
+  var gameSpaceHeight = $('#game-space').height();
+  var gameSpaceWidth = $('#game-space').width();
+
+  game.width = gameSpaceWidth;
+  game.height = gameSpaceHeight;
+  game.stage.bounds.width = gameSpaceWidth;
+  game.stage.bounds.height = gameSpaceHeight;
+
+  if (game.renderType === Phaser.WEBGL) {
+    game.renderer.resize(gameSpaceWidth, gameSpaceHeight);
+  }
 }
 
 window.onload = function() {
-  $(window).resize(function() { window.resizeGame(); } );
-
   window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'game', {
     preload: preload,
     create: create,
     render: render,
     update: update
   });
+
+  window.game.scaleMode = Phaser.ScaleManager.RESIZE;
+  $(window).resize(function() { window.resizeGame(); } );
 
   window.allPiecesArray = [];
   window.blackPieces = [];
@@ -169,6 +169,9 @@ window.onload = function() {
         whitePieces[i].sprite.input.draggable = false;
       }
     }
+
+  // window.resizeGame();
+
   }
 
   function clickedBlock() {

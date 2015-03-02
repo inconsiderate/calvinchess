@@ -21,7 +21,9 @@ ul {
   position: fixed;
   display: flex;
 }
-#game {
+#game-space {
+  width: 600px;
+  height: 600px;
 }
 /* Pages */
 
