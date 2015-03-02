@@ -1,6 +1,19 @@
 var socket = io();
 window.CHANNEL = "default";
 
+function resizeGame() {
+  var gameSpaceHeight = $('#game-space').height();
+  var gameSpaceWidth = $('#game-space').width();
+
+  game.width = gameSpaceWidth;
+  game.height = gameSpaceHeight;
+  game.stage.bounds.width = gameSpaceWidth;
+  game.stage.bounds.height = gameSpaceHeight;
+
+  if (game.renderType === Phaser.WEBGL) {
+    game.renderer.resize(gameSpaceWidth, gameSpaceHeight);
+  }
+}
 
 window.onload = function() {
   window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'gamecanvas', {
@@ -9,6 +22,9 @@ window.onload = function() {
     render: render,
     update: update
   });
+
+  window.game.scaleMode = Phaser.ScaleManager.RESIZE;
+  $(window).resize(function() { window.resizeGame(); } );
 
   window.allPiecesArray = [];
   window.blackPieces = [];
@@ -153,6 +169,9 @@ window.onload = function() {
         whitePieces[i].sprite.input.draggable = false;
       }
     }
+
+  // window.resizeGame();
+
   }
 
   function clickedBlock() {
