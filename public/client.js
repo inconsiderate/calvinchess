@@ -1,8 +1,24 @@
 var socket = io();
 window.CHANNEL = "default";
 
+function resizeGame() {
+var height = $(window).height();
+var width = $(window).width();
+  
+game.width = width;
+game.height = height;
+game.stage.bounds.width = width;
+game.stage.bounds.height = height;
+  
+if (game.renderType === Phaser.WEBGL)
+{
+  game.renderer.resize(width, height);
+}
+}
 
 window.onload = function() {
+  $(window).resize(function() { window.resizeGame(); } );
+
   window.game = new Phaser.Game(800, 800, Phaser.AUTO, 'game', {
     preload: preload,
     create: create,
