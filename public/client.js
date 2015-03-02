@@ -427,7 +427,7 @@ $(function() {
   }
 
   function rulesChange(data) {
-    console.log("RULES CHANGE WAS CALLED");
+    console.log("RULES CHANGE WAS CALLED", data);
 
     allRulesArray[data][1]();
     console.log('rule active: ',data);
@@ -506,8 +506,8 @@ $(function() {
   });
 
   socket.on('rules changed', function(data) {
-    // rulesChange(data.newRuleNumber);
-    rulesChange(4);
+    rulesChange(data.newRuleNumber);
+    // rulesChange(9);
   });
 
   socket.on('kill piece', function(data) {

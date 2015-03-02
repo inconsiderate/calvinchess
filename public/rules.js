@@ -34,8 +34,8 @@ var horizontalRooks = function() {
 
 var kingsBecomeBatman = function() {
   // grab the current coords of the two kings
-  allPiecesArray[1].sprite.loadTexture('batman'),
-  allPiecesArray[17].sprite.loadTexture('batman')
+  allPiecesArray[1].sprite.loadTexture('batman');
+  allPiecesArray[17].sprite.loadTexture('batman');
   allPiecesArray[17].sprite.height = 75;
   allPiecesArray[17].sprite.width = 75;
   allPiecesArray[17].sprite.animations.add('quiver');
