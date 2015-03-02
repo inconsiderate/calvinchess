@@ -69,7 +69,9 @@ var deleteBoard = function() {
   window.background.height = 600;
   window.background.width = 600;
 }
+
 var emptyFunction = function() {}
+
 window.allRulesArray = [
   ['If a queen moves, all pawns will be captured', queenKillsPieces],
   ['All rooks can now move like queens', rooksToQueens],
