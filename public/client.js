@@ -50,7 +50,7 @@ window.onload = function() {
     game.load.spritesheet('explosion', '/spritesheets/explosion.png', 64, 64, 24);
     game.load.spritesheet('duke', '/spritesheets/duke.png', 50, 71, 10);
     game.load.spritesheet('batman', '/spritesheets/batman.png', 69, 69, 30);
-    game.load.image('explosionTransition', '/images/explodetransition.gif');
+    game.load.spritesheet('largeExplosion', '/spritesheets/largeExplosion.png', 220, 220);
 
     game.load.image('background', '/images/calvinBoard2.png');
     game.load.image('square', '/images/grid.jpeg');
