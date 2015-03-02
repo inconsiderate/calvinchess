@@ -1,6 +1,6 @@
-$('document').ready(function() {
-	$('#gamecanvas').hide();
-});
+// $('document').ready(function() {
+// 	$('#gamecanvas').hide();
+// });
 
 
 // Background music toggle on and off
