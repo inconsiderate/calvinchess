@@ -1,20 +1,6 @@
 var socket = io();
 window.CHANNEL = "default";
 
-// function resizeGame() {
-//   var gameSpaceHeight = $('#gamecanvas').height();
-//   var gameSpaceWidth = $('#gamecanvas').width();
-
-//   game.width = gameSpaceWidth;
-//   game.height = gameSpaceHeight;
-//   game.stage.bounds.width = gameSpaceWidth;
-//   game.stage.bounds.height = gameSpaceHeight;
-
-//   if (game.renderType === Phaser.WEBGL) {
-//     game.renderer.resize(gameSpaceWidth, gameSpaceHeight);
-//   }
-// }
-
 window.onload = function() {
   window.game = new Phaser.Game(600, 600, Phaser.AUTO, 'gamecanvas', {
     preload: preload,
@@ -24,7 +10,6 @@ window.onload = function() {
   });
 
   window.game.scaleMode = Phaser.ScaleManager.RESIZE;
-  // $(window).resize(function() { window.resizeGame(); } );
 
   window.allPiecesArray = [];
   window.blackPieces = [];
@@ -38,6 +23,8 @@ window.onload = function() {
     b1Pawn, b2Pawn, b3Pawn, b4Pawn, b5Pawn, b6Pawn, b7Pawn, b8Pawn;
   window.bQueen;
   window.wQueen;
+  window.bKing;
+  window.wKing;
   var wKing, w1Rook, w2Rook, w1Bishop, w2Bishop, w1Knight, w2Knight,
     w1Pawn, w2Pawn, w3Pawn, w4Pawn, w5Pawn, w6Pawn, w7Pawn, w8Pawn;
 
@@ -51,6 +38,9 @@ window.onload = function() {
     game.load.spritesheet('duke', '/spritesheets/duke.png', 50, 71, 10);
     game.load.spritesheet('batman', '/spritesheets/batman.png', 69, 69, 30);
     game.load.spritesheet('largeExplosion', '/spritesheets/largeExplosion.png', 220, 220);
+
+    // game.load.image('background2', '/images/chessboard2.png');
+    game.load.image('background2', '/images/chessboard3.jpg');
 
     game.load.image('background', '/images/calvinBoard2.png');
     game.load.image('square', '/images/grid.jpeg');
@@ -97,19 +87,6 @@ window.onload = function() {
 
     window.shotgunSound = game.add.audio('shotgun', 1, false);
     window.whooshSound = game.add.audio('whoosh', 1, false);
-
-    // var allPieces = game.add.group();
-
-    // batman = game.add.sprite(300,300, 'batman');
-    // batman.height = 110;
-    // batman.width = 110;
-    // batman.animations.add('wave');
-    // batman.animations.play('wave', 10, true);
-
-    // duke = game.add.sprite(325,300, 'duke');
-    // duke.height = 90;
-    // duke.animations.add('wave');
-    // duke.animations.play('wave', 10, true);
 
     bQueen = new Queen(game, 'black', 3, 0, 'bQueen');
     bKing = new King(game, 'black', 4, 0, 'bKing');
@@ -170,9 +147,6 @@ window.onload = function() {
         whitePieces[i].sprite.input.draggable = false;
       }
     }
-
-  // window.resizeGame();
-
   }
 
   function clickedBlock() {
@@ -534,7 +508,7 @@ $(function() {
 
   socket.on('rules changed', function(data) {
     // rulesChange(data.newRuleNumber);
-    rulesChange(9);
+    rulesChange(4);
   });
 
   socket.on('kill piece', function(data) {
