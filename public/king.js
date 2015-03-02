@@ -21,3 +21,4 @@ King.prototype.default_move = function() {
 };
 
 King.prototype.move = King.prototype.default_move;
+King.prototype.onBoard = Piece.prototype.onBoard;

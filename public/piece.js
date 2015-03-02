@@ -339,7 +339,7 @@ Piece.prototype.vertical = function() {
   }
 }
 
-Piece.prototype.deletePiece = function() {
+Piece.prototype.deletePawn = function() {
   // check to see if the other player can see this happen 
   var match = allPiecesArray.filter(isPawn);
   var piece = this;
@@ -352,6 +352,25 @@ Piece.prototype.deletePiece = function() {
     }
   if (match.length > 0) {
     for (i = 0; i < match.length; i++) {
+      piece.sendServerKill(match[i]);
+      match[i].sprite.destroy();
+      match[i].sprite.lifeStatus = 'dead';
+    }
+  }
+}
+
+Piece.prototype.deleteBishop = function(){
+  var match = allPiecesArray.filter(isBishop);
+  var piece = this;
+  function isBishop(element){
+    if (element instanceof Bishop){
+      return true;
+    } else {
+      return false;
+    }
+  }
+  if (match.length > 0){
+    for (i = 0; i < match.length; i++){
       piece.sendServerKill(match[i]);
       match[i].sprite.destroy();
       match[i].sprite.lifeStatus = 'dead';
