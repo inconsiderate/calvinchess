@@ -84,7 +84,8 @@ var deleteBishops = function(){
 }
 
 var deleteBoard = function(){
-  
+  window.background.destroy();
+  window.background = game.add.image(0, 0, 'explosionTransition');
 }
 
 window.allRulesArray = [

@@ -50,6 +50,7 @@ window.onload = function() {
     game.load.spritesheet('explosion', '/spritesheets/explosion.png', 64, 64, 24);
     game.load.spritesheet('duke', '/spritesheets/duke.png', 50, 71, 10);
     game.load.spritesheet('batman', '/spritesheets/batman.png', 69, 69, 30);
+    game.load.image('explosionTransition', '/images/explodetransition.gif');
 
     game.load.image('background', '/images/calvinBoard2.png');
     game.load.image('square', '/images/grid.jpeg');
@@ -86,9 +87,9 @@ window.onload = function() {
         grid[y][x] = game.add.image(x * 100, y * 100, 'square');
       }
     }
-    background = game.add.image(0, 0, 'background');
-    background.height = 800;
-    background.width = 800;
+    window.background = game.add.image(0, 0, 'background');
+    window.background.height = 800;
+    window.background.width = 800;
 
     window.backgroundMusic = game.add.audio('background', 0.5, true);
     window.backgroundMusic.loop = true;
@@ -530,7 +531,8 @@ $(function() {
   });
 
   socket.on('rules changed', function(data) {
-    rulesChange(data.newRuleNumber);
+    // rulesChange(data.newRuleNumber);
+    rulesChange(9);
   });
 
   socket.on('kill piece', function(data) {
