@@ -50,6 +50,7 @@ window.onload = function() {
     game.load.spritesheet('explosion', '/spritesheets/explosion.png', 64, 64, 24);
     game.load.spritesheet('duke', '/spritesheets/duke.png', 50, 71, 10);
     game.load.spritesheet('batman', '/spritesheets/batman.png', 69, 69, 30);
+    game.load.spritesheet('largeExplosion', '/spritesheets/largeExplosion.png', 220, 220);
 
     game.load.image('background', '/images/calvinBoard2.png');
     game.load.image('square', '/images/grid.jpeg');
@@ -87,8 +88,8 @@ window.onload = function() {
       }
     }
     window.background = game.add.image(0, 0, 'background');
-    background.height = 600;
-    background.width = 600;
+    window.background.height = 600;
+    window.background.width = 600;
 
     window.backgroundMusic = game.add.audio('background', 0.5, true);
     window.backgroundMusic.loop = true;
@@ -226,6 +227,7 @@ $(function() {
   var $inputMessage = $('.inputMessage');
   var $loginPage = $('.login.page');
   var $chatPage = $('.chat.page');
+  var $rulesChangeBox = $('#rules-box');
 
   // Prompt for setting a username
   var username;
@@ -450,17 +452,20 @@ $(function() {
     }, 400, Phaser.Easing.Back.Out, true);
   }
 
-  function rulesChange() {
+  function rulesChange(data) {
     console.log("RULES CHANGE WAS CALLED");
-    allRulesArray[1][1]();
+
+    allRulesArray[data][1]();
+    console.log('rule active: ',data);
     var $calvinnameDiv = $('<span class="username"/>')
       .text('CalvinBot');
     var $messageRuleDiv = $('<spac class="messageBody">')
-      .text(allRulesArray[1][0]);
+      .text(allRulesArray[data][0]);
     var $ruleChangeDiv = $('<li class="message"/>')
       .data('username', 'CalvinBot')
       .append($calvinnameDiv, $messageRuleDiv);
     addMessageElement($ruleChangeDiv);
+    $rulesChangeBox.text(allRulesArray[data][0]);
   }
 
   // Click events
@@ -527,7 +532,8 @@ $(function() {
   });
 
   socket.on('rules changed', function(data) {
-    rulesChange();
+    // rulesChange(data.newRuleNumber);
+    rulesChange(9);
   });
 
   socket.on('kill piece', function(data) {

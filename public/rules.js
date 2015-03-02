@@ -84,10 +84,12 @@ var deleteBishops = function(){
 
 }
 var deleteBoard = function(){
+  var testImage = game.add.sprite(-250, -200, 'largeExplosion');
+  testImage.height = 1200;
+  testImage.width = 1200;
+  testImage.animations.add('largeExplosion');
+  testImage.animations.play('largeExplosion', true);
   window.background.destroy();
-}
-var nothing = function(){
-  
 }
 
 window.allRulesArray = [
