@@ -451,18 +451,19 @@ $(function() {
     }, 400, Phaser.Easing.Back.Out, true);
   }
 
-  function rulesChange() {
+  function rulesChange(data) {
     console.log("RULES CHANGE WAS CALLED");
-    allRulesArray[8][1]();
+    allRulesArray[data][1]();
+    console.log('rule active: ',data);
     var $calvinnameDiv = $('<span class="username"/>')
       .text('CalvinBot');
     var $messageRuleDiv = $('<spac class="messageBody">')
-      .text(allRulesArray[8][0]);
+      .text(allRulesArray[data][0]);
     var $ruleChangeDiv = $('<li class="message"/>')
       .data('username', 'CalvinBot')
       .append($calvinnameDiv, $messageRuleDiv);
     addMessageElement($ruleChangeDiv);
-    $rulesChangeBox.text(allRulesArray[2][0]);
+    $rulesChangeBox.text(allRulesArray[data][0]);
   }
 
   // Click events
@@ -529,7 +530,7 @@ $(function() {
   });
 
   socket.on('rules changed', function(data) {
-    rulesChange();
+    rulesChange(data.newRuleNumber);
   });
 
   socket.on('kill piece', function(data) {

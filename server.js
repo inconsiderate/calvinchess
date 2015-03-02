@@ -42,7 +42,10 @@ io.on('connection', function(socket) {
     // echo globally to all users that a rule has changed
     console.log(socket.username, 'posted:', data.message);
     if (data.message === "rule change") {
-      io.to(data.channel).emit('rules changed', {});
+      var newRuleNumber = (Math.floor(Math.random(10) * 10));
+      io.to(data.channel).emit('rules changed', {
+        newRuleNumber: newRuleNumber
+      });
     } else if (data.message.indexOf("join channel") > -1) {
       var splitData = data.message.split(" "),
         channelName = splitData[2];
@@ -55,7 +58,7 @@ io.on('connection', function(socket) {
       socket.emit('current channel', {
         currentChannel: channelName
       });
-    } else if (Math.floor(Math.random(10) * 10) === 4 || data.message.indexOf("calvin") > -1) {
+    } else if (Math.floor(Math.random(10) * 10) === 4 || data.message.indexOf("calvin")) {
       calvinNumber = (Math.floor(Math.random(calvinQuotes.length) * 10) - 1);
       io.to(data.channel).emit('new message', {
         username: 'CalvinBot',
