@@ -226,6 +226,7 @@ $(function() {
   var $inputMessage = $('.inputMessage');
   var $loginPage = $('.login.page');
   var $chatPage = $('.chat.page');
+  var $rulesChangeBox = $('#rules-box');
 
   // Prompt for setting a username
   var username;
@@ -461,6 +462,7 @@ $(function() {
       .data('username', 'CalvinBot')
       .append($calvinnameDiv, $messageRuleDiv);
     addMessageElement($ruleChangeDiv);
+    $rulesChangeBox.text(allRulesArray[2][0]);
   }
 
   // Click events

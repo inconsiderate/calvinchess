@@ -29,6 +29,8 @@ f
 }
 
 #rules-box {
+  color: darkcyan;
+  font-weight: 600;
 }
 /* Pages */
 
@@ -37,11 +39,11 @@ f
   height: 60px;
 }
 .pages {
-  width: 70%;
+  width: 100%;
   position: absolute;
   height: 100%;
   margin: 0;
-  right: -75%;
+  right: -98%;
 }
 .page {
   height: 90%;
