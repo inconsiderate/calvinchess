@@ -86,7 +86,7 @@ Piece.prototype.kingKnightMoveValidation = function(item) {
   var piece = this;
   var match = allPiecesArray.filter(this.isPieceHere, this);
   var item = this.sprite
-  if (piece.killAction(item, match) === true) {} else {
+  if (!piece.killAction(item, match)) {
     piece.resetOrigin(item, item.x, item.y, piece);
   }
 }
@@ -120,15 +120,17 @@ Piece.prototype.rookMoveValidation = function(item) {
   var match = allPiecesArray.filter(this.isPieceHere, this);
   var between = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
   //TODO: perhaps factor out into validator class instead??
-  
-  if (piece.killAction(item, match) === true) {
+  if (piece.killAction(item, match)) {
   } else if (match.length > 0) {
     if (item.counter === 0 && match[0] instanceof King) {
       piece.canCastle(match[0]);
     } else {
       game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
     }
-  } else {
+  } else if (between.length > 0){
+      game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
+  }
+    else {
     if (item.x === item.originX && item.y === item.originY) {
       return true;
     } else {
@@ -141,7 +143,7 @@ Piece.prototype.BishopMoveValidation = function(item) {
   var piece = this;
   var match = allPiecesArray.filter(this.isPieceHere, this);
   var between = allPiecesArray.filter(this.isPieceBetweenDiagonal, this);
-  if (piece.killAction(item, match) === true) {
+  if (piece.killAction(item, match)) {
   } else if (between.length > 0) {
     game.add.tween(item).to({
       x: item.originX,
@@ -157,34 +159,35 @@ Piece.prototype.BishopMoveValidation = function(item) {
 }
 
 Piece.prototype.onBoard = function() {
-  console.log("ON BOARD FUNCTION WAS CALLED")
+  //console.log("ON BOARD FUNCTION WAS CALLED")
 }
 
 Piece.prototype.isPieceBetweenDiagonal = function(element, index, array, piece) {
+  console.log("is piece between diagonal was called");
   var item = this.sprite
   if (item.x > item.originX && item.y > item.originY) {
-    for (var i = item.originX + adjustCoord(1), a = item.originY + adjustCoord(1); i < item.x; i += adjustCoord(1), a += adjustCoord(1)) {
+    for (var i = item.originX + adjustDistance(1), a = item.originY + adjustDistance(1); i < item.x; i += adjustDistance(1), a += adjustDistance(1)) {
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead') {
         return true;
       }
     }
   }
   if (item.x < item.originX && item.y < item.originY) {
-    for (var i = item.originX - adjustCoord(1), a = item.originY - adjustCoord(1); i > item.x; i -= adjustCoord(1), a -= adjustCoord(1)) {
+    for (var i = item.originX - adjustDistance(1), a = item.originY - adjustDistance(1); i > item.x; i -= adjustDistance(1), a -= adjustDistance(1)) {
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead') {
         return true;
       }
     }
   }
   if (item.x > item.originX && item.y < item.originY) {
-    for (var i = item.originX + adjustCoord(1), a = item.originY - adjustCoord(1); i < item.x; i += adjustCoord(1), a -= adjustCoord(1)) {
+    for (var i = item.originX + adjustDistance(1), a = item.originY - adjustDistance(1); i < item.x; i += adjustDistance(1), a -= adjustDistance(1)) {
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead') {
         return true;
       }
     }
   }
   if (item.x < item.originX && item.y > item.originY) {
-    for (var i = item.originX - adjustCoord(1), a = item.originY + adjustCoord(1); i > item.x; i -= adjustCoord(1), a += adjustCoord(1)) {
+    for (var i = item.originX - adjustDistance(1), a = item.originY + adjustDistance(1); i > item.x; i -= adjustDistance(1), a += adjustDistance(1)) {
       if (element.sprite.x === i && element.sprite.y === a && item != element.sprite && element.sprite.lifeStatus != 'dead') {
         return true;
       }
@@ -213,31 +216,28 @@ Piece.prototype.sendServerCoord = function(originX, originY, pieceId) {
 }
 
 Piece.prototype.isPieceBetweenUpDown = function(element) {
+
   var item = this.sprite
   if (element.sprite.x === item.x && item != element.sprite) {
-    for (i = item.originY + adjustCoord(1); i < item.y; i++) {
+    for (i = item.originY + adjustDistance(1); i < item.y; i++) {
       if (element.sprite.y === i) {
-        var betweenPiece = element;
         return true
       }
     }
-    for (i = item.originY - adjustCoord(1); i > item.y; i--) {
+    for (i = item.originY - adjustDistance(1); i > item.y; i--) {
       if (element.sprite.y === i) {
-        var betweenPiece = element;
         return true
       }
     }
 
   } else if (element.sprite.y === item.y && item != element.sprite) {
-    for (i = item.originX + adjustCoord(1); i < item.x; i++) {
+    for (i = item.originX + adjustDistance(1); i < item.x; i++) {
       if (element.sprite.x === i) {
-        var betweenPiece = element;
         return true
       }
     }
-    for (i = item.originX - adjustCoord(1); i > item.x; i--) {
+    for (i = item.originX - adjustDistance(1); i > item.x; i--) {
       if (element.sprite.x === i) {
-        var betweenPiece = element;
         return true
       }
     }

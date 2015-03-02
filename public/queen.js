@@ -16,6 +16,8 @@ Queen.prototype.default_move = function() {
     var betweenLateral = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
     valid(item);
     function valid(item) {
+      console.log('Between Diagonal: ', betweenDiagonal);
+      console.log('Between Lateral: ', betweenLateral);
       if (betweenDiagonal.length > 0 && xRatio === xRatio) {
         game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       } else if (betweenLateral.length > 0 && item.originX === item.x || betweenLateral.length > 0 && item.originY === item.y) {
