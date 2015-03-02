@@ -71,3 +71,4 @@ Pawn.prototype.default_move = function() {
   }
 };
 Pawn.prototype.move = Pawn.prototype.default_move;
+Pawn.prototype.onBoard= Piece.prototype.onBoard;

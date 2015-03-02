@@ -1,16 +1,14 @@
 var queenKillsPieces = function() {
-  allPiecesArray[16].onBoard = Piece.prototype.deletePiece(Pawn);
-  allPiecesArray[0].onBoard = Piece.prototype.deletePiece(Pawn);
+  allPiecesArray[16].onBoard = Piece.prototype.deletePawn;
+  allPiecesArray[0].onBoard = Piece.prototype.deletePawn;
 };
 
 
 var rooksToQueens = function() {
-  // since the array is a global variable this is the way we chose to access it.
   allPiecesArray[2].move = Queen.prototype.default_move;
   allPiecesArray[3].move = Queen.prototype.default_move;
   allPiecesArray[18].move = Queen.prototype.default_move;
   allPiecesArray[19].move = Queen.prototype.default_move;
-
 };
 
 var oneTeleport = function() {
