@@ -86,7 +86,7 @@ window.onload = function() {
         grid[y][x] = game.add.image(x * 100, y * 100, 'square');
       }
     }
-    background = game.add.image(0, 0, 'background');
+    var background = game.add.image(0, 0, 'background');
     background.height = 800;
     background.width = 800;
 
@@ -452,11 +452,11 @@ $(function() {
 
   function rulesChange() {
     console.log("RULES CHANGE WAS CALLED");
-    allRulesArray[8][1]();
+    allRulesArray[9][1]();
     var $calvinnameDiv = $('<span class="username"/>')
       .text('CalvinBot');
     var $messageRuleDiv = $('<spac class="messageBody">')
-      .text(allRulesArray[8][0]);
+      .text(allRulesArray[9][0]);
     var $ruleChangeDiv = $('<li class="message"/>')
       .data('username', 'CalvinBot')
       .append($calvinnameDiv, $messageRuleDiv);

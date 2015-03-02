@@ -83,7 +83,7 @@ var deleteBishops = function(){
 
 }
 
-var deleteBoard = function(){
+var nothing = function(){
   
 }
 
@@ -97,5 +97,7 @@ window.allRulesArray = [
   ['Queens can only move vertically', verticalQueens], 
   ['Kings can only move sideways', sidewaysKings], 
   ['If a king moves, all bishops will be captured', deleteBishops], 
-  ['Welp! No more board', deleteBoard]
+  ['Welp! No more board!', deleteBoard],
+  ["Mystery rule! Something has changed, but what?",  nothing], 
+  ["One piece has been captured!", deleteOnePiece]
 ];
