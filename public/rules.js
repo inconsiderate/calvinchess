@@ -91,6 +91,9 @@ var deleteBoard = function(){
   testImage.animations.play('largeExplosion', true);
   window.background.destroy();
 }
+var nothing = function(){
+  
+}
 
 window.allRulesArray = [
   ['If a queen moves, all pawns will be captured', queenKillsPieces],
