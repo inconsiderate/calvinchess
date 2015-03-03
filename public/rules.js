@@ -55,10 +55,12 @@ var sidewaysKings = function() {
   allPiecesArray[1].move = Piece.prototype.sideways;
   allPiecesArray[17].move = Piece.prototype.sideways;
 }
+
 var deleteBishops = function() {
   allPiecesArray[1].onBoard = Piece.prototype.deleteBishop;
   allPiecesArray[17].onBoard = Piece.prototype.deleteBishop;
 }
+
 var deleteBoard = function() {
   var explosionAnimation = game.add.sprite(-250, -200, 'largeExplosion');
   explosionAnimation.height = 1000;

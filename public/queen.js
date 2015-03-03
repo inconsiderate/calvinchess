@@ -3,8 +3,6 @@ function Queen(game, color, xcoor, ycoor, pieceName) {
 }
 Queen.prototype = new Piece();
 Queen.prototype.default_move = function() {
-  console.log("QUEEN DEFAULT MOVE WAS CALLED");
-  console.log(this);
   var piece = this,
     item = this.sprite,
     xRatio = Math.abs(item.originX - item.x),
@@ -25,7 +23,7 @@ Queen.prototype.default_move = function() {
       } else if(match.length > 0 && match[0].sprite.color == item.color){
         game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       } else {
-        if (item.x === item.originX && item.y === item.originY) {
+        if (piece.same_place(item)) {
           return true;
         } else if (match.length > 0 && match[0].sprite.color != item.color) {
           piece.killAction(item, match);
@@ -39,6 +37,8 @@ Queen.prototype.default_move = function() {
     game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
   }
 };
+
+
 
 Queen.prototype.move = Queen.prototype.default_move;
 

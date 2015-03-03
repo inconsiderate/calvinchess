@@ -59,7 +59,6 @@ Piece.prototype.killAction = function(item, match) {
     piece.resetOrigin(item, item.x, item.y, piece);
     return true
   }
-  return false
 }
 
 Piece.prototype.sendServerKill = function(item) {
@@ -86,7 +85,7 @@ Piece.prototype.kingKnightMoveValidation = function(item) {
   var piece = this;
   var match = allPiecesArray.filter(this.isPieceHere, this);
   var item = this.sprite
-  if (!piece.killAction(item, match)) {
+  if(!piece.killAction(item, match)) {
     piece.resetOrigin(item, item.x, item.y, piece);
   }
 }
@@ -246,6 +245,16 @@ Piece.prototype.isPieceBetweenUpDown = function(element) {
   }
 }
 
+/// HELPER METHODS
+
+Piece.prototype.same_place = function(item){
+  if (item.x === item.originX && item.y === item.originY){
+    return true;
+  } else {
+    return false;
+  }
+}
+
 /// FUN METHODS THAT CHANGE ALL THE RULES
 
 Piece.prototype.teleport = function() {
@@ -362,18 +371,22 @@ Piece.prototype.deletePawn = function() {
 Piece.prototype.deleteBishop = function(){
   var match = allPiecesArray.filter(isBishop);
   var piece = this;
-  function isBishop(element){
-    if (element instanceof Bishop){
-      return true;
-    } else {
-      return false;
+  if(piece.same_place(piece.sprite)){
+    return true;
+  } else {
+    function isBishop(element){
+      if (element instanceof Bishop && element.sprite.lifeStatus === 'alive'){
+        return true;
+      } else {
+        return false;
+      }
     }
-  }
-  if (match.length > 0){
-    for (i = 0; i < match.length; i++){
-      piece.sendServerKill(match[i]);
-      match[i].sprite.destroy();
-      match[i].sprite.lifeStatus = 'dead';
+    if (match.length > 0){
+      for (i = 0; i < match.length; i++){
+        piece.sendServerKill(match[i]);
+        match[i].sprite.destroy();
+        match[i].sprite.lifeStatus = 'dead';
+      }
     }
   }
 }
