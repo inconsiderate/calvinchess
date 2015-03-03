@@ -42,7 +42,7 @@ window.onload = function() {
     // game.load.image('background2', '/images/chessboard2.png');
     game.load.image('background2', '/images/chessboard3.jpg');
 
-    game.load.image('background', '/images/calvinBoard2.png');
+    game.load.image('background', '/images/calvinboard2.png');
     game.load.image('square', '/images/grid.jpeg');
     game.load.image('bQueen', '/images/blackqueen.png');
     game.load.image('bKing', '/images/blackking.png');
@@ -74,7 +74,7 @@ window.onload = function() {
     for (var y = 0; y < 8; y++) {
       grid[y] = [];
       for (var x = 0; x < 8; x++) {
-        grid[y][x] = game.add.image(x * 100, y * 100, 'square');
+        grid[y][x] = game.add.image(x * 100, y * 100, '');
       }
     }
     window.background = game.add.image(0, 0, 'background');
@@ -428,12 +428,12 @@ $(function() {
 
   function rulesChange(data) {
     console.log("RULES CHANGE WAS CALLED", data);
-    allRulesArray[8][1]();
+    allRulesArray[data][1]();
     console.log('rule active: ',data);
     var $calvinnameDiv = $('<span class="username"/>')
       .text('CalvinBot');
     var $messageRuleDiv = $('<spac class="messageBody">')
-     .text(allRulesArray[8][0])
+     .text(allRulesArray[data][0])
     var $ruleChangeDiv = $('<li class="message"/>')
       .data('username', 'CalvinBot')
       .append($calvinnameDiv, $messageRuleDiv);
