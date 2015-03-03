@@ -44,6 +44,7 @@ var kingsBecomeBatman = function() {
   allPiecesArray[1].sprite.width = 75;
   allPiecesArray[1].sprite.animations.add('quiver');
   allPiecesArray[1].sprite.animations.play('quiver', 10, false);
+  console.log(allPiecesArray[1].sprite.color);
 }
 
 var verticalQueens = function() {

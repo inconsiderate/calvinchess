@@ -143,6 +143,17 @@ canvas {
   right: 0;
   width: 100%;
 }
+
 p {
   font-size: 30px;
 }
+
+/* drop down menu for rules */
+.dropdown li {
+  display: none;
+}
+
+#rules :hover .dropdown li {
+  display: block;
+}
+
