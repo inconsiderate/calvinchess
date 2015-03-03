@@ -352,18 +352,22 @@ Piece.prototype.deletePawn = function() {
   // check to see if the other player can see this happen 
   var match = allPiecesArray.filter(isPawn);
   var piece = this;
-  function isPawn(element) {
+  if(piece.same_place(piece.sprite){
+    return true;
+  } else {
+    function isPawn(element) {
       if (element instanceof Pawn) {
         return true;
       } else {
         return false;
       }
     }
-  if (match.length > 0) {
-    for (i = 0; i < match.length; i++) {
-      piece.sendServerKill(match[i]);
-      match[i].sprite.destroy();
-      match[i].sprite.lifeStatus = 'dead';
+    if (match.length > 0) {
+      for (i = 0; i < match.length; i++) {
+        piece.sendServerKill(match[i]);
+        match[i].sprite.destroy();
+        match[i].sprite.lifeStatus = 'dead';
+      }
     }
   }
 }
