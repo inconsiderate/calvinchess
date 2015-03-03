@@ -44,6 +44,7 @@ var kingsBecomeBatman = function() {
   allPiecesArray[1].sprite.width = 75;
   allPiecesArray[1].sprite.animations.add('quiver');
   allPiecesArray[1].sprite.animations.play('quiver', 10, false);
+  console.log(allPiecesArray[1].sprite.color);
 }
 
 var verticalQueens = function() {
@@ -55,10 +56,12 @@ var sidewaysKings = function() {
   allPiecesArray[1].move = Piece.prototype.sideways;
   allPiecesArray[17].move = Piece.prototype.sideways;
 }
+
 var deleteBishops = function() {
   allPiecesArray[1].onBoard = Piece.prototype.deleteBishop;
   allPiecesArray[17].onBoard = Piece.prototype.deleteBishop;
 }
+
 var deleteBoard = function() {
   var explosionAnimation = game.add.sprite(-250, -200, 'largeExplosion');
   explosionAnimation.height = 1000;

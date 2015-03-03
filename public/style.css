@@ -17,6 +17,9 @@ ul {
   list-style: none;
   word-wrap: break-word;
 }
+canvas {
+  margin: 0 auto;
+}
 #container {
   margin-top: -15px;
   position: absolute;
@@ -25,7 +28,11 @@ ul {
 #gamecanvas {
   width: 800px;
   left: 0%;
-  margin: 0;
+  margin: 0 auto;
+  padding: 50px;
+  padding-top: 0px;
+  padding-left: 100px;
+
 }
 #rules-box {
   color: darkcyan;
@@ -43,9 +50,10 @@ ul {
   height: 100%;
   margin: 0;
   left: 100%;
+  padding-left: 0px;
 }
 .page {
-  height: 90%;
+  height: 85%;
 }
 /* Login Page */
 
@@ -135,3 +143,17 @@ ul {
   right: 0;
   width: 100%;
 }
+
+p {
+  font-size: 30px;
+}
+
+/* drop down menu for rules */
+.dropdown li {
+  display: none;
+}
+
+#rules :hover .dropdown li {
+  display: block;
+}
+
