@@ -75,7 +75,7 @@ var emptyFunction = function() {}
 window.allRulesArray = [
   ['If a queen moves, all pawns will be captured', queenKillsPieces],
   ['All rooks can now move like queens', rooksToQueens],
-  ['One piece on the board can now teleport', oneTeleport],
+  ['One piece on the board can now teleport...but which one?', oneTeleport],
   ['Both Queens are now stuck', stuckQueens],
   ['Kings are now Batman', kingsBecomeBatman],
   ['Rooks can only move horizontally', horizontalRooks],
