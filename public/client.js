@@ -441,8 +441,6 @@ $(function() {
     addMessageElement($ruleChangeDiv);
     $rulesChangeBox.text(allRulesArray[data][0]);
     $recentRuleDiv.append('<a>' + allRulesArray[data][0]);
-// ADD THE RULE TO THE RULES BOX
-
   }
 
   // Click events
