@@ -124,7 +124,7 @@ function resetPosition(item, xcoord, ycoord){
 
 var scramble = function(){
   resetPosition(allPiecesArray[0], 6, 4);
-  resetPosition(allPiecesArray[1], 2, 1)
+  resetPosition(allPiecesArray[1], 0, 1)
   resetPosition(allPiecesArray[2], 5, 2)
   resetPosition(allPiecesArray[3], 1, 0)
   resetPosition(allPiecesArray[4], 7, 7)
@@ -146,7 +146,7 @@ var scramble = function(){
   resetPosition(allPiecesArray[19], 3, 3)
   resetPosition(allPiecesArray[20], 4, 4)
   resetPosition(allPiecesArray[21], 0, 4)
-  resetPosition(allPiecesArray[22], 5, 7)
+  resetPosition(allPiecesArray[22], 4, 7)
   resetPosition(allPiecesArray[23], 6, 7)
   resetPosition(allPiecesArray[24], 0, 6)
   resetPosition(allPiecesArray[25], 1, 7)
