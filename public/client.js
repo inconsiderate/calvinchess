@@ -432,7 +432,7 @@ $(function() {
     console.log('rule active: ',data);
     var $calvinnameDiv = $('<span class="username"/>')
       .text('CalvinBot');
-    var $messageRuleDiv = $('<spac class="messageBody">')
+    var $messageRuleDiv = $('<span class="messageBody">')
      .text(allRulesArray[data][0])
     var $ruleChangeDiv = $('<li class="message"/>')
       .data('username', 'CalvinBot')
