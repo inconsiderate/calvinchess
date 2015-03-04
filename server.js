@@ -41,12 +41,12 @@ io.on('connection', function(socket) {
 
     // echo globally to all users that a rule has changed
     console.log(socket.username, 'posted:', data.message);
-    // if (data.message === "rule change") {
-    //   var newRuleNumber = (Math.floor(Math.random(10) * 10));
-    //   io.to(data.channel).emit('rules changed', {
-    //     newRuleNumber: newRuleNumber
-    //   });
-    if (data.message.indexOf("join channel") > -1) {
+    if (data.message === "rule change") {
+      var newRuleNumber = (Math.floor(Math.random(10) * 10));
+      io.to(data.channel).emit('rules changed', {
+        newRuleNumber: newRuleNumber
+      });
+    } else if (data.message.indexOf("join channel") > -1) {
       var splitData = data.message.split(" "),
         channelName = splitData[2];
       io.to(data.channel).emit('new message', {
@@ -147,12 +147,12 @@ io.on('connection', function(socket) {
     });
 
     // Chance of rules changing on each completed move
-    if (Math.floor(Math.random() * 4) === 2) {
-      var newRuleNumber = (Math.floor(Math.random() * allRulesArray.length));
-      io.to(data.channel).emit('rules changed', {
-        newRuleNumber: newRuleNumber
-      });
-    } else if (socket.username == player1) {
+    // if (Math.floor(Math.random() * 4) === 2) {
+    //   var newRuleNumber = (Math.floor(Math.random() * allRulesArray.length));
+    //   io.to(data.channel).emit('rules changed', {
+    //     newRuleNumber: newRuleNumber
+    //   });
+    if (socket.username == player1) {
       io.sockets.connected[player2ID].emit('player2 active', {});
       socket.emit('player inactive', {});
       console.log("player 1 moved");

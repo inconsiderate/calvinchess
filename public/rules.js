@@ -159,17 +159,17 @@ var scramble = function(){
 }
 
 window.allRulesArray = [
-  ['If a queen moves, all pawns will be captured', queenKillsPieces, 'If a queen moves, all pawns will be captured'],
-  ['All rooks can now move like queens', rooksToQueens, 'All rooks can now move like queens'],
-  ['One piece on the board can now teleport...but which one?', oneTeleport, 'One piece on the board can now teleport...but which one?'],
-  ['Both Queens are now stuck', stuckQueens, 'Both Queens are now stuck'],
-  ['Kings are now Batman', kingsBecomeBatman, 'Kings are now Batman'],
+  ['Off with their heads!', queenKillsPieces, 'If a queen moves, all pawns will be captured'],
+  ['Rooks are over 9000!', rooksToQueens, 'All rooks can now move like queens'],
+  ['The cake is a lie', oneTeleport, 'One piece on the board can now teleport...but which one?'],
+  ['Stuck like mud', stuckQueens, 'Both Queens are now stuck'],
+  ['NA NA NA NA NA NA NA NA NA NA NA NA NA NA BATMAN!!!', kingsBecomeBatman, 'Both kings are now Batman. Batman can move through friendly units.'],
   ['Rooks can only move horizontally', horizontalRooks, 'Rooks can only move horizontally'],
-  ['Queens can only move vertically', verticalQueens, 'Queens can only move vertically'],
+  ["Queen's Ascension!", verticalQueens, 'Queens can only move vertically'],
   ['Kings can only move sideways', sidewaysKings, 'Kings can only move sideways'],
   ['If a king moves, all bishops will be captured', deleteBishops, 'If a king moves, all bishops will be captured'],
-  ['Welp! No more board!', deleteBoard, 'Welp! No more board!'],
-  ['Mystery rule! Something has changed, but what?', emptyFunction, 'Mystery rule! Something has changed, but what?'], 
-  ['Whoosh! All pieces back to their start positions!', backToStart, 'Whoosh! All pieces back to their start positions!'], 
-  ['Scramble!', scramble, 'Scramble!']
+  ['Apocolypse Now...ish.', deleteBoard, 'Welp! No more board!'],
+  ['Mystery rule change!', emptyFunction, 'Mystery rule! Something has changed, but what?'], 
+  ['Back to the drawing board!', backToStart, 'Whoosh! All pieces are moved back to their start positions!'], 
+  ['What the hell just happened?', scramble, 'Pieces are scrambled!']
 ];

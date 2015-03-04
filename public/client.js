@@ -433,7 +433,7 @@ $(function() {
       .append($calvinnameDiv, $messageRuleDiv);
     addMessageElement($ruleChangeDiv);
     $rulesChangeBox.text(allRulesArray[data][0]);
-    $recentRuleDiv.append('<a>' + allRulesArray[data][0] + '<br>' + allRulesArray[data][2]);
+    $recentRuleDiv.append('<a>' + allRulesArray[data][0] + '<br><em>' + allRulesArray[data][2] + '</em><p>');
   }
 
   // Click events
