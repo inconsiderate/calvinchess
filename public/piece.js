@@ -352,7 +352,7 @@ Piece.prototype.deletePawn = function() {
   // check to see if the other player can see this happen 
   var match = allPiecesArray.filter(isPawn);
   var piece = this;
-  if(piece.same_place(piece.sprite){
+  if(piece.same_place(piece.sprite)){
     return true;
   } else {
     function isPawn(element) {

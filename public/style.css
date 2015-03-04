@@ -38,6 +38,9 @@ canvas {
   color: darkcyan;
   font-weight: 600;
 }
+#rules-text {
+  margin-right: -20px;
+}
 /* Pages */
 
 #calvinlogo {
@@ -146,14 +149,5 @@ canvas {
 
 p {
   font-size: 30px;
-}
-
-/* drop down menu for rules */
-.dropdown li {
-  display: none;
-}
-
-#rules :hover .dropdown li {
-  display: block;
 }
 
