@@ -143,12 +143,12 @@ Piece.prototype.BishopMoveValidation = function(item) {
   var piece = this;
   var match = allPiecesArray.filter(this.isPieceHere, this);
   var between = allPiecesArray.filter(this.isPieceBetweenDiagonal, this);
-  if (piece.killAction(item, match)) {
-  } else if (between.length > 0) {
+  if (between.length > 0) {
     game.add.tween(item).to({
       x: item.originX,
       y: item.originY
     }, 400, Phaser.Easing.Back.Out, true);
+  } else if (piece.killAction(item, match)){
   } else {
     if (item.x === item.originX && item.y === item.originY) {
       return true;
@@ -159,7 +159,6 @@ Piece.prototype.BishopMoveValidation = function(item) {
 }
 
 Piece.prototype.onBoard = function() {
-  console.log("ON BOARD FUNCTION WAS CALLED");
 }
 
 Piece.prototype.isPieceBetweenDiagonal = function(element, index, array, piece) {
