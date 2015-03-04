@@ -353,7 +353,6 @@ Piece.prototype.deletePawn = function() {
       return true;
     } else {
       return false;
-
     }
   }
   if (match.length > 0) {
@@ -383,6 +382,5 @@ Piece.prototype.deleteBishop = function(){
         match[i].sprite.lifeStatus = 'dead';
       }
     }
-
   piece.onBoard = Piece.prototype.onBoard;
 }

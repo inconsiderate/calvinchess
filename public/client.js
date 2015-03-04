@@ -42,7 +42,7 @@ window.onload = function() {
     // game.load.image('background2', '/images/chessboard2.png');
     game.load.image('background2', '/images/chessboard3.jpg');
 
-    game.load.image('background', '/images/calvinboard2.png');
+    game.load.image('background', '/images/chessboardwooden.jpg');
     game.load.image('square', '/images/grid.jpeg');
     game.load.image('bQueen', '/images/blackqueen.png');
     game.load.image('bKing', '/images/blackking.png');
@@ -170,7 +170,7 @@ window.onload = function() {
     currentTile.y = this.game.math.snapToFloor(game.input.y, 75) / 75;
     if (wKing.sprite.lifeStatus === 'dead' || bKing.sprite.lifeStatus === 'dead') {
       // write JQuery function to append "game over" text on the page, not in the canvas
-      
+      // add line to make the game pieces freeze when the game ends
     }
   }
 
