@@ -22,6 +22,7 @@ Pawn.prototype.default_move = function() {
       }, 400, Phaser.Easing.Back.Out, true);
     } else {
         var match = allPiecesArray.filter(this.isPieceHere, this);
+        var between = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
         valid(item);
       // this is causing a problem when you move two spaces and something is in the space
       // it does not bounce away, but rather sits on top of the other
@@ -40,7 +41,7 @@ Pawn.prototype.default_move = function() {
     }, 400, Phaser.Easing.Back.Out, true);
   } else {
     var match = allPiecesArray.filter(this.isPieceHere, this);
-
+    debugger;
     function valid(item) {
       if (match.length > 0 && item.x === item.originX) {
         game.add.tween(item).to({
@@ -49,6 +50,11 @@ Pawn.prototype.default_move = function() {
         }, 400, Phaser.Easing.Back.Out, true);
       } else if (match.length === 0 && item.x != item.originX) {
         game.add.tween(item).to({
+          x: item.originX,
+          y: item.originY
+        }, 400, Phaser.Easing.Back.Out, true);
+      } else if (between.length > 0){
+         game.add.tween(item).to({
           x: item.originX,
           y: item.originY
         }, 400, Phaser.Easing.Back.Out, true);
