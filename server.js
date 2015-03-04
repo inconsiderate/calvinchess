@@ -59,7 +59,7 @@ io.on('connection', function(socket) {
       socket.emit('current channel', {
         currentChannel: channelName
       });
-    } else if (Math.floor(Math.random(10) * 10) === 4 || data.message.indexOf("calvin")) {
+    } else if (Math.floor(Math.random(10) * 10) === 4) {
       calvinNumber = (Math.floor(Math.random(calvinQuotes.length) * 10) - 1);
       io.to(data.channel).emit('new message', {
         username: 'CalvinBot',
@@ -105,11 +105,11 @@ io.on('connection', function(socket) {
   });
 
   // when the client emits 'typing', we broadcast it to others
-  socket.on('typing', function(data) {
-    io.to(data.channel).emit('typing', {
-      username: socket.username
-    });
-  });
+  // socket.on('typing', function(data) {
+  //   io.to(data.channel).emit('typing', {
+  //     username: socket.username
+  //   });
+  // });
 
   // when the client emits 'stop typing', we broadcast it to others
   socket.on('stop typing', function() {
