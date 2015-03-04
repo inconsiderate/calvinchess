@@ -33,7 +33,7 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
       piece.move();
     });
   }
-  // METHODS THAT ARE USED IN ALL PIECE MOVEMENTS
+// METHODS THAT ARE USED IN ALL PIECE MOVEMENTS
 
 // Check if move is valid, and if a kill occurs, and send off to server.
 Piece.prototype.killAction = function(item, match) {
@@ -155,8 +155,7 @@ Piece.prototype.BishopMoveValidation = function(item) {
   }
 }
 
-Piece.prototype.onBoard = function() {
-}
+Piece.prototype.onBoard = function() {}
 
 Piece.prototype.isPieceBetweenDiagonal = function(element, index, array, piece) {
   var item = this.sprite

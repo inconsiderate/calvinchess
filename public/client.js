@@ -169,14 +169,8 @@ window.onload = function() {
     currentTile.x = this.game.math.snapToFloor(game.input.x, 75) / 75;
     currentTile.y = this.game.math.snapToFloor(game.input.y, 75) / 75;
     if (wKing.sprite.lifeStatus === 'dead' || bKing.sprite.lifeStatus === 'dead') {
-      var style = {
-        font: "65px Arial",
-        fill: "#ff0044",
-        align: "center",
-        color: 'red'
-      };
-      var text = game.add.text(200, 200, 'Game Over!', style);
-      wQueen.move = Piece.prototype.deletePawns;
+      // write JQuery function to append "game over" text on the page, not in the canvas
+      
     }
   }
 
@@ -429,12 +423,12 @@ $(function() {
 
   function rulesChange(data) {
     console.log("RULES CHANGE WAS CALLED", data);
-    allRulesArray[12][1]();
+    allRulesArray[data][1]();
     console.log('rule active: ',data);
     var $calvinnameDiv = $('<span class="username"/>')
       .text('CalvinBot');
     var $messageRuleDiv = $('<span class="messageBody">')
-     .text(allRulesArray[12][0])
+     .text(allRulesArray[data][0])
     var $ruleChangeDiv = $('<li class="message"/>')
       .data('username', 'CalvinBot')
       .append($calvinnameDiv, $messageRuleDiv);
