@@ -36,6 +36,7 @@ var kingsBecomeBatman = function() {
   // grab the current coords of the two kings
   allPiecesArray[1].sprite.loadTexture('batman');
   allPiecesArray[17].sprite.loadTexture('batman');
+  window.whooshSound.play();
   allPiecesArray[17].sprite.height = 75;
   allPiecesArray[17].sprite.width = 75;
   allPiecesArray[17].sprite.animations.add('quiver');
@@ -158,17 +159,17 @@ var scramble = function(){
 }
 
 window.allRulesArray = [
-  ['If a queen moves, all pawns will be captured', queenKillsPieces],
-  ['All rooks can now move like queens', rooksToQueens],
-  ['One piece on the board can now teleport...but which one?', oneTeleport],
-  ['Both Queens are now stuck', stuckQueens],
-  ['Kings are now Batman', kingsBecomeBatman],
-  ['Rooks can only move horizontally', horizontalRooks],
-  ['Queens can only move vertically', verticalQueens],
-  ['Kings can only move sideways', sidewaysKings],
-  ['If a king moves, all bishops will be captured', deleteBishops],
-  ['Welp! No more board!', deleteBoard],
-  ["Mystery rule! Something has changed, but what?", emptyFunction], 
-  ["Whoosh! All pieces back to their start positions!", backToStart], 
-  ["Scramble!", scramble]
+  ['If a queen moves, all pawns will be captured', queenKillsPieces, 'If a queen moves, all pawns will be captured'],
+  ['All rooks can now move like queens', rooksToQueens, 'All rooks can now move like queens'],
+  ['One piece on the board can now teleport...but which one?', oneTeleport, 'One piece on the board can now teleport...but which one?'],
+  ['Both Queens are now stuck', stuckQueens, 'Both Queens are now stuck'],
+  ['Kings are now Batman', kingsBecomeBatman, 'Kings are now Batman'],
+  ['Rooks can only move horizontally', horizontalRooks, 'Rooks can only move horizontally'],
+  ['Queens can only move vertically', verticalQueens, 'Queens can only move vertically'],
+  ['Kings can only move sideways', sidewaysKings, 'Kings can only move sideways'],
+  ['If a king moves, all bishops will be captured', deleteBishops, 'If a king moves, all bishops will be captured'],
+  ['Welp! No more board!', deleteBoard, 'Welp! No more board!'],
+  ['Mystery rule! Something has changed, but what?', emptyFunction, 'Mystery rule! Something has changed, but what?'], 
+  ['Whoosh! All pieces back to their start positions!', backToStart, 'Whoosh! All pieces back to their start positions!'], 
+  ['Scramble!', scramble, 'Scramble!']
 ];

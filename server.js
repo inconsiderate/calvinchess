@@ -41,13 +41,12 @@ io.on('connection', function(socket) {
 
     // echo globally to all users that a rule has changed
     console.log(socket.username, 'posted:', data.message);
-    if (data.message === "rule change") {
-      var newRuleNumber = (Math.floor(Math.random(10) * 10));
-      io.to(data.channel).emit('rules changed', {
-        newRuleNumber: newRuleNumber
-      
-      });
-    } else if (data.message.indexOf("join channel") > -1) {
+    // if (data.message === "rule change") {
+    //   var newRuleNumber = (Math.floor(Math.random(10) * 10));
+    //   io.to(data.channel).emit('rules changed', {
+    //     newRuleNumber: newRuleNumber
+    //   });
+    if (data.message.indexOf("join channel") > -1) {
       var splitData = data.message.split(" "),
         channelName = splitData[2];
       io.to(data.channel).emit('new message', {
@@ -60,7 +59,7 @@ io.on('connection', function(socket) {
         currentChannel: channelName
       });
     } else if (Math.floor(Math.random(10) * 10) === 4) {
-      calvinNumber = (Math.floor(Math.random(calvinQuotes.length) * 10) - 1);
+      calvinNumber = (Math.floor(Math.random() * calvinQuotes.length) - 1);
       io.to(data.channel).emit('new message', {
         username: 'CalvinBot',
         message: calvinQuotes[calvinNumber]
@@ -139,7 +138,6 @@ io.on('connection', function(socket) {
 
   // when the client emits 'move piece', we broadcast the movement to others
   socket.on('move piece', function(data) {
-    console.log('PIECE MOVED!!!!! LOLWUT');
     turnCounter += 1;
     io.emit('piece moved', {
       xcoord: data.xcoord,
@@ -147,7 +145,14 @@ io.on('connection', function(socket) {
       pieceId: data.pieceId,
       channel: data.channel
     });
-    if (socket.username == player1) {
+
+    // Chance of rules changing on each completed move
+    if (Math.floor(Math.random() * 4) === 2) {
+      var newRuleNumber = (Math.floor(Math.random() * allRulesArray.length));
+      io.to(data.channel).emit('rules changed', {
+        newRuleNumber: newRuleNumber
+      });
+    } else if (socket.username == player1) {
       io.sockets.connected[player2ID].emit('player2 active', {});
       socket.emit('player inactive', {});
       console.log("player 1 moved");
@@ -160,7 +165,7 @@ io.on('connection', function(socket) {
       socket.emit('player inactive', {});
       console.log("player 2 moved");
       io.to(data.channel).emit('new message', {
-        username: 'SYSTEM MESSAGE',
+        username: 'HobbesBot',
         message: player1 + ", it's your turn!"
       });
     }

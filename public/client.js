@@ -428,19 +428,18 @@ $(function() {
   }
 
   function rulesChange(data) {
-    console.log("RULES CHANGE WAS CALLED", data);
-    allRulesArray[12][1]();
+    allRulesArray[data][1]();
     console.log('rule active: ',data);
     var $calvinnameDiv = $('<span class="username"/>')
       .text('CalvinBot');
     var $messageRuleDiv = $('<span class="messageBody">')
-     .text(allRulesArray[12][0])
+     .text(allRulesArray[data][0])
     var $ruleChangeDiv = $('<li class="message"/>')
       .data('username', 'CalvinBot')
       .append($calvinnameDiv, $messageRuleDiv);
     addMessageElement($ruleChangeDiv);
     $rulesChangeBox.text(allRulesArray[data][0]);
-    $recentRuleDiv.append('<a>' + allRulesArray[data][0]);
+    $recentRuleDiv.append('<a>' + allRulesArray[data][0] + '<br>' + allRulesArray[data][2]);
   }
 
   // Click events
