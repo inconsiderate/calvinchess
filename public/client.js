@@ -202,6 +202,7 @@ $(function() {
   var $loginPage = $('.login.page');
   var $chatPage = $('.chat.page');
   var $rulesChangeBox = $('#rules-box');
+  var $recentRuleDiv = $('#recentRuleDiv');
 
   // Prompt for setting a username
   var username;
@@ -439,7 +440,7 @@ $(function() {
       .append($calvinnameDiv, $messageRuleDiv);
     addMessageElement($ruleChangeDiv);
     $rulesChangeBox.text(allRulesArray[data][0]);
-
+    $recentRuleDiv.append('<a>' + allRulesArray[data][0]);
 // ADD THE RULE TO THE RULES BOX
 
   }
