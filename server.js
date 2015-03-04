@@ -51,7 +51,7 @@ io.on('connection', function(socket) {
       var splitData = data.message.split(" "),
         channelName = splitData[2];
       io.to(data.channel).emit('new message', {
-        username: 'SYSTEM MESSAGE',
+        username: 'HobbesBot',
         message: 'Player ' + socket.username + ' switched to channel: ' + channelName
       });
       socket.leave('default');
@@ -152,7 +152,7 @@ io.on('connection', function(socket) {
       socket.emit('player inactive', {});
       console.log("player 1 moved");
       io.to(data.channel).emit('new message', {
-        username: 'SYSTEM MESSAGE',
+        username: 'HobbesBot',
         message: player2 + ", it's your turn!"
       });
     } else if (socket.username == player2) {

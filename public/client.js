@@ -429,12 +429,12 @@ $(function() {
 
   function rulesChange(data) {
     console.log("RULES CHANGE WAS CALLED", data);
-    allRulesArray[11][1]();
+    allRulesArray[12][1]();
     console.log('rule active: ',data);
     var $calvinnameDiv = $('<span class="username"/>')
       .text('CalvinBot');
     var $messageRuleDiv = $('<span class="messageBody">')
-     .text(allRulesArray[11][0])
+     .text(allRulesArray[12][0])
     var $ruleChangeDiv = $('<li class="message"/>')
       .data('username', 'CalvinBot')
       .append($calvinnameDiv, $messageRuleDiv);
