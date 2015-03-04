@@ -75,6 +75,54 @@ var deleteBoard = function() {
 
 var emptyFunction = function() {}
 
+var backToStart = function(){
+  //these changes are not sent to the server
+  resetPosition(allPiecesArray[0], 3, 0);
+  resetPosition(allPiecesArray[1], 4, 0)
+  resetPosition(allPiecesArray[2], 7, 0)
+  resetPosition(allPiecesArray[3], 0, 0)
+  resetPosition(allPiecesArray[4], 2, 0)
+  resetPosition(allPiecesArray[5], 5, 0)
+  resetPosition(allPiecesArray[6], 1, 0)
+  resetPosition(allPiecesArray[7], 6, 0)
+  resetPosition(allPiecesArray[8], 0, 1)
+  resetPosition(allPiecesArray[9], 1, 1)
+  resetPosition(allPiecesArray[10], 2, 1)
+  resetPosition(allPiecesArray[11], 3, 1)
+  resetPosition(allPiecesArray[12], 4, 1)
+  resetPosition(allPiecesArray[13], 5, 1)
+  resetPosition(allPiecesArray[14], 6, 1)
+  resetPosition(allPiecesArray[15], 7, 1)
+
+  resetPosition(allPiecesArray[16], 3, 7);
+  resetPosition(allPiecesArray[17], 4, 7)
+  resetPosition(allPiecesArray[18], 7, 7)
+  resetPosition(allPiecesArray[19], 0, 7)
+  resetPosition(allPiecesArray[20], 2, 7)
+  resetPosition(allPiecesArray[21], 5, 7)
+  resetPosition(allPiecesArray[22], 1, 7)
+  resetPosition(allPiecesArray[23], 6, 7)
+  resetPosition(allPiecesArray[24], 0, 6)
+  resetPosition(allPiecesArray[25], 1, 6)
+  resetPosition(allPiecesArray[26], 2, 6)
+  resetPosition(allPiecesArray[27], 3, 6)
+  resetPosition(allPiecesArray[28], 4, 6)
+  resetPosition(allPiecesArray[29], 5, 6)
+  resetPosition(allPiecesArray[30], 6, 6)
+  resetPosition(allPiecesArray[31], 7, 6)
+
+  function resetPosition(item, xcoord, ycoord){
+    console.log("This piece was reset: ", item.pieceId)
+    var newX = adjustCoord(xcoord);
+    var newY = adjustCoord(ycoord);
+    item.sprite.y = newY
+    item.sprite.originY = newY
+    item.sprite.x = newX
+    item.sprite.originX = newX
+    item.sendServerCoord(newX, newY, item.pieceId);
+  }
+}
+
 window.allRulesArray = [
   ['If a queen moves, all pawns will be captured', queenKillsPieces],
   ['All rooks can now move like queens', rooksToQueens],
@@ -86,5 +134,6 @@ window.allRulesArray = [
   ['Kings can only move sideways', sidewaysKings],
   ['If a king moves, all bishops will be captured', deleteBishops],
   ['Welp! No more board!', deleteBoard],
-  ["Mystery rule! Something has changed, but what?", emptyFunction]
+  ["Mystery rule! Something has changed, but what?", emptyFunction], 
+  ["Whoosh! All pieces back to their start positions!", backToStart]
 ];

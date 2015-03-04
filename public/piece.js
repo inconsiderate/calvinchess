@@ -32,9 +32,6 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
     this.sprite.events.onDragStop.add(function() {
       piece.move();
     });
-    // this.sprite.events.onDragStop.add(function() {
-    //   piece.onBoard();
-    // })
   }
   // METHODS THAT ARE USED IN ALL PIECE MOVEMENTS
 
@@ -162,7 +159,6 @@ Piece.prototype.onBoard = function() {
 }
 
 Piece.prototype.isPieceBetweenDiagonal = function(element, index, array, piece) {
-  console.log("Is piece between diagonal was called");
   var item = this.sprite
   if (item.x > item.originX && item.y > item.originY) {
     for (var i = item.originX + adjustDistance(1), a = item.originY + adjustDistance(1); i < item.x; i += adjustDistance(1), a += adjustDistance(1)) {
