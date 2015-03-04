@@ -12,12 +12,14 @@ King.prototype.default_move = function() {
       x: item.originX,
       y: item.originY
     }, 400, Phaser.Easing.Back.Out, true);
+    return true;
   } else {
     //TO DO: can also pull this out into it's own function
     if (item.x === item.originX && item.y === item.originY) {
-      return true;
+      return false;
     } else {
       this.kingKnightMoveValidation(item);
+      return true;
     }
   }
 };

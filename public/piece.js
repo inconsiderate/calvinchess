@@ -32,9 +32,9 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
     this.sprite.events.onDragStop.add(function() {
       piece.move();
     });
-    this.sprite.events.onDragStop.add(function() {
-      piece.onBoard();
-    })
+    // this.sprite.events.onDragStop.add(function() {
+    //   piece.onBoard();
+    // })
   }
   // METHODS THAT ARE USED IN ALL PIECE MOVEMENTS
 
@@ -71,6 +71,7 @@ Piece.prototype.sendServerKill = function(item) {
 }
 
 Piece.prototype.resetOrigin = function(item, x, y, piece) {
+  piece.onBoard();
   if (item.originX != item.x || item.originY != item.y) {
     item.counter++;
     console.log(item.counter);
@@ -158,11 +159,11 @@ Piece.prototype.BishopMoveValidation = function(item) {
 }
 
 Piece.prototype.onBoard = function() {
-  //console.log("ON BOARD FUNCTION WAS CALLED")
+  console.log("ON BOARD FUNCTION WAS CALLED");
 }
 
 Piece.prototype.isPieceBetweenDiagonal = function(element, index, array, piece) {
-  console.log("is piece between diagonal was called");
+  console.log("Is piece between diagonal was called");
   var item = this.sprite
   if (item.x > item.originX && item.y > item.originY) {
     for (var i = item.originX + adjustDistance(1), a = item.originY + adjustDistance(1); i < item.x; i += adjustDistance(1), a += adjustDistance(1)) {
@@ -350,34 +351,30 @@ Piece.prototype.vertical = function() {
 
 Piece.prototype.deletePawn = function() {
   // check to see if the other player can see this happen 
-  var match = allPiecesArray.filter(isPawn);
   var piece = this;
-  if(piece.same_place(piece.sprite)){
-    return true;
-  } else {
-    function isPawn(element) {
-      if (element instanceof Pawn) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-    if (match.length > 0) {
-      for (i = 0; i < match.length; i++) {
-        piece.sendServerKill(match[i]);
-        match[i].sprite.destroy();
-        match[i].sprite.lifeStatus = 'dead';
-      }
+  var match = allPiecesArray.filter(isPawn);
+
+  function isPawn(element) {
+    if (element instanceof Pawn && element.sprite.lifeStatus === 'alive') {
+      return true;
+    } else {
+      return false;
+
     }
   }
-}
+  if (match.length > 0) {
+    for (i = 0; i < match.length; i++) {
+      piece.sendServerKill(match[i]);
+      match[i].sprite.destroy();
+      match[i].sprite.lifeStatus = 'dead';
+    }
+  }
+  piece.onBoard = Piece.prototype.onBoard;
+} 
 
 Piece.prototype.deleteBishop = function(){
   var match = allPiecesArray.filter(isBishop);
   var piece = this;
-  if(piece.same_place(piece.sprite)){
-    return true;
-  } else {
     function isBishop(element){
       if (element instanceof Bishop && element.sprite.lifeStatus === 'alive'){
         return true;
@@ -392,5 +389,6 @@ Piece.prototype.deleteBishop = function(){
         match[i].sprite.lifeStatus = 'dead';
       }
     }
-  }
+
+  piece.onBoard = Piece.prototype.onBoard;
 }
