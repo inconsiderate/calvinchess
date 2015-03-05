@@ -270,10 +270,7 @@ Piece.prototype.teleport = function() {
         x: item.originX,
         y: item.originY
       }, 400, Phaser.Easing.Back.Out, true);
-    } else if (match.length > 0 && match[0].sprite.color != item.color) {
-      piece.killAction(item, match);
-      piece.resetOrigin(item, item.x, item.y, piece);
-    } else {
+    } else{
       piece.resetOrigin(item, item.x, item.y, piece);
     }
   }

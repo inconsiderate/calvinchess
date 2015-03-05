@@ -33,7 +33,6 @@ canvas {
   padding-top: 0px;
   /*padding-left: 100px;*/
   padding-left: 12%;
-
 }
 #rules-box {
   color: darkcyan;
@@ -55,6 +54,7 @@ canvas {
   margin: 0;
   left: 100%;
   padding-left: 0px;
+
 }
 .page {
   height: 85%;
@@ -151,4 +151,8 @@ canvas {
 p {
   font-size: 30px;
 }
-
+canvas {
+  box-shadow: 10px 10px 5px #888888;
+  border-style: solid;
+  border-color: black;
+}

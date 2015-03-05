@@ -42,7 +42,7 @@ io.on('connection', function(socket) {
     // echo globally to all users that a rule has changed
     console.log(socket.username, 'posted:', data.message);
     if (data.message === "rule change") {
-      var newRuleNumber = (Math.floor(Math.random(10) * 10));
+      var newRuleNumber = (Math.floor(Math.random(10) * 12));
       io.to(data.channel).emit('rules changed', {
         newRuleNumber: newRuleNumber
       });
