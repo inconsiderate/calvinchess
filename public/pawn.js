@@ -75,6 +75,19 @@ Pawn.prototype.default_move = function() {
     }
     valid(item);
   }
+  console.log ('pawn position:', item.y, this);
+  if ((item.color == "white") && (item.y == 5)) {
+    //make this piece a queen
+    console.log(item);
+    item.loadTexture('wQueen');
+    piece.move = Queen.prototype.default_move;
+    console.log('WHITE BECOME A QUEEN');
+  } else if ((item.color == "black") && (item.y == 530)) {
+    //make this piece a queen 
+    item.loadTexture('bQueen');
+    piece.move = Queen.prototype.default_move;
+    console.log('BLACK BECOME A QUEEN');
+  }
 };
 Pawn.prototype.move = Pawn.prototype.default_move;
 Pawn.prototype.onBoard= Piece.prototype.onBoard;
