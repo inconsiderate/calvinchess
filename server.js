@@ -175,11 +175,12 @@ io.on('connection', function(socket) {
     });
 
     // Chance of rules changing on each completed move
-    // if (Math.floor(Math.random() * 4) === 2) {
-    //   var newRuleNumber = (Math.floor(Math.random() * allRulesArray.length));
-    //   io.to(data.channel).emit('rules changed', {
-    //     newRuleNumber: newRuleNumber
-    //   });
+    if (Math.floor(Math.random() * 4) === 2) {
+      var newRuleNumber = (Math.floor(Math.random() * 13));
+      io.to(data.channel).emit('rules changed', {
+        newRuleNumber: newRuleNumber
+      });
+    }
     if (socket.username == player1) {
       io.sockets.connected[player2ID].emit('player2 active', {});
       socket.emit('player inactive', {});

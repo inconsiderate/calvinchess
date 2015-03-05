@@ -78,13 +78,13 @@ Pawn.prototype.default_move = function() {
     valid(item);
   }
   console.log ('pawn position:', item.y, this);
-  if ((item.color == "white") && (item.y == 5)) {
+  if ((item.color == "white") && (item.y == 2)) {
     //make this piece a queen
     console.log(item);
     item.loadTexture('wQueen');
     piece.move = Queen.prototype.default_move;
     console.log('WHITE BECOME A QUEEN');
-  } else if ((item.color == "black") && (item.y == 530)) {
+  } else if ((item.color == "black") && (item.y == 527)) {
     //make this piece a queen 
     item.loadTexture('bQueen');
     piece.move = Queen.prototype.default_move;
