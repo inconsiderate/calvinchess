@@ -13,6 +13,16 @@ server.listen(port, function() {
   console.log('Server listening at port %d', port);
 });
 
+Array.prototype.contains = function(obj) {
+    var i = this.length;
+    while (i--) {
+        if (this[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // Routing
 app.use(express.static(__dirname + '/public'));
 
@@ -22,10 +32,27 @@ var player1 = "";
 var player2 = "";
 var player1ID = "";
 var player2ID = "";
+var activeRuleArray = [6, 5, 2];
+var finalRuleNumber = 0;
 
 var filename = path.join(__dirname, 'calvinQuotes.yml'),
   contents = fs.readFileSync(filename, 'utf8'),
   calvinQuotes = yaml.load(contents);
+
+function createRandomRule() {
+  var newRuleNumber = (Math.floor(Math.random() * 13));
+  console.log('initial generated number', newRuleNumber)
+  if(activeRuleArray.contains(newRuleNumber)) {
+    console.log('rand number IS in the array, create new number', newRuleNumber);
+    createRandomRule()
+  } else { 
+    console.log('rand number is NOT in the array');
+    finalRuleNumber = newRuleNumber;
+    activeRuleArray.push(finalRuleNumber);
+    console.log('NEW array activeRuleArray', activeRuleArray);
+    return finalRuleNumber;
+  }
+}
 
 io.on('connection', function(socket) {
   socket.join('default');
@@ -38,13 +65,13 @@ io.on('connection', function(socket) {
       username: socket.username,
       message: data.message
     });
-
     // echo globally to all users that a rule has changed
     console.log(socket.username, 'posted:', data.message);
     if (data.message === "rule change") {
-      var newRuleNumber = (Math.floor(Math.random(10) * 12));
+      newNumber = createRandomRule();
+      console.log('inside newmessage', finalRuleNumber);
       io.to(data.channel).emit('rules changed', {
-        newRuleNumber: newRuleNumber
+        newRuleNumber: finalRuleNumber
       });
     } else if (data.message.indexOf("join channel") > -1) {
       var splitData = data.message.split(" "),

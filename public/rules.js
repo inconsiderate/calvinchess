@@ -36,7 +36,7 @@ var kingsBecomeBatman = function() {
   // grab the current coords of the two kings
   allPiecesArray[1].sprite.loadTexture('batman');
   allPiecesArray[17].sprite.loadTexture('batman');
-  window.whooshSound.play();
+  window.batmanTheme.play();
   allPiecesArray[17].sprite.height = 75;
   allPiecesArray[17].sprite.width = 75;
   allPiecesArray[17].sprite.animations.add('quiver');
@@ -162,7 +162,7 @@ window.allRulesArray = [
   ['Off with their heads!', queenKillsPieces, 'If a queen moves, all pawns will be captured'],
   ['Rooks are over 9000!', rooksToQueens, 'All rooks can now move like queens'],
   ['The cake is a lie', oneTeleport, 'One piece on the board can now teleport...but which one?'],
-  ['Stuck like mud', stuckQueens, 'Both Queens are now stuck'],
+  ['Stuck in the mud', stuckQueens, 'Both Queens are now stuck'],
   ['NA NA NA NA NA NA NA NA NA NA NA NA NA NA BATMAN!!!', kingsBecomeBatman, 'Both kings are now Batman. Batman can move through friendly units.'],
   ['Rooks can only move horizontally', horizontalRooks, 'Rooks can only move horizontally'],
   ["Queen's Ascension!", verticalQueens, 'Queens can only move vertically'],

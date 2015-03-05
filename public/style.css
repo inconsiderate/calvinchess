@@ -18,6 +18,10 @@ ul {
   list-style: none;
   word-wrap: break-word;
 }
+
+div ul li a {
+  color: red;
+}
 canvas {
   margin: 0 auto;
 }
@@ -36,7 +40,7 @@ canvas {
   padding-left: 12%;
 }
 #rules-box {
-  color: darkcyan;
+  color: #008B8B;
   font-weight: 200;
 }
 #rules-text {

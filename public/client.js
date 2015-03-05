@@ -33,6 +33,7 @@ window.onload = function() {
     game.load.audio('background', '/audio/backgroundLoop.mp3');
     game.load.audio('shotgun', '/audio/shotgun.mp3');
     game.load.audio('whoosh', '/audio/whoosh.mp3');
+    game.load.audio('batmanTheme', '/audio/batmanTheme.mp3');
 
     game.load.spritesheet('explosion', '/spritesheets/explosion.png', 64, 64, 24);
     game.load.spritesheet('duke', '/spritesheets/duke.png', 50, 71, 10);
@@ -85,6 +86,7 @@ window.onload = function() {
     window.backgroundMusic.loop = true;
     window.backgroundMusic.play();
 
+    window.batmanTheme = game.add.audio('batmanTheme', 1, false);
     window.shotgunSound = game.add.audio('shotgun', 1, false);
     window.whooshSound = game.add.audio('whoosh', 1, false);
 
@@ -422,6 +424,7 @@ $(function() {
   }
 
   function rulesChange(data) {
+    console.log(data)
     allRulesArray[data][1]();
     console.log('rule active: ',data);
     var $calvinnameDiv = $('<span class="username"/>')
