@@ -1,8 +1,9 @@
 * {
   box-sizing: border-box;
+  font-size: 1.04em;
+  font-weight: 200;
 }
 html {
-  font-weight: 300;
   -webkit-font-smoothing: antialiased;
 }
 html, input {
@@ -36,7 +37,7 @@ canvas {
 }
 #rules-box {
   color: darkcyan;
-  font-weight: 600;
+  font-weight: 200;
 }
 #rules-text {
   margin-right: -20px;
