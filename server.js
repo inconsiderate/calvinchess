@@ -32,7 +32,7 @@ var player1 = "";
 var player2 = "";
 var player1ID = "";
 var player2ID = "";
-var activeRuleArray = [6, 5, 2];
+var activeRuleArray = [];
 var finalRuleNumber = 0;
 
 var filename = path.join(__dirname, 'calvinQuotes.yml'),
@@ -104,6 +104,7 @@ io.on('connection', function(socket) {
       console.log('Player 1 assigned to:', player1);
       socket.emit('player1 active', {});
       player1ID = socket.id;
+      activeRuleArray = [];
     } else if (player2 === "") {
       player2 = username;
       console.log('Player 2 assigned to:', player2);
