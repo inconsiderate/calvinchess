@@ -35,7 +35,12 @@ canvas {
   left: 0%;
   margin: 0 auto;
   padding: 50px;
+<<<<<<< Updated upstream
   padding-top: 25px;
+=======
+  padding-top: 10px;
+  /*padding-left: 100px;*/
+>>>>>>> Stashed changes
   padding-left: 12%;
 }
 #rules-box {
@@ -156,9 +161,9 @@ p {
   font-size: 30px;
 }
 canvas {
-  box-shadow: 10px 10px 5px #888888;
+  /*box-shadow: 10px 10px 5px #888888;
   border-style: solid;
   border-color: black;
   border-radius: 5px;
-  border-width: 1px;
+  border-width: 1px;*/
 }
