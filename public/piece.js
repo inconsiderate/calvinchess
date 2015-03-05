@@ -5,7 +5,7 @@ function Piece(game, color, xcoor, ycoor, piecename) {
 };
 
 function adjustCoord(num){
-  var coor = (num * 75) + 5
+  var coor = (num * 75) + 2
   return coor;
 }
 
@@ -22,7 +22,7 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
     this.sprite.input.draggable = false;
     this.sprite.height = 70;
     this.sprite.width = 70;
-    this.sprite.input.enableSnap(adjustDistance(1), adjustDistance(1), false, true, 5, 5);
+    this.sprite.input.enableSnap(adjustDistance(1), adjustDistance(1), false, true, 2, 2);
     this.sprite.originX = adjustCoord(xcoor);
     this.sprite.originY = adjustCoord(ycoor);
     this.sprite.color = color;
@@ -223,7 +223,6 @@ Piece.prototype.isPieceBetweenUpDown = function(element) {
         return true
       }
     }
-
   } else if (element.sprite.y === item.y && item != element.sprite) {
     for (i = item.originX + adjustDistance(1); i < item.x; i++) {
       if (element.sprite.x === i) {

@@ -43,21 +43,21 @@ window.onload = function() {
     // game.load.image('background2', '/images/chessboard2.png');
     game.load.image('background2', '/images/chessboard3.jpg');
 
-    game.load.image('background', '/images/chessboardwooden.jpg');
+    game.load.image('background', '/images/chessboard.png');
     game.load.image('square', '/images/grid.jpeg');
-    game.load.image('bQueen', '/images/blackqueen.png');
-    game.load.image('bKing', '/images/blackking.png');
-    game.load.image('bRook', '/images/blackrook.png');
-    game.load.image('bBishop', '/images/blackbishop.png');
-    game.load.image('bKnight', '/images/blackknight.png');
-    game.load.image('bPawn', '/images/blackpawn.png');
+    game.load.image('bQueen', '/images/whitequeenb.png');
+    game.load.image('bKing', '/images/whitekingb.png');
+    game.load.image('bRook', '/images/whiterookb.png');
+    game.load.image('bBishop', '/images/whitebishopb.png');
+    game.load.image('bKnight', '/images/whiteknightb.png');
+    game.load.image('bPawn', '/images/whitepawnb.png');
 
-    game.load.image('wQueen', '/images/whitequeen.png');
-    game.load.image('wKing', '/images/whiteking.png');
-    game.load.image('wRook', '/images/whiterook.png');
-    game.load.image('wBishop', '/images/whitebishop.png');
-    game.load.image('wKnight', '/images/whiteknight.png');
-    game.load.image('wPawn', '/images/whitepawn.png');
+    game.load.image('wQueen', '/images/whitequeena.png');
+    game.load.image('wKing', '/images/whitekinga.png');
+    game.load.image('wRook', '/images/whiterooka.png');
+    game.load.image('wBishop', '/images/whitebishopa.png');
+    game.load.image('wKnight', '/images/whiteknighta.png');
+    game.load.image('wPawn', '/images/whitepawna.png');
   }
   var fullScreenKey
   var allPieces;
@@ -173,6 +173,13 @@ window.onload = function() {
     if (wKing.sprite.lifeStatus === 'dead' || bKing.sprite.lifeStatus === 'dead') {
       // write JQuery function to append "game over" text on the page, not in the canvas
       // add line to make the game pieces freeze when the game ends
+       var style = {
+        font: "65px Arial",
+        fill: "#ff0044",
+        align: "center",
+        color: 'red'
+      };
+      var text = game.add.text(200, 200, 'Game Over!', style);
     }
   }
 

@@ -42,6 +42,7 @@ Pawn.prototype.default_move = function() {
     var between = allPiecesArray.filter(this.isPieceBetweenUpDown, this);
     function valid(item) {
       if (match.length > 0 && item.x === item.originX) {
+        console.log(1);
         game.add.tween(item).to({
           x: item.originX,
           y: item.originY
@@ -54,6 +55,7 @@ Pawn.prototype.default_move = function() {
       } else if (match.length > 0 && match[0].sprite.color != item.color && xRatio === yRatio) {
         piece.killAction(item, match);
       } else if (match.length > 0 && item.x != item.originX) {
+        console.log(3);
         game.add.tween(item).to({
           x: item.originX,
           y: item.originY
