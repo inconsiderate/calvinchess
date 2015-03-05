@@ -18,6 +18,10 @@ ul {
   list-style: none;
   word-wrap: break-word;
 }
+
+div ul li a {
+  color: red;
+}
 canvas {
   margin: 0 auto;
 }

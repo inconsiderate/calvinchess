@@ -422,6 +422,7 @@ $(function() {
   }
 
   function rulesChange(data) {
+    console.log(data)
     allRulesArray[data][1]();
     console.log('rule active: ',data);
     var $calvinnameDiv = $('<span class="username"/>')
