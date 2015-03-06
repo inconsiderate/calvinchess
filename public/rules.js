@@ -164,12 +164,12 @@ window.allRulesArray = [
   ['The cake is a lie', oneTeleport, 'One piece on the board can now teleport...but which one?'],
   ['Stuck in the mud', stuckQueens, 'Both Queens are now stuck'],
   ['NA NA NA NA NA NA NA NA NA NA NA NA NA NA BATMAN!!!', kingsBecomeBatman, 'Both kings are now Batman. Batman can move through friendly units.'],
-  ['Rooks can only move horizontally', horizontalRooks, 'Rooks can only move horizontally'],
-  ["Queen's Ascension!", verticalQueens, 'Queens can only move vertically'],
-  ['Kings can only move sideways', sidewaysKings, 'Kings can only move sideways'],
-  ['If a king moves, all bishops will be captured', deleteBishops, 'If a king moves, all bishops will be captured'],
+  ["Castles can't climb trees!", horizontalRooks, 'Rooks can only move horizontally'],
+  ["Queen's Descending!", verticalQueens, 'Queens can only move vertically'],
+  ['Sideways Kings', sidewaysKings, 'Kings can only move sideways'],
+  ['Kings vs Bishops.... FIGHT!', deleteBishops, 'If a king moves, all bishops will be captured'],
   ['Apocolypse Now...ish.', deleteBoard, 'Welp! No more board!'],
   ['Mystery rule change!', emptyFunction, 'Mystery rule! Something has changed, but what?'], 
   ['Back to the drawing board!', backToStart, 'Whoosh! All pieces are moved back to their start positions!'], 
-  ['What the hell just happened?', scramble, 'Pieces are scrambled!']
+  ['What the heck just happened?', scramble, 'Pieces are scrambled!']
 ];

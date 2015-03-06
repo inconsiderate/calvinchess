@@ -177,12 +177,10 @@ window.onload = function() {
       gameover.height = 150;
     }
   }
-
   function render() {
     // game.debug.text('Tile X: ' + currentTile.x + 'Y: ' + currentTile.y, 100, 100);
   }
 };
-
 $(function() {
   var FADE_TIME = 150;
   var TYPING_TIMER_LENGTH = 400;
