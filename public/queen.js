@@ -19,6 +19,7 @@ Queen.prototype.default_move = function() {
       if (betweenDiagonal.length > 0 && xRatio === xRatio) {
         game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       } else if (betweenLateral.length > 0 && item.originX === item.x || betweenLateral.length > 0 && item.originY === item.y) {
+        console.log("something's between");
         game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);
       } else if(match.length > 0 && match[0].sprite.color == item.color){
         game.add.tween(item).to({x: item.originX, y: item.originY}, 400, Phaser.Easing.Back.Out, true);

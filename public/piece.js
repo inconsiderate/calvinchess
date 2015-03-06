@@ -215,23 +215,23 @@ Piece.prototype.isPieceBetweenUpDown = function(element) {
   var item = this.sprite
   if (element.sprite.x === item.x && item != element.sprite) {
     for (i = item.originY + adjustDistance(1); i < item.y; i++) {
-      if (element.sprite.y === i) {
+      if (element.sprite.y === i && element.sprite.lifeStatus != 'dead') {
         return true
       }
     }
     for (i = item.originY - adjustDistance(1); i > item.y; i--) {
-      if (element.sprite.y === i) {
+      if (element.sprite.y === i && element.sprite.lifeStatus != 'dead') {
         return true
       }
     }
   } else if (element.sprite.y === item.y && item != element.sprite) {
     for (i = item.originX + adjustDistance(1); i < item.x; i++) {
-      if (element.sprite.x === i) {
+      if (element.sprite.x === i && element.sprite.lifeStatus != 'dead') {
         return true
       }
     }
     for (i = item.originX - adjustDistance(1); i > item.x; i--) {
-      if (element.sprite.x === i) {
+      if (element.sprite.x === i && element.sprite.lifeStatus != 'dead') {
         return true
       }
     }
