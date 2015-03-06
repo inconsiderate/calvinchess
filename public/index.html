@@ -21,14 +21,20 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand"><img id="calvinlogo" src="/images/swinging_calvin.gif"/></a>
-      <a class="navbar-brand"><p><strong><font color ="#008B8B"> Calvin Chess </strong></p></a>
+      <a class="navbar-brand"><p><strong><font color ="#008B8B">Calvin Chess</strong></p></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
+
+     <ul class="nav navbar-nav">
+        <li><a>Waiting on Player: </a></li>
+        <li><a id="current-player-box"><font color ="#008B8B">Maggs</a></li>
+      </ul>
+
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><strong>How to Play<span class="caret"></strong></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">How to Play<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a><strong>Basic Rules</strong></a></li>
             <li><a>Drag and drop your pieces to move. This is chess, it's not<br>complicated. Yet.</a></li>
@@ -43,10 +49,10 @@
             <li id="recentRuleDiv"></li>
           </ul>
         </li>
-        <li><a id="rules-text"><strong> Latest rule:</strong> </a></li>
+        <li><a id="rules-text">Latest rule:</a></li>
         <li><a id="rules-box">Classic Chess</a></li>
-        <li><a href="#" id="music-toggle-on"><strong>Music On</strong></a></li>
-        <li><a href="#" id="music-toggle-off"><strong>Music Off</strong></a></li>
+        <li><a href="#" id="music-toggle-on">Music On</a></li>
+        <li><a href="#" id="music-toggle-off">Music Off</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

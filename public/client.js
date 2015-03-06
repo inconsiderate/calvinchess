@@ -205,6 +205,7 @@ $(function() {
   var $chatPage = $('.chat.page');
   var $rulesChangeBox = $('#rules-box');
   var $recentRuleDiv = $('#recentRuleDiv');
+  var $currentPlayerBox = $('#current-player-box');
 
   // Prompt for setting a username
   var username;
@@ -556,4 +557,8 @@ $(function() {
       whitePieces[i].sprite.input.draggable = false;
     }
   });
+
+  socket.on('setActivePlayerMessage', function(data) {
+    $currentPlayerBox.text(data.currentplayer);
+  })
 });

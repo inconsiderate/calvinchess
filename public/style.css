@@ -35,17 +35,17 @@ canvas {
   left: 0%;
   margin: 0 auto;
   padding: 50px;
-<<<<<<< Updated upstream
   padding-top: 25px;
-=======
-  padding-top: 10px;
-  /*padding-left: 100px;*/
->>>>>>> Stashed changes
   padding-left: 12%;
 }
 #rules-box {
   color: #008B8B;
   font-weight: 200;
+}
+#current-player-box {
+  color: #008B8B;
+  margin-left: -20px;
+  font-weight: 200;  
 }
 #rules-text {
   margin-right: -20px;
