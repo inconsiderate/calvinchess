@@ -38,7 +38,7 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
 // Check if move is valid, and if a kill occurs, and send off to server.
 Piece.prototype.killAction = function(item, match) {
   var piece = this;
-  if (match.length > 0 && match[0].sprite.color === item.color) {
+   if (match.length > 0 && match[0].sprite.color === item.color) {
     game.add.tween(item).to({
       x: item.originX,
       y: item.originY
@@ -55,8 +55,19 @@ Piece.prototype.killAction = function(item, match) {
     explosionPiece.animations.add('boom');
     explosionPiece.animations.play('boom', 20, false, true);
     piece.resetOrigin(item, item.x, item.y, piece);
+    if (match[0].pieceId === 'bKing4'|| match[0].pieceId === 'wKing4'){
+      console.log("king has died");
+      GameOver();
+      socket.emit('gameOver')
+    }
     return true
   }
+}
+
+var GameOver = function(){
+  var gameover = game.add.image(0, 230,'gameover')
+  gameover.width = 600;
+  gameover.height = 150;
 }
 
 Piece.prototype.sendServerKill = function(item) {
@@ -151,6 +162,7 @@ Piece.prototype.BishopMoveValidation = function(item) {
     if (item.x === item.originX && item.y === item.originY) {
       return true;
     } else {
+      console.log("Valid move! Bishop should be reset!");
       piece.resetOrigin(item, item.x, item.y, piece);
     }
   }
