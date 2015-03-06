@@ -58,6 +58,7 @@ window.onload = function() {
     game.load.image('wBishop', '/images/whitebishopa.png');
     game.load.image('wKnight', '/images/whiteknighta.png');
     game.load.image('wPawn', '/images/whitepawna.png');
+    game.load.image('gameover', '/images/GAMEOVER.png');
   }
   var fullScreenKey
   var allPieces;
@@ -170,16 +171,10 @@ window.onload = function() {
   function update() {
     currentTile.x = this.game.math.snapToFloor(game.input.x, 75) / 75;
     currentTile.y = this.game.math.snapToFloor(game.input.y, 75) / 75;
-    if (wKing.sprite.lifeStatus === 'dead' || bKing.sprite.lifeStatus === 'dead') {
-      // write JQuery function to append "game over" text on the page, not in the canvas
-      // add line to make the game pieces freeze when the game ends
-       var style = {
-        font: "65px Arial",
-        fill: "#ff0044",
-        align: "center",
-        color: 'red'
-      };
-      var text = game.add.text(200, 200, 'Game Over!', style);
+    if (wKing.sprite.lifeStatus === 'dead' || bKing.sprite.lifeStatus === 'dead') {    
+      var gameover = game.add.image(0, 230,'gameover')
+      gameover.width = 600;
+      gameover.height = 150;
     }
   }
 
