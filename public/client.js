@@ -552,4 +552,8 @@ $(function() {
   socket.on('setActivePlayerMessage', function(data) {
     $currentPlayerBox.text(data.currentplayer);
   })
+  socket.on('gameOverMessage', function(){
+    GameOver();
+  })
 });
+

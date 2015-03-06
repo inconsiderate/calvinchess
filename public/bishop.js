@@ -9,7 +9,7 @@ Bishop.prototype.default_move = function() {
   var item = this.sprite;
   if (Math.abs(item.originX - item.x) != Math.abs(item.originY - item.y)) {
     game.add.tween(item).to({
-      x: item.originX,
+      x: item.originX, 
       y: item.originY
     }, 400, Phaser.Easing.Back.Out, true);
   } else {
