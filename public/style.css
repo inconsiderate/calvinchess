@@ -41,14 +41,15 @@ canvas {
 #rules-box {
   color: #008B8B;
   font-weight: 200;
+  margin-left: -20px;
 }
 #current-player-box {
   color: #008B8B;
   margin-left: -20px;
   font-weight: 200;  
 }
-#rules-text {
-  margin-right: -20px;
+#rules-text, #player-text {
+  font-weight: 200;  
 }
 /* Pages */
 
