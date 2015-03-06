@@ -36,7 +36,6 @@ window.onload = function() {
     game.load.audio('batmanTheme', '/audio/batmanTheme.mp3');
 
     game.load.spritesheet('explosion', '/spritesheets/explosion.png', 64, 64, 24);
-    game.load.spritesheet('duke', '/spritesheets/duke.png', 50, 71, 10);
     game.load.spritesheet('batman', '/spritesheets/batman.png', 69, 69, 30);
     game.load.spritesheet('largeExplosion', '/spritesheets/largeExplosion.png', 220, 220);
 
@@ -201,6 +200,7 @@ $(function() {
   var $chatPage = $('.chat.page');
   var $rulesChangeBox = $('#rules-box');
   var $recentRuleDiv = $('#recentRuleDiv');
+  var $currentPlayerBox = $('#current-player-box');
 
   // Prompt for setting a username
   var username;
@@ -552,4 +552,8 @@ $(function() {
       whitePieces[i].sprite.input.draggable = false;
     }
   });
+
+  socket.on('setActivePlayerMessage', function(data) {
+    $currentPlayerBox.text(data.currentplayer);
+  })
 });
