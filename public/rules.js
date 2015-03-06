@@ -13,9 +13,7 @@ var rooksToQueens = function() {
 };
 
 var oneTeleport = function() {
-  console.log("ONE TELEPORT HAS BEEN CALLED");
   var random = Math.floor((Math.random() * 31) + 1);
-  console.log("Teleportation Piece: ", allPiecesArray[random]);
   allPiecesArray[random].move = Piece.prototype.teleport
   console.log(allPiecesArray[random].pieceId);
 }

@@ -38,7 +38,16 @@ Piece.prototype.create = function(xcoor, ycoor, piecename, color) {
 // Check if move is valid, and if a kill occurs, and send off to server.
 Piece.prototype.killAction = function(item, match) {
   var piece = this;
-  if (match.length > 0 && match[0].sprite.color === item.color) {
+  if (match[0].pieceId === 'bKing4'|| match[0].pieceId === 'wKing4'){
+     piece.sendServerKill(match[0]);
+     match[0].sprite.destroy();
+     match[0].lifeStatus = 'dead';
+
+      var gameover = game.add.image(0, 230,'gameover')
+      gameover.width = 600;
+      gameover.height = 150;
+      
+  } else if (match.length > 0 && match[0].sprite.color === item.color) {
     game.add.tween(item).to({
       x: item.originX,
       y: item.originY

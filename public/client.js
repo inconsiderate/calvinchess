@@ -170,12 +170,7 @@ window.onload = function() {
   function update() {
     currentTile.x = this.game.math.snapToFloor(game.input.x, 75) / 75;
     currentTile.y = this.game.math.snapToFloor(game.input.y, 75) / 75;
-    if (wKing.sprite.lifeStatus === 'dead' || bKing.sprite.lifeStatus === 'dead') {    
-      var gameover = game.add.image(0, 230,'gameover')
-      socket.emit('gameOver');
-      gameover.width = 600;
-      gameover.height = 150;
-    }
+ 
   }
 
   function render() {
