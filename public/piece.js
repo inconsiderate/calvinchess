@@ -56,19 +56,18 @@ Piece.prototype.killAction = function(item, match) {
     explosionPiece.animations.play('boom', 20, false, true);
     piece.resetOrigin(item, item.x, item.y, piece);
     if (match[0].pieceId === 'bKing4'|| match[0].pieceId === 'wKing4'){
+      console.log("king has died");
       GameOver();
+      socket.emit('gameOver')
     }
     return true
   }
 }
 
 var GameOver = function(){
-
-      var gameover = game.add.image(0, 230,'gameover')
-      gameover.width = 600;
-      gameover.height = 150;
-      socket.emit('gameOver')
-  
+  var gameover = game.add.image(0, 230,'gameover')
+  gameover.width = 600;
+  gameover.height = 150;
 }
 
 Piece.prototype.sendServerKill = function(item) {
