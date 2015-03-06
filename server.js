@@ -217,4 +217,8 @@ io.on('connection', function(socket) {
     });
   });
 
+  socket.on('gameOver', function() {
+    console.log('GAME OVER YO LOL WUT');
+    socket.broadcast.emit('player inactive');
+  });
 });
