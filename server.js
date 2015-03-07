@@ -40,7 +40,7 @@ var filename = path.join(__dirname, 'calvinQuotes.yml'),
   calvinQuotes = yaml.load(contents);
 
 function createRandomRule() {
-  var newRuleNumber = (Math.floor(Math.random() * 13));
+  var newRuleNumber = (Math.floor(Math.random() * 12));
   console.log('initial generated number', newRuleNumber)
   if(activeRuleArray.contains(newRuleNumber)) {
     console.log('rand number IS in the array, create new number', newRuleNumber);
@@ -67,13 +67,7 @@ io.on('connection', function(socket) {
     });
     // echo globally to all users that a rule has changed
     console.log(socket.username, 'posted:', data.message);
-    if (data.message === "rule change") {
-      newNumber = createRandomRule();
-      console.log('inside newmessage', finalRuleNumber);
-      io.to(data.channel).emit('rules changed', {
-        newRuleNumber: finalRuleNumber
-      });
-    } else if (data.message.indexOf("join channel") > -1) {
+    if (data.message.indexOf("join channel") > -1) {
       var splitData = data.message.split(" "),
         channelName = splitData[2];
       io.to(data.channel).emit('new message', {

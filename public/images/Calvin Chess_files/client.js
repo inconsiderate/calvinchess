@@ -57,7 +57,6 @@ window.onload = function() {
     game.load.image('wBishop', '/images/whitebishopa.png');
     game.load.image('wKnight', '/images/whiteknighta.png');
     game.load.image('wPawn', '/images/whitepawna.png');
-    game.load.image('gameover', '/images/GAMEOVER.png');
   }
   var fullScreenKey
   var allPieces;
@@ -170,12 +169,24 @@ window.onload = function() {
   function update() {
     currentTile.x = this.game.math.snapToFloor(game.input.x, 75) / 75;
     currentTile.y = this.game.math.snapToFloor(game.input.y, 75) / 75;
- 
+    if (wKing.sprite.lifeStatus === 'dead' || bKing.sprite.lifeStatus === 'dead') {
+      // write JQuery function to append "game over" text on the page, not in the canvas
+      // add line to make the game pieces freeze when the game ends
+       var style = {
+        font: "65px Arial",
+        fill: "#ff0044",
+        align: "center",
+        color: 'red'
+      };
+      var text = game.add.text(200, 200, 'Game Over!', style);
+    }
   }
+
   function render() {
     // game.debug.text('Tile X: ' + currentTile.x + 'Y: ' + currentTile.y, 100, 100);
   }
 };
+
 $(function() {
   var FADE_TIME = 150;
   var TYPING_TIMER_LENGTH = 400;
@@ -194,7 +205,6 @@ $(function() {
   var $chatPage = $('.chat.page');
   var $rulesChangeBox = $('#rules-box');
   var $recentRuleDiv = $('#recentRuleDiv');
-  var $currentPlayerBox = $('#current-player-box');
 
   // Prompt for setting a username
   var username;
@@ -520,7 +530,6 @@ $(function() {
     var explosionPiece = game.add.sprite(x, y, 'explosion');
     explosionPiece.height = 90;
     explosionPiece.animations.add('boom');
-    window.whooshSound.play();
     explosionPiece.animations.play('boom', 20, false, true);
   });
 
@@ -547,12 +556,4 @@ $(function() {
       whitePieces[i].sprite.input.draggable = false;
     }
   });
-
-  socket.on('setActivePlayerMessage', function(data) {
-    $currentPlayerBox.text(data.currentplayer);
-  })
-  socket.on('gameOverMessage', function(){
-    GameOver();
-  })
 });
-
