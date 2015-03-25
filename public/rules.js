@@ -18,6 +18,14 @@ var oneTeleport = function() {
   console.log(allPiecesArray[random].pieceId);
 }
 
+var teleportRandom = function {
+  var ranPiece = Math.floor((Math.random() * 32) + 1);
+  var ranX = Math.floor((Math.random() * 8) + 1);
+  var ranY = Math.floor((Math.random() * 8) + 1);
+  allPiecesArray[ranPiece].sprite.y = ranX
+  allPiecesArray[ranPiece].sprite.x = ranY
+}
+
 var stuckQueens = function() {
   allPiecesArray[16].move = Piece.prototype.stuck;
   allPiecesArray[0].move = Piece.prototype.stuck;
