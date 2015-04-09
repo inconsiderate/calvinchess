@@ -25,10 +25,18 @@ div ul li a {
 canvas {
   margin: 0 auto;
 }
+
+#main-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #container {
   margin-top: -15px;
   position: absolute;
-  display: inline-flex;
+  display: flex;
+
 }
 #gamecanvas {
   width: 800px;
