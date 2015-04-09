@@ -51,7 +51,6 @@ Piece.prototype.killAction = function(item, match) {
 
     var explosionPiece = game.add.sprite(match[0].sprite.originX, match[0].sprite.originY, 'explosion');
     explosionPiece.height = 90;
-    window.whooshSound.play();
     explosionPiece.animations.add('boom');
     explosionPiece.animations.play('boom', 20, false, true);
     piece.resetOrigin(item, item.x, item.y, piece);

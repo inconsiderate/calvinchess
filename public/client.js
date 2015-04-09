@@ -520,6 +520,7 @@ $(function() {
     match[0].sprite.destroy();
     match[0].sprite.lifeStatus = 'dead';
     var explosionPiece = game.add.sprite(x, y, 'explosion');
+    window.whooshSound.play();
     explosionPiece.height = 90;
     explosionPiece.animations.add('boom');
     explosionPiece.animations.play('boom', 20, false, true);
