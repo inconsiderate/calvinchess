@@ -30,34 +30,34 @@ window.onload = function() {
 
   function preload() {
 
-    game.load.audio('background', 'chess/audio/backgroundLoop.mp3');
-    game.load.audio('shotgun', 'chess/audio/shotgun.mp3');
-    game.load.audio('whoosh', 'chess/audio/whoosh.mp3');
-    game.load.audio('batmanTheme', 'chess/audio/batmanTheme.mp3');
+    game.load.audio('background', 'audio/backgroundLoop.mp3');
+    game.load.audio('shotgun', 'audio/shotgun.mp3');
+    game.load.audio('whoosh', 'audio/whoosh.mp3');
+    game.load.audio('batmanTheme', 'audio/batmanTheme.mp3');
 
-    game.load.spritesheet('explosion', 'chess/spritesheets/explosion.png', 64, 64, 24);
-    game.load.spritesheet('batman', 'chess/spritesheets/batman.png', 69, 69, 30);
-    game.load.spritesheet('largeExplosion', 'chess/spritesheets/largeExplosion.png', 220, 220);
+    game.load.spritesheet('explosion', 'spritesheets/explosion.png', 64, 64, 24);
+    game.load.spritesheet('batman', 'spritesheets/batman.png', 69, 69, 30);
+    game.load.spritesheet('largeExplosion', 'spritesheets/largeExplosion.png', 220, 220);
 
     // game.load.image('background2', '/images/chessboard2.png');
-    game.load.image('background2', 'chess/images/chessboard3.jpg');
+    game.load.image('background2', 'images/chessboard3.jpg');
 
-    game.load.image('background', 'chess/images/chessboard.png');
-    game.load.image('square', 'chess/images/grid.jpeg');
-    game.load.image('bQueen', 'chess/images/whitequeenb.png');
-    game.load.image('bKing', 'chess/images/whitekingb.png');
-    game.load.image('bRook', 'chess/images/whiterookb.png');
-    game.load.image('bBishop', 'chess/images/whitebishopb.png');
-    game.load.image('bKnight', 'chess/images/whiteknightb.png');
-    game.load.image('bPawn', 'chess/images/whitepawnb.png');
+    game.load.image('background', 'images/chessboard.png');
+    game.load.image('square', 'images/grid.jpeg');
+    game.load.image('bQueen', 'images/whitequeenb.png');
+    game.load.image('bKing', 'images/whitekingb.png');
+    game.load.image('bRook', 'images/whiterookb.png');
+    game.load.image('bBishop', 'images/whitebishopb.png');
+    game.load.image('bKnight', 'images/whiteknightb.png');
+    game.load.image('bPawn', 'images/whitepawnb.png');
 
-    game.load.image('wQueen', 'chess/images/whitequeena.png');
-    game.load.image('wKing', 'chess/images/whitekinga.png');
-    game.load.image('wRook', 'chess/images/whiterooka.png');
-    game.load.image('wBishop', 'chess/images/whitebishopa.png');
-    game.load.image('wKnight', 'chess/images/whiteknighta.png');
-    game.load.image('wPawn', 'chess/images/whitepawna.png');
-    game.load.image('gameover', 'chess/images/GAMEOVER.png');
+    game.load.image('wQueen', 'images/whitequeena.png');
+    game.load.image('wKing', 'images/whitekinga.png');
+    game.load.image('wRook', 'images/whiterooka.png');
+    game.load.image('wBishop', 'images/whitebishopa.png');
+    game.load.image('wKnight', 'images/whiteknighta.png');
+    game.load.image('wPawn', 'images/whitepawna.png');
+    game.load.image('gameover', 'images/GAMEOVER.png');
   }
   var fullScreenKey
   var allPieces;
