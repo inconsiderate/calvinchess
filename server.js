@@ -24,7 +24,11 @@ Array.prototype.contains = function(obj) {
 }
 
 // Routing
-app.use(express.static(__dirname + '/public'));
+app.use('/', express.static(path.join(__dirname + '/public')));
+
+app.get('/', function(req, res){
+  res.sendFile(path.join(__dirname, '/public', 'index.html'));
+});
 
 var usernames = {};
 var numUsers = 0;
