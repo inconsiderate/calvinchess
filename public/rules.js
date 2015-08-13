@@ -18,7 +18,7 @@ var oneTeleport = function() {
   console.log(allPiecesArray[random].pieceId);
 }
 
-var teleportRandom = function {
+var teleportRandom = function() {
   var ranPiece = Math.floor((Math.random() * 32) + 1);
   var ranX = Math.floor((Math.random() * 8) + 1);
   var ranY = Math.floor((Math.random() * 8) + 1);
